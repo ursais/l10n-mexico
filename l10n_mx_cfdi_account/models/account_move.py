@@ -202,7 +202,6 @@ class AccountMove(models.Model):
             )
 
         except Exception as e:
-            print("\n\n", e)
             cert.unlink()
             raise e
 

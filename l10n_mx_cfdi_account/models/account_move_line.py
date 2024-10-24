@@ -131,7 +131,9 @@ class AccountMoveLine(models.Model):
                 "Quantity": self.quantity,
                 "ProductCode": self.product_id.l10n_mx_cfdi_product_code_id.code,
                 "Description": self.name,
-                "UnitCode": self.product_id.l10n_mx_cfdi_product_measurement_unit_id.code,
+                "UnitCode": (
+                    self.product_id.l10n_mx_cfdi_product_measurement_unit_id.code
+                ),
             }
         )
 

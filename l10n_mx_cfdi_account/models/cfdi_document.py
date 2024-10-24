@@ -34,8 +34,12 @@ class Document(models.Model):
                     if report:
                         # force the report to be rendered to work around a bug
                         # in _render_qweb_pdf
-                        report = self.env['ir.actions.report'].with_context(force_report_rendering=True)
-                        doc_data, doc_format = report._render_qweb_pdf(report_type, resource_ids)
+                        report = self.env["ir.actions.report"].with_context(
+                            force_report_rendering=True
+                        )
+                        doc_data, doc_format = report._render_qweb_pdf(
+                            report_type, resource_ids
+                        )
                         # in some scenarios, the report is not generated,
                         # so we need to check if the file is empty
                         if doc_data:

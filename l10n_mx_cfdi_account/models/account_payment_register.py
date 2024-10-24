@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -23,7 +23,8 @@ class AccountPaymentRegister(models.TransientModel):
         return super()._init_payments(to_process, edit_mode)
 
     def _create_payments(self):
-        # Prevent partial payments on invoices with cfdi and payment method different of 'PPD'
+        # Prevent partial payments on invoices with cfdi and payment
+        # method different of 'PPD'
         if self.payment_difference > 0:
             related_invoices = self.line_ids.move_id
             if any(
@@ -31,8 +32,10 @@ class AccountPaymentRegister(models.TransientModel):
                 for invoice in related_invoices
             ):
                 raise UserError(
-                    "No se puede registrar un pago parcial sobre una factura con CFDI "
-                    "y método de pago diferente a PPD"
+                    _(
+                        "No se puede registrar un pago parcial sobre una factura "
+                        "con CFDI y método de pago diferente a PPD"
+                    )
                 )
 
         return super()._create_payments()

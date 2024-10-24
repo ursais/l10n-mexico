@@ -1,11 +1,11 @@
-from odoo import models, fields
+from odoo import models
 
 
 class AccountPartialReconcile(models.Model):
     _inherit = "account.partial.reconcile"
 
     def create(self, vals_list):
-        """ Create Payments and Credit Note CFDI if required """
+        """Create Payments and Credit Note CFDI if required"""
 
         res = super().create(vals_list)
 
@@ -45,7 +45,7 @@ class AccountPartialReconcile(models.Model):
         return res
 
     def unlink(self):
-        """ Cancel related Payments CFDI if any """
+        """Cancel related Payments CFDI if any"""
 
         move_line_ids = self.debit_move_id | self.credit_move_id
         res = super().unlink()
@@ -63,8 +63,6 @@ class AccountPartialReconcile(models.Model):
                 if move.move_type == "out_refund":
                     for cfdi in move.related_cert_ids:
                         if cfdi.state == "published" and cfdi.type == "E":
-                            cfdi.cancel(
-                                "02"
-                            )  # cancel reason: 'Comprobantes emitidos con errores sin relación'
+                            cfdi.cancel("02")
 
         return res

@@ -7,5 +7,5 @@ from . import (
     account_move_line,
     account_tax,
     account_payment,
-    account_payment_register
+    account_payment_register,
 )
