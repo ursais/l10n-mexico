@@ -1,0 +1,1005 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_mx_hr_payroll_edi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e-20230816\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-04 15:43+0000\n"
+"PO-Revision-Date: 2024-07-04 15:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/hr_payslip.py:0
+#, python-format
+msgid " Electronic Payslip error(s)"
+msgstr "Error(es) de recibo de nómina electrónico"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/hr_payslip.py:0
+#, python-format
+msgid " Electronic Payslip info(s)"
+msgstr "Información de recibo de nómina electrónico"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/hr_payslip.py:0
+#, python-format
+msgid " Electronic Payslip warning(s)"
+msgstr "Advertencia(s) de recibo de nómina electrónic"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">MX Certificates for payroll</span>"
+msgstr "<span class=\"o_form_label\">Certificados MX para nómina</span>"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">MX PAC for payroll</span>"
+msgstr "<span class=\"o_form_label\">PAC MX para nómina</span>"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Payroll Rules</span>"
+msgstr "<span class=\"o_form_label\">Reglas de nómina</span>"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_3
+msgid "<span class=\"o_stat_text\">Analyse Payslip</span>"
+msgstr "<span class=\"o_stat_text\">Analizar Recibo de Nómina</span>"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_3
+msgid "<span class=\"o_stat_text\">Extra Time</span>"
+msgstr "<span class=\"o_stat_text\">Tiempo extra</span>"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "A delay of 2 hours has to be respected before to cancel"
+msgstr "Se debe respetar un retraso de 2 horas antes de cancelar."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_3
+msgid "Allowances and Deductions"
+msgstr "Bonificaciones y Deducciones"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_3
+msgid "Analyse Payslip"
+msgstr "Analizar Recibo de Nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__attachment_id
+msgid "Attachment"
+msgstr "Adjunto"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__date_start
+msgid "Available date"
+msgstr "Fecha disponible"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_origin
+msgid "CFDI Origin"
+msgstr "Origen CFDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_3
+msgid "CFDI information"
+msgstr "Información CFDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/hr_payslip.py:0
+#, python-format
+msgid "CFDI stamped before - payslip number: %(msg)s"
+msgstr "CFDI sellado anteriormente: número de recibo de nómina %(msg)s"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__edi_payroll_state__cancelled
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_sat_status__cancelled
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__payslip_edi_document__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "Cancelling got an error"
+msgstr "Hubo un error en la cancelación"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__content
+msgid "Certificate"
+msgstr "Certificado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__key
+msgid "Certificate Key"
+msgstr "Clave del Certificado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__key
+msgid "Certificate Key in der format"
+msgstr "Clave de certificado en formato der"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__password
+msgid "Certificate Password"
+msgstr "Contraseña del certificado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__content
+msgid "Certificate in der format"
+msgstr "Certificado en formato der"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "Certificates"
+msgstr "Certificados"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_edi_certificate_ids
+msgid "Certificates (MX) for payroll"
+msgstr "Certificados (MX) para nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "Code : %s"
+msgstr "Código : %s"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model,name:l10n_mx_hr_payroll_edi.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model,name:l10n_mx_hr_payroll_edi.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "Configure Payroll Rules"
+msgstr "Configurar Reglas de Nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "Configure the Authorized Certification Provider (PAC)."
+msgstr "Configure el Proveedor Autorizado de Certificación (PAC)"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "Configure your SAT certificates."
+msgstr "Configurar tus certificados SAT"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__create_uid
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__create_date
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_customer_rfc
+msgid "Customer RFC"
+msgstr "RFC del cliente"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_3
+msgid "Discounts"
+msgstr "Descuentos"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__display_name
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_3
+msgid "Download"
+msgstr "Descargar"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_stamp_status__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model,name:l10n_mx_hr_payroll_edi.model_account_edi_format
+msgid "EDI format"
+msgstr "Formato EDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__edi_content
+msgid "Edi Content"
+msgstr "Contenido EDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_document_ids
+msgid "Edi Document"
+msgstr "Documento EDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__edi_format_id
+msgid "Edi Format"
+msgstr "Formato EDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_payroll_blocking_level
+msgid "Edi Payroll Blocking Level"
+msgstr "Nivel de bloqueo de nómina EDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_payroll_error_count
+msgid "Edi Payroll Error Count"
+msgstr "Recuento de errores de nómina de EDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_payroll_error_message
+msgid "Edi Payroll Error Message"
+msgstr "Mensaje de error de nómina EDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_payroll_show_abandon_cancel_button
+msgid "Edi Payroll Show Abandon Cancel Button"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_payroll_show_cancel_button
+msgid "Edi Payroll Show Cancel Button"
+msgstr "Botón Mostrar Cancelar Nómina Edi"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_payroll_web_services_to_process
+msgid "Edi Payroll Web Services To Process"
+msgstr "Servicios web de nómina EDI para procesar"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model,name:l10n_mx_hr_payroll_edi.model_payslip_edi_document
+msgid "Electronic Document for an hr.payslip"
+msgstr "Documento Electrónico de nómina para un hr.payslip"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_payroll_state
+msgid "Electronic Payroll"
+msgstr "Nómina Electrónica"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_edi_pac_test_env
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_edi_pac_test_env
+msgid "Enable the usage of test credentials"
+msgstr "Habilitar el uso de credenciales de prueba"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__error
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__edi_payroll_blocking_level__error
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_stamp_status__error
+msgid "Error"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__date_end
+msgid "Expiration date"
+msgstr "Fecha de expiración"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_3
+msgid "Extratimes"
+msgstr "Tiempos extras"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "Failure during the generation of the CFDI:"
+msgstr "Fallo durante la generación del CFDI:"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/hr_payslip.py:0
+#, python-format
+msgid "Failure during update of the SAT status: %(msg)s"
+msgstr "Fallo durante la actualización del estado del SAT: %(msg)s"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__res_company__l10n_mx_hr_payroll_edi_pac__solfact
+msgid "Solución Factible"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__res_company__l10n_mx_hr_payroll_edi_pac__finkok
+msgid "Finkok"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_uuid
+msgid "Fiscal Folio"
+msgstr "Folio Fiscal"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_request
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_state_pac
+msgid "Flag indicating a CFDI should be generated for this journal entry."
+msgstr ""
+"Indicador que señala que se debe generar un CFDI para esta entrada de "
+"registro."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_uuid
+msgid "Folio in electronic invoice, is returned by SAT when send to stamp."
+msgstr ""
+"El folio en la factura electrónica es devuelto por el SAT al momento de "
+"enviarla para timbrado."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__edi_format_name
+msgid "Format Name"
+msgstr "Nombre del formato"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_payroll_error_count
+msgid "How many EDIs are in error for this payslip ?"
+msgstr "¿Cuántos EDIs están en error para este recibo de nómina?"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__id
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_origin
+msgid ""
+"In some cases like payments, credit notes, debit notes, invoices re-signed or invoices that are redone due to payment in advance will need this field filled, the format is:\n"
+"Origin Type|UUID1, UUID2, ...., UUIDn.\n"
+"Where the origin type could be:\n"
+"- 01: Credit Note\n"
+"- 02: Debit note for related documents\n"
+"- 03: Return of merchandise on previous invoices or shipments\n"
+"- 04: Replacement of previous CFDIs\n"
+"- 05: Previously invoiced merchandise shipments\n"
+"- 06: Invoice generated for previous shipments\n"
+"- 07: CFDI for advance application"
+msgstr ""
+"- 01: Nota de crédito\n"
+"- 02: Nota de débito de los documentos relacionados\n"
+"- 03: Devolución de mercancía sobre facturas o traslados previos\n"
+"- 04: Sustitución de los CFDI previos\n"
+"- 05: Traslados de mercancias facturados previamente\n"
+"- 06: Factura generada por los traslados previos\n"
+"- 07: CFDI por aplicación de anticipo"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_payment_method_id
+msgid ""
+"Indicates the way the invoice was/will be paid, where the options could be: "
+"Cash, Nominal Check, Credit Card, etc. Leave empty if unkown and the XML "
+"will show 'Unidentified'."
+msgstr ""
+"Indica la forma en que se pagó o se pagará la factura, donde las opciones "
+"pueden ser: Efectivo, Cheque de nómina, Tarjeta de crédito, etc. Dejar vacío"
+" si es desconocido y el XML mostrará 'No identificado'."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__edi_payroll_blocking_level__info
+msgid "Info"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "Invalid configuration:"
+msgstr "Configuración inválida"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/hr_payslip.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/hr_payslip.py:0
+#, python-format
+msgid ""
+"Invalid payslip configuration:\n"
+"\n"
+"%s"
+msgstr ""
+"Configuración de recibo de nómina inválida:\n"
+"\n"
+"%s"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__res_company__l10n_mx_hr_payroll_edi_pac__facturalo
+msgid "Factúralo"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_post_time
+msgid "Keep empty to use the current México central time"
+msgstr "Mantener vacío para usar la hora central de México actual"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate____last_update
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__write_uid
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__write_date
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_edi_certificate_ids
+msgid "MX Certificates* for payroll"
+msgstr "Certificados* MX para nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_edi_pac_password
+msgid "MX PAC password* for payroll"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_edi_pac_test_env
+msgid "MX PAC test environment* for Payroll"
+msgstr "Entorno* de prueba MX PAC para Nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_edi_pac_username
+msgid "MX PAC username* for Patroll"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_edi_pac
+msgid "MX PAC* for Payroll"
+msgstr "MX PAC* para Nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "Message : %s"
+msgstr "Mensaje : %s"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "Mexican EDI Payroll"
+msgstr "Nómina EDI mexicana"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "Mexican payslip CFDI generated for the %s document."
+msgstr "CFDI de nómina mexicano generado para el documento %s."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "No PAC credentials specified."
+msgstr "No se han especificado credenciales de PAC."
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "No PAC specified."
+msgstr "No se ha especificado ningún PAC."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_state_pac__no_signed
+msgid "No Signed"
+msgstr "Sin firmar"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "No valid certificate found"
+msgstr "No se encontró ningún certificado válido"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_sat_status__not_found
+msgid "Not Found"
+msgstr "No encontrado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_sat_status__undefined
+msgid "Not Synced Yet"
+msgstr "No sincronizado todavía"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_cfdi_request__on_refund
+msgid "On Credit Note"
+msgstr "En Nota de Crédito"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_cfdi_request__on_payment
+msgid "On Payment"
+msgstr "En el pago"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_cfdi_request__on_payslip
+msgid "On payslip"
+msgstr "En el recibo"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.constraint,message:l10n_mx_hr_payroll_edi.constraint_payslip_edi_document_unique_edi_document_by_payslip_by_format
+msgid "Only one edi document by payslip by format"
+msgstr "Solo un documento EDI por nómina por formato"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "PAC"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_state_pac
+msgid "PAC Status"
+msgstr "Estado PAC"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "PAC authentification error:"
+msgstr "Error de autenticación de PAC:"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "PAC failed to sign the CFDI:"
+msgstr "El PAC falló en firmar el CFDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_edi_pac
+msgid "PAC for payroll"
+msgstr "PAC para nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "PAC password"
+msgstr "Contraseña PAC"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_edi_pac_password
+msgid "PAC password for payroll"
+msgstr "Contraseña PAC para nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_edi_pac_test_env
+msgid "PAC test environment for payroll"
+msgstr "Entorno de prueba PAC para nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "PAC username"
+msgstr "Nombre de usuario PAC"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_edi_pac_username
+msgid "PAC username for payroll"
+msgstr "Nombre de usuario de PAC para nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_payment_policy__ppd
+msgid "PPD"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_payment_policy__pue
+msgid "PUE"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__password
+msgid "Password for the Certificate Key"
+msgstr "Contraseña para la clave del certificado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model,name:l10n_mx_hr_payroll_edi.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Recibo de nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_payment_policy
+msgid "Payment Policy"
+msgstr "Política de pago"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_payment_method_id
+msgid "Payment Way"
+msgstr "Forma de pago"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_mode2work
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_mode2work
+msgid "Payroll Work Method"
+msgstr "Método de trabajo de nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__payslip_id
+msgid "Payslip"
+msgstr "Recibo de nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_3
+msgid "Payslip Informations"
+msgstr "Información del recibo de nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx
+msgid "Payslip Line"
+msgstr "Línea de Recibo de Nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__uso_cfdi__p01
+msgid "Por definir"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_post_time
+msgid "Posted Time"
+msgstr "Tiempo publicado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_sat_status
+msgid "Refers to the status of the journal entry inside the SAT system."
+msgstr ""
+"Se refiere al estado de la entrada del registro dentro del sistema SAT."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_request
+msgid "Request a CFDI"
+msgstr "Solicitar un CFDI"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_2
+msgid "Retry"
+msgstr "Intentar de nuevo"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model,name:l10n_mx_hr_payroll_edi.model_l10n_mx_payroll_edi_certificate
+msgid "SAT Digital Sail"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_sat_status
+msgid "SAT status"
+msgstr "Estado del SAT"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__res_company__l10n_mx_hr_payroll_edi_pac__sw
+msgid "SW sapien-SmarterWEB"
+msgstr ""
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_add_buttons_inherit_payroll_mx
+msgid "Send by email"
+msgstr "Enviar por email"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__edi_payroll_state__sent
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__payslip_edi_document__state__sent
+msgid "Sent"
+msgstr "Enviado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__serial_number
+msgid "Serial number"
+msgstr "Número de serie"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_state_pac__signed
+msgid "Signed"
+msgstr "Firmado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__res_company__l10n_mx_hr_payroll_mode2work__stamp
+msgid "Stamp First and then create entries account"
+msgstr "Timbrar primero y luego crear las entradas contables."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.hr_payslip_form_inherit_payroll_mx_2
+msgid "Stamp Payslip"
+msgstr "Timbrar Recibo de Nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__res_company__l10n_mx_hr_payroll_mode2work__same_time
+msgid "Stamp and create entries account at the same time"
+msgstr "Timbrar y crear las entradas contables al mismo tiempo"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_stamp_status
+msgid "Stamp status"
+msgstr "Estado de timbrado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_stamp_status__stamped
+msgid "Stamped"
+msgstr "Timbrado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_payslip_edi_document__state
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_sat_status__none
+msgid "State not defined"
+msgstr "Estado no definido"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cancel_payslip_id
+msgid "Substituted By"
+msgstr "Sustituido por"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_supplier_rfc
+msgid "Supplier RFC"
+msgstr "RFC de proveedor"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "The Finkok service failed to cancel with the following error: %s"
+msgstr "El servicio Finkok no se pudo cancelar con el siguiente error: %s"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "The Finkok service failed to sign with the following error: %s"
+msgstr "El servicio Finkok no se pudo firmar con el siguiente error: %s"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_edi_pac
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_edi_pac
+msgid "The PAC that will sign/cancel the invoices"
+msgstr "El PAC que firmará/cancelará las facturas"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid ""
+"The SAT does not provide information for the currency %s.\n"
+"You must get manually a key from the PAC to confirm the currency rate is accurate enough."
+msgstr ""
+"El SAT no proporciona información para la moneda %s.\n"
+"Debes obtener manualmente una clave del PAC para confirmar que la tasa de cambio de la moneda sea suficientemente precisa."
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid ""
+"The Solucion Factible service failed to cancel with the following error: %s"
+msgstr ""
+"El servicio Solución Factible no se pudo cancelar con el siguiente error: %s"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid ""
+"The Solucion Factible service failed to sign with the following error: %s"
+msgstr ""
+"El servicio Solución Factible no se pudo firmar con el siguiente error: %s"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__edi_payroll_state
+msgid "The aggregated state of all the EDIs with web-service of this payslip"
+msgstr ""
+"El estado agregado de todos los EDI con servicio web de este recibo de "
+"nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/l10n_mx_hr_payroll_certificate.py:0
+#, python-format
+msgid "The certificate content is invalid %s."
+msgstr "El contenido del certificado no es válido %s."
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/l10n_mx_hr_payroll_certificate.py:0
+#, python-format
+msgid "The certificate is expired since %s"
+msgstr "El certificado está expirado desde %s"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/l10n_mx_hr_payroll_certificate.py:0
+#, python-format
+msgid "The certificate key and/or password is/are invalid."
+msgstr "La clave del certificado y/o la contraseña no son válidas."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_customer_rfc
+msgid "The customer tax identification number."
+msgstr "El número de identificación fiscal del cliente."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__date_end
+msgid "The date on which the certificate expires"
+msgstr "La fecha en la que expira el certificado."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__date_start
+msgid "The date on which the certificate starts to be valid"
+msgstr "La fecha en la que el certificado comienza a ser válido."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_payslip_edi_document__attachment_id
+msgid ""
+"The file generated by edi_format_id when the invoice is posted (and this "
+"document is processed)."
+msgstr ""
+"El archivo generado por edi_format_id cuando la factura se contabiliza (y este "
+"documento se procesa)."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "The parameters to configure the MX PAC. for Payroll"
+msgstr ""
+"El archivo generado por edi_format_id cuando la factura se contabiliza (y "
+"este documento se procesa)."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "The parameters to configure the MX certificate for Payroll"
+msgstr "Los parámetros para configurar el certificado MX para Nómina"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_edi_pac_password
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_edi_pac_password
+msgid "The password used to request the seal from the PAC"
+msgstr "La contraseña utilizada para solicitar el sello al PAC"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_l10n_mx_payroll_edi_certificate__serial_number
+msgid "The serial number to add to electronic documents"
+msgstr "El número de serie para agregar a los documentos electrónicos."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_supplier_rfc
+msgid "The supplier tax identification number."
+msgstr "El número de identificación fiscal del proveedor."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_payslip_edi_document__error
+msgid ""
+"The text of the last error that happened during Electronic Invoice "
+"operation."
+msgstr ""
+"El texto del último error que ocurrió durante la operación de Factura "
+"Electrónica."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_amount
+msgid "The total amount reported on the cfdi."
+msgstr "El monto total reportado en el cfdi."
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#: code:addons/l10n_mx_hr_payroll_edi/models/account_edi_format.py:0
+#, python-format
+msgid "The username and/or password are missing."
+msgstr "Falta el nombre de usuario y/o contraseña."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_res_company__l10n_mx_hr_payroll_edi_pac_username
+#: model:ir.model.fields,help:l10n_mx_hr_payroll_edi.field_res_config_settings__l10n_mx_hr_payroll_edi_pac_username
+msgid "The username used to request the seal from the PAC"
+msgstr "El nombre de usuario utilizado para solicitar el sello al PAC"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__edi_payroll_state__to_cancel
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__payslip_edi_document__state__to_cancel
+msgid "To Cancel"
+msgstr "Cancelar"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__edi_payroll_state__to_send
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__payslip_edi_document__state__to_send
+msgid "To Send"
+msgstr "Mandar"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__l10n_mx_edi_cfdi_amount
+msgid "Total Amount"
+msgstr "Cantidad total"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields,field_description:l10n_mx_hr_payroll_edi.field_hr_payslip__uso_cfdi
+msgid "Uso CFDI (Employee)"
+msgstr "Uso CFDI (Empleado)"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__l10n_mx_edi_sat_status__valid
+msgid "Valid"
+msgstr "Válido"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "Validity"
+msgstr "Validez"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__hr_payslip__edi_payroll_blocking_level__warning
+msgid "Warning"
+msgstr "Advertencia"
+
+#. module: l10n_mx_hr_payroll_edi
+#. odoo-python
+#: code:addons/l10n_mx_hr_payroll_edi/models/l10n_mx_hr_payroll_certificate.py:0
+#, python-format
+msgid ""
+"You cannot remove a certificate if at least one invoice has been signed. "
+"Expired certificates will not be used as Odoo uses the latest valid "
+"certificate. To not use it, you can unlink it from the current company "
+"certificates."
+msgstr ""
+"No se puede eliminar un certificado si al menos una factura ha sido firmada."
+" Los certificados vencidos no serán utilizados ya que Odoo utiliza el "
+"certificado válido más reciente. Para no usarlo, puedes desvincularlo de los"
+" certificados actuales de la empresa."
+
+#. module: l10n_mx_hr_payroll_edi
+#: model_terms:ir.ui.view,arch_db:l10n_mx_hr_payroll_edi.res_config_settings_view_form
+msgid "certificate Form"
+msgstr "Formulario de certificado"
+
+#. module: l10n_mx_hr_payroll_edi
+#: model:ir.model.fields.selection,name:l10n_mx_hr_payroll_edi.selection__res_company__l10n_mx_hr_payroll_edi_pac__emaanu
+msgid "e-Maanu (Multipac)"
+msgstr ""

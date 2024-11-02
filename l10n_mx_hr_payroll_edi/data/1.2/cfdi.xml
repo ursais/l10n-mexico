@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <template id="cfdiv12">
+            <cfdi:Comprobante
+            xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd"
+            xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
+            xmlns:nomina12='http://www.sat.gob.mx/nomina12'
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            Version="4.0"
+            t-att-Fecha="cfdi_date"
+            t-att-Folio="format_string(folio_number, 40)"
+            t-att-Serie="format_string(serie_number, 25)"
+            t-att-NoCertificado="certificate_number"
+            t-att-Certificado="certificate_key"
+            t-att-SubTotal="format_float(total_allowance_amount, currency_precision)"
+            t-att-Descuento="format_float(total_deduction_amount, currency_precision)"
+            t-att-Moneda="currency_name"
+            t-att-TipoCambio="format_float(currency_conversion_rate, 6)"
+            t-att-Total="format_float(total_cfdi, currency_precision)"
+            TipoDeComprobante="N"
+            Exportacion="01"
+            MetodoPago="PUE"
+            t-att-LugarExpedicion="issued_address.zip or supplier.zip"
+        >
+                <t t-if="origin_uuids">
+                    <cfdi:CfdiRelacionados t-att-TipoRelacion="origin_type">
+                        <t t-foreach="origin_uuids" t-as="uuid">
+                            <cfdi:CfdiRelacionado t-att-UUID="uuid" />
+                        </t>
+                    </cfdi:CfdiRelacionados>
+                </t>
+                <cfdi:Emisor
+                t-att-Rfc="supplier.vat"
+                t-att-Nombre="format_string(supplier.name, 254)"
+                t-att-RegimenFiscal="record.company_id.l10n_mx_edi_fiscal_regime"
+            />
+                <cfdi:Receptor
+                t-att-Rfc="customer_rfc"
+                t-att-Nombre="format_string(customer.commercial_partner_id.name, 254)"
+                DomicilioFiscalReceptor="36257"
+                RegimenFiscalReceptor="605"
+                UsoCFDI="CN01"
+            />
+                <cfdi:Conceptos>
+                    <cfdi:Concepto
+                    ClaveProdServ="84111505"
+                    Cantidad="1"
+                    ClaveUnidad="ACT"
+                    Descripcion="Pago de nómina"
+                    t-att-ValorUnitario="format_float(total_allowance_amount, currency_precision)"
+                    t-att-Importe="format_float(total_allowance_amount, currency_precision)"
+                    t-att-Descuento="format_float(total_deduction_amount, currency_precision)"
+                    ObjetoImp="01"
+                />
+                </cfdi:Conceptos>
+                <cfdi:Complemento>
+                    <nomina12:Nomina
+                    Version="1.2"
+                    t-att-FechaPago="(record.payment_day)"
+                    t-att-FechaInicialPago="(record.date_from)"
+                    t-att-Sindicalizado="Sí if employee.syndicated else No"
+                    t-att-FechaFinalPago="(record.date_to)"
+                    NumDiasPagados="7"
+                    t-att-TipoNomina="tiponomina"
+                    t-att-TotalDeducciones="format_float(total_deduction_amount, currency_precision)"
+                    t-att-TotalOtrosPagos="format_float(total_others_amount, currency_precision)"
+                    t-att-TotalPercepciones="format_float(total_allowance_amount, currency_precision)"
+                    xsi:schemaLocation="http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/informacion_fiscal/factura_electronica/Documents/Complementoscfdi/nomina12.xsd"
+                >
+                        <nomina12:Emisor
+                        t-att-RegistroPatronal="employee.employer_register.name"
+                    />
+                        <nomina12:Receptor
+                        t-att-Curp="employee.address_home_id.curp"
+                        t-att-TipoContrato="contract.contract_type"
+                        t-att-TipoRegimen="employee.l10n_mx_hr_payroll_fiscal_regime"
+                        t-att-NumEmpleado="employee.employee_number"
+                        t-att-Antigüedad="antiguedad"
+                        t-att-PeriodicidadPago="contract.period_cfdi.type_id.period_cfdi"
+                        t-att-ClaveEntFed="employee.address_id.state_id.code"
+                        t-att-NumSeguridadSocial="employee.ssnid"
+                        t-att-FechaInicioRelLaboral="contract.first_contract_date"
+                        t-att-Puesto="employee.department_id.name"
+                        t-att-SalarioBaseCotApor="format_float(contract.sbc, 2)"
+                        t-att-RiesgoPuesto="employee.employer_register.job_risk"
+                        t-att-SalarioDiarioIntegrado="format_float(contract.sdi, 2)"
+                    />
+                        <nomina12:Percepciones
+                        t-att-TotalSueldos="format_float(total_allowance_amount, currency_precision)"
+                        t-att-TotalGravado="format_float(total_allowance_amount, currency_precision)"
+                        TotalExento="0.00"
+                    >
+                            <t
+                            t-foreach="payslip_line_allowance_values"
+                            t-as="line_alw"
+                        >
+                                <t t-set="line" t-value="line_alw['line']" />
+                                <nomina12:Percepcion
+                                t-att-TipoPercepcion="format_string(line.salary_rule_id.allowance_type_l10n_mx.code)"
+                                t-att-Clave="format_string(line.salary_rule_id.code)"
+                                t-att-Concepto="format_string(line.salary_rule_id.name)"
+                                t-att-ImporteGravado="format_float(line.total, currency_precision)"
+                                ImporteExento="0.00"
+                            />
+                            </t>
+                        </nomina12:Percepciones>
+                        <nomina12:Deducciones
+                        t-att-TotalOtrasDeducciones="format_float(TotalOtrasDeducciones, currency_precision)"
+                        t-att-TotalImpuestosRetenidos="format_float(TotalImpuestosRetenidos, currency_precision)"
+                    >
+                            <t
+                            t-foreach="payslip_line_deduction_values"
+                            t-as="line_ded"
+                        >
+                                <t t-set="line" t-value="line_ded['line']" />
+                                <nomina12:Deduccion
+                                t-att-TipoDeduccion="format_string(line.salary_rule_id.deduction_type_l10n_mx.code)"
+                                t-att-Clave="format_string(line.salary_rule_id.code)"
+                                t-att-Concepto="format_string(line.salary_rule_id.name)"
+                                t-att-Importe="format_float(line.total, currency_precision)"
+                            />
+                            </t>
+                        </nomina12:Deducciones>
+                        <nomina12:OtrosPagos>
+                            <t
+                            t-foreach="payslip_line_others_values"
+                            t-as="line_others"
+                        >
+                                <t t-set="line" t-value="line_others['line']" />
+                                <nomina12:OtroPago
+                                t-att-TipoOtroPago="format_string(line.salary_rule_id.otherpayment_type_l10n_mx.code)"
+                                t-att-Clave="format_string(line.salary_rule_id.code)"
+                                t-att-Concepto="format_string(line.salary_rule_id.name)"
+                                t-att-Importe="format_float(total_others_amount, currency_precision)"
+                            >
+                                    <nomina12:SubsidioAlEmpleo
+                                    t-att-SubsidioCausado="format_float(line.total, currency_precision)"
+                                />
+                                </nomina12:OtroPago>
+                            </t>
+                        </nomina12:OtrosPagos>
+                    </nomina12:Nomina>
+                </cfdi:Complemento>
+            </cfdi:Comprobante>
+        </template>
+</odoo>

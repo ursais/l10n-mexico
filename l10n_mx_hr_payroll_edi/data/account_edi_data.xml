@@ -1,0 +1,6 @@
+<odoo>
+        <record id="edi_cfdi_payroll_1_2" model="account.edi.format">
+            <field name="name">CFDI Payroll (1.2)</field>
+            <field name="code">cfdi_1_2</field>
+        </record>
+</odoo>
