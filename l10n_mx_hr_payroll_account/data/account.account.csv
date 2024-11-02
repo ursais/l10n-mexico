@@ -1,0 +1,11 @@
+id,name,code,account_type,reconcile
+cuenta11_306_000,Subsidio al empleo,11.306.000,asset_current,False
+cuenta20_000_000,Pasivo,20.000.000,liability_current,True
+cuenta21_601_000,Impuestos ret de ISR x sdos y salarios,21.601.000,liability_current,False
+cuenta21_611_000,Retenciones de IMSS a los trabaj,21.611.000,liability_current,False
+cuenta60_101_000,Sueldos y salarios,60.101.000,expense,False
+cuenta60_103_000,Tiempos extras,60.103.000,expense,False
+cuenta60_104_000,Premios de asistencia,60.104.000,expense,False
+cuenta60_105_000,Premios de puntualidad,60.105.000,expense,False
+cuenta60_115_000,Despensa,60.115.000,expense,False
+cuenta60_174_000,Comisiones sobre ventas,60.174.000,expense,False
