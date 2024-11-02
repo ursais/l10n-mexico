@@ -1,0 +1,155 @@
+<odoo noupdate="1">
+
+    <!-- Salary Structure -Type -->
+    <record id="structure_type_bonus_mx" model="hr.payroll.structure.type">
+        <field name="name">Mexican bonus Structure</field>
+        <field name="default_schedule_pay">annually</field>
+        <field name="country_id" ref="base.mx" />
+        <field name="default_resource_calendar_id" ref="resource_calendar_std_48h" />
+    </record>
+
+    <!-- structures  -->
+
+    <record id="structure_mx_bonus" model="hr.payroll.structure">
+        <field name="name">Mexican Bonus Structure</field>
+        <field name="type_id" ref="l10n_mx_hr_payroll.structure_type_bonus_mx" />
+        <field
+            name="journal_id"
+            ref="l10n_mx_hr_payroll.hr_salaries_mx_account_journal"
+        />
+        <field name="type_use">bonus</field>
+        <field name="schedule_pay">annually</field>
+        <field name="country_id" ref="base.mx" />
+    </record>
+
+<!--   Allowance rules   -->
+
+    <record
+        id="hr_salary_rule_bonus_1000"
+        model="hr.salary.rule"
+    >    <!--
+     Daily Wage -->
+        <field name="sequence" eval="1000" />
+        <field name="code">P011</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Bonus</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance003"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.ATSPTU.amount > 0.0 if inputs.ATSPTU else False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = (( inputs.ATSPTU.amount / inputs.TWDPTU.amount ) * inputs.WDPTU.amount) + (5)</field>
+        <field name="struct_id" ref="l10n_mx_hr_payroll.structure_mx_bonus" />
+    </record>
+
+    <!--      Deductions       -->
+
+    <record id="hr_salary_rule_bonus_sp_AISR_5110" model="hr.salary.rule">
+        <field name="sequence" eval="5110" />
+        <field name="code">AUXISR</field>
+        <field name="category_id" ref="CAT_AUX" />
+        <field name="name">Auxiliar de ISR</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        ><![CDATA[
+sbc = categories.ALW
+lim_inf = contract.env['hr.payroll.isr.line'].search([('line_id','=', 4),('lim_inf','<=', sbc ),('lim_sup','>=', sbc )],limit=1).lim_inf
+excedente_lim_inf = sbc - lim_inf
+percent = contract.env['hr.payroll.isr.line'].search([('line_id','=', 4),('lim_inf','<=', sbc ),('lim_sup','>=', sbc )],limit=1).percent
+marginal_tax = excedente_lim_inf * ( percent / 100 )
+fix_fee = contract.env['hr.payroll.isr.line'].search([('line_id','=', 4),('lim_inf','<=', sbc ),('lim_sup','>=', sbc )],limit=1).fix_fee
+result = fix_fee + marginal_tax
+            ]]></field>
+        <field name="struct_id" ref="l10n_mx_hr_payroll.structure_mx_bonus" />
+    </record>
+
+    <record id="hr_salary_rule_bonus_sp_isr_5150" model="hr.salary.rule">
+        <field name="sequence" eval="5150" />
+        <field name="code">D045</field>
+        <field name="category_id" ref="hr_payroll.DED" />
+        <field name="name">ISR</field>
+        <field name="rule_type_cfdi">ded</field>
+        <field
+            name="deduction_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_deduction002"
+        />
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = AUXISR</field>
+        <field name="struct_id" ref="l10n_mx_hr_payroll.structure_mx_bonus" />
+    </record>
+
+    <!-- Totals Allowance and Deductions-->
+
+    <record id="hr_salary_rule_bonus_sp_4999" model="hr.salary.rule">
+        <field name="sequence" eval="4999" />
+        <field name="code">TALW</field>
+        <field name="category_id" ref="hr_payroll.NET" />
+        <field name="name">Total Percepciones</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = categories.ALW</field>
+        <field name="struct_id" ref="l10n_mx_hr_payroll.structure_mx_bonus" />
+    </record>
+
+    <record id="hr_salary_rule_bonus_sp_9999" model="hr.salary.rule">
+        <field name="sequence" eval="9999" />
+        <field name="code">TDED</field>
+        <field name="category_id" ref="hr_payroll.NET" />
+        <field name="name">Total Deducciones</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = categories.DED</field>
+        <field name="struct_id" ref="l10n_mx_hr_payroll.structure_mx_bonus" />
+    </record>
+
+    <record id="hr_salary_rule_bonus_sp_10000" model="hr.salary.rule">
+        <field name="sequence" eval="10000" />
+        <field name="code">SLYN</field>
+        <field name="category_id" ref="hr_payroll.NET" />
+        <field name="name">Salario Neto</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = categories.ALW - categories.DED</field>
+        <field name="struct_id" ref="l10n_mx_hr_payroll.structure_mx_bonus" />
+    </record>
+
+    <!-- Inputs -->
+
+    <record id="bonus_input_amount_to_share" model="hr.payslip.input.type">
+        <field name="name">Amount to share</field>
+        <field name="code">ATSPTU</field>
+        <field name="input_type_mx">ptu</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_bonus'))]"
+        />
+    </record>
+
+    <record id="bonus_input_worked_days" model="hr.payslip.input.type">
+        <field name="name">Worked Days</field>
+        <field name="code">WDPTU</field>
+        <field name="input_type_mx">ptu</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_bonus'))]"
+        />
+    </record>
+
+    <record id="bonus_input_total_worked_days" model="hr.payslip.input.type">
+        <field name="name">Total de dias trabajados</field>
+        <field name="code">TWDPTU</field>
+        <field name="input_type_mx">ptu</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_bonus'))]"
+        />
+    </record>
+
+</odoo>

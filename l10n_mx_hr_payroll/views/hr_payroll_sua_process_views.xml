@@ -1,0 +1,163 @@
+<odoo>
+
+    <record id="view_hr_payroll_sua_reports_form" model="ir.ui.view">
+        <field name="name">hr.payroll.sua.reports.form</field>
+        <field name="model">hr.payroll.sua.reports</field>
+        <field name="arch" type="xml">
+            <form string="Payroll SUA Reports">
+                <header>
+                    <button
+                        string="Done"
+                        name="sua_done"
+                        class="oe_highlight"
+                        states="calculated"
+                        type='object'
+                    />
+                    <button
+                        string="Cancel"
+                        name="sua_cancel"
+                        states="done,calculated"
+                        type='object'
+                    />
+                    <button
+                        string="Calculate"
+                        name="sua_calculate"
+                        class="oe_highlight"
+                        states="draft,calculated"
+                        type='object'
+                    />
+                    <button
+                        string="SUA ( txt)"
+                        name="sua_txt"
+                        class="oe_highlight"
+                        states="done,calculated"
+                        type='object'
+                    />
+                    <button
+                        string="Back to Draft"
+                        name="sua_back_to_draft"
+                        class="oe_highlight"
+                        states="done"
+                        type='object'
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_open_payroll_movs_sua"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            type="object"
+                            help="Sua movements"
+                            attrs="{'invisible': [('movs_count', '=', 0)]}"
+                        >
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field
+                                        name="movs_count"
+                                    /></span>
+                                <span class="o_stat_text">Movements</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="report_type" />
+                            <field
+                                name="movt_type"
+                                attrs="{'invisible':[('report_type','!=','movt')]}"
+                            />
+                        </group>
+                        <group>
+                            <label for="date_start" string="Period" />
+                            <span>
+                                <field
+                                    name="date_start"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','=','done')]}"
+                                /> - <field
+                                    name="date_end"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','=','done')]}"
+                                />
+                            </span>
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Employees">
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="date" />
+                                    <field name="name" />
+                                    <field name="ssnid" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field
+                                name="notes"
+                                nolabel="1"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_payroll_sua_reports_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.sua.reports.tree</field>
+        <field name="model">hr.payroll.sua.reports</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-danger="state == 'cancel'"
+                    decoration-muted="state == 'draft'"
+                    decoration-success="state == 'done'"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_payroll_sua_reports" model="ir.actions.act_window">
+        <field name="name">SUA Reports</field>
+        <field name="res_model">hr.payroll.sua.reports</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="hr_payroll_sua_lines_reports_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.sua.reports.line.tree</field>
+        <field name="model">hr.payroll.sua.reports.line</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="date" />
+                <field name="name" />
+                <field name="contract_id" />
+                <field name="ssnid" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>

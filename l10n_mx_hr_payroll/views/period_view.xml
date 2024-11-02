@@ -1,0 +1,143 @@
+<odoo>
+
+    <!-- Period type -->
+
+    <record id="view_hr_payroll_period_type_list_view" model="ir.ui.view">
+        <field name="name">hr.payroll.period.type.tree</field>
+        <field name="model">hr.payroll.period.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code" />
+                <field name="name" />
+                <field name="period_cfdi" />
+                <field name="payroll_type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_period_type_form" model="ir.ui.view">
+        <field name="name">hr.payroll.period.type.form</field>
+        <field name="model">hr.payroll.period.type</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Period Type">
+            <sheet>
+                <group>
+                    <group name="payroll_period_type">
+                        <field name="active" invisible="1" />
+                        <field name="code" />
+                        <field name="name" />
+                        <field name="period_cfdi" />
+                        <field name="payroll_type" />
+                    </group>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record
+        id="action_view_hr_payroll_period_type_list_form"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Payroll Period Type</field>
+        <field name="res_model">hr.payroll.period.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Period  -->
+
+    <record id="view_hr_payroll_period_filter" model="ir.ui.view">
+        <field name="name">hr.payroll.period.search</field>
+        <field name="model">hr.payroll.period</field>
+        <field name="arch" type="xml">
+            <search string="Employees">
+                <field name="name" string="Period" />
+                <searchpanel>
+                    <field
+                        name="company_id"
+                        groups="base.group_multi_company"
+                        icon="fa-building"
+                        enable_counters="1"
+                    />
+                    <field name="type_id" icon="fa-bars" enable_counters="1" />
+                </searchpanel>
+            </search>
+            </field>
+    </record>
+
+    <record id="view_hr_payroll_period_list_view" model="ir.ui.view">
+        <field name="name">hr.payroll.period.tree</field>
+        <field name="model">hr.payroll.period</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code" />
+                <field name="name" />
+                <field name="company_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_period_form" model="ir.ui.view">
+        <field name="name">hr.payroll.period.form</field>
+        <field name="model">hr.payroll.period</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Period">
+                <sheet>
+                    <group name="payroll_period">
+                        <field name="active" invisible="1" />
+                        <field name="code" />
+                        <field name="name" />
+                        <field name="type_id" />
+                        <field name="structure_id" />
+                        <field name="company_id" />
+                    </group>
+                    <notebook col="4">
+                        <page string="Periods">
+                            <field name="line_ids" colspan="4" nolabel="1">
+                                <tree>
+                                        <field name="sequence" />
+                                        <field name="name" />
+                                        <field name="date_start" />
+                                        <field name="date_end" />
+                                        <field name="date_pay" />
+                                        <field name="days" />
+                                        <field name="state" />
+                                </tree>
+                                <form string="Period Line">
+                                    <group>
+                                        <group>
+                                        <field name="sequence" />
+                                        <field name="name" />
+                                        </group>
+                                        <group>
+                                            <field name="date_start" />
+                                            <field name="date_end" />
+                                            <field name="date_pay" />
+                                            <field name="days" />
+                                            <field name="state" />
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_hr_payroll_period_list_form" model="ir.actions.act_window">
+        <field name="name">Payroll Periods</field>
+        <field name="res_model">hr.payroll.period</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

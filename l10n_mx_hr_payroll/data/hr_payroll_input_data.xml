@@ -1,0 +1,115 @@
+<odoo noupdate="1">
+
+
+    <!-- Inputs -->
+
+    <record id="input_fonacot" model="hr.payslip.input.type">
+        <field name="name">Fonacot</field>
+        <field name="code">FCOT</field>
+        <field name="input_type_mx">loan</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_comissions" model="hr.payslip.input.type">
+        <field name="name">Comisiones</field>
+        <field name="code">COMSS</field>
+        <field name="input_type_mx">movement</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_attendance_award" model="hr.payslip.input.type">
+        <field name="name">Premio de asistencia</field>
+        <field name="code">ATTAW</field>
+        <field name="input_type_mx">movement</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_food_pantry" model="hr.payslip.input.type">
+        <field name="name">Despensa de alimentos</field>
+        <field name="code">FOODP</field>
+        <field name="input_type_mx">movement</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_PPA" model="hr.payslip.input.type">
+        <field name="name">Premio de puntualidad</field>
+        <field name="code">PPA</field>
+        <field name="input_type_mx">movement</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_alimony" model="hr.payslip.input.type">
+        <field name="name">Pension Alimenticia</field>
+        <field name="code">AL</field>
+        <field name="input_type_mx">movement</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_infonavit" model="hr.payslip.input.type">
+        <field name="name">Infonavit</field>
+        <field name="code">IVIT</field>
+        <field name="input_type_mx">loan</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_extratime_double" model="hr.payslip.input.type">
+        <field name="name">Double Extratime</field>
+        <field name="code">DET</field>
+        <field name="input_type_mx">extratime</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_extratime_triple" model="hr.payslip.input.type">
+        <field name="name">Triple Extratime</field>
+        <field name="code">TET</field>
+        <field name="input_type_mx">extratime</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_prestamo_de_empresa" model="hr.payslip.input.type">
+        <field name="name">Prestamo de Empresa</field>
+        <field name="code">PPE</field>
+        <field name="input_type_mx">loan</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+
+    <record id="input_prestamo_de_empresa_cuota" model="hr.payslip.input.type">
+        <field name="name">Prestamo de Empresa ( Cuota )</field>
+        <field name="code">PPEC</field>
+        <field name="input_type_mx">loan</field>
+        <field
+            name="struct_ids"
+            eval="[(4, ref('l10n_mx_hr_payroll.structure_mx_employee_weekly'))]"
+        />
+    </record>
+</odoo>

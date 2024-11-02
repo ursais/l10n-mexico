@@ -1,0 +1,326 @@
+<odoo>
+
+    <!--   Movements menu   -->
+
+    <menuitem
+        id="menu_hr_payroll_movements_root"
+        name="Payroll Movements"
+        parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root"
+        sequence="60"
+        groups="hr_payroll.group_hr_payroll_user"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_movement_one_employee"
+        action="action_view_hr_movement_one_employee_form"
+        parent="menu_hr_payroll_movements_root"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_movement_many_employees"
+        action="action_view_hr_movement_many_employees_form"
+        parent="menu_hr_payroll_movements_root"
+        sequence="20"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_loans"
+        action="action_view_hr_loans_form"
+        parent="menu_hr_payroll_movements_root"
+        sequence="30"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_alimonies"
+        action="action_view_hr_alimonies"
+        parent="menu_hr_payroll_movements_root"
+        sequence="40"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_extratime"
+        action="action_view_hr_extratime_movement"
+        parent="menu_hr_payroll_movements_root"
+        sequence="100"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_contract_history"
+        action="action_view_hr_payroll_salary_history"
+        parent="menu_hr_payroll_movements_root"
+        sequence="200"
+    />
+
+    <!--   Payroll Process menu   -->
+
+    <menuitem
+        id="menu_hr_payroll_process_root"
+        name="Payroll Process"
+        parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root"
+        sequence="65"
+        groups="hr_payroll.group_hr_payroll_user"
+    >
+
+        <menuitem
+            id="menu_hr_payroll_process_settlements"
+            name="Settlements"
+            sequence="10"
+        >
+            <menuitem
+                id="menu_hr_payroll_process_settlements_voluntary"
+                action="action_view_hr_payroll_voluntary_settlements"
+                sequence="10"
+            />
+        </menuitem>
+        <menuitem
+            id="menu_hr_payroll_process_salary_increases"
+            name="Increases"
+            sequence="20"
+        >
+            <menuitem
+                id="menu_hr_payroll_process_salary_increases_general"
+                action="action_view_hr_payroll_general_Salary_increases_general"
+                sequence="10"
+            />
+            <menuitem
+                id="menu_hr_payroll_process_salary_increase_Individual"
+                action="action_view_hr_payroll_Salary_increases_individual"
+                sequence="20"
+            />
+        </menuitem>
+
+        <menuitem id="menu_hr_payroll_process_contract" name="Contracts" sequence="30">
+            <menuitem
+                id="menu_hr_payroll_process_renew_contract"
+                action="action_view_hr_payroll_renew_contrats"
+                sequence="10"
+            />
+            <menuitem
+                id="menu_hr_payroll_process_contract_expiration"
+                action="action_view_hr_payroll_contrats_expiration"
+                sequence="20"
+            />
+        </menuitem>
+
+        <menuitem id="menu_hr_payroll_ptu_process_root" name="PTU" sequence="35">
+            <menuitem
+                id="menu_hr_payroll_ptu_process"
+                action="action_view_hr_payroll_ptu_process"
+                sequence="10"
+            />
+        </menuitem>
+
+        <menuitem id="menu_hr_payroll_bonus_process_root" name="Bonus" sequence="40">
+            <menuitem
+                id="menu_hr_payroll_bonus_process"
+                action="action_view_hr_payroll_bonus_process"
+                sequence="10"
+            />
+        </menuitem>
+
+        <menuitem
+            id="menu_hr_payroll_process_saving_fund"
+            name="Saving Fund"
+            sequence="60"
+        >
+            <menuitem
+                id="menu_hr_payroll_process_distribute_saving_fund"
+                action="action_view_hr_payroll_process_distribute_saving_fund"
+                sequence="10"
+            />
+
+        </menuitem>
+
+    </menuitem>
+
+    <!-- Reporting    -->
+
+    <menuitem
+        id="menu_report_line_mx_payroll"
+        name="Payroll Lines"
+        action="payroll_report_lines_mx_action"
+        parent="hr_payroll.menu_hr_payroll_report"
+    />
+
+    <!--                     IDSE Reports                     -->
+
+    <menuitem
+        id="hr_payroll_report_root_idse"
+        name="IDSE"
+        parent="hr_payroll.menu_hr_payroll_report"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_idse"
+        action="hr_payroll_idse_reports"
+        parent="hr_payroll_report_root_idse"
+        sequence="10"
+    />
+
+
+    <!--                     SUA Reports                     -->
+
+    <menuitem
+        id="hr_payroll_report_root_sua"
+        name="SUA"
+        parent="hr_payroll.menu_hr_payroll_report"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_sua_insured"
+        action="hr_payroll_sua_reports"
+        parent="hr_payroll_report_root_sua"
+        sequence="10"
+    />
+
+    <!--                     Alimony Reports                      -->
+
+    <menuitem
+        id="menu_hr_payroll_alimony"
+        action="payroll_report_alimony_mx_action"
+        parent="hr_payroll.menu_hr_payroll_report"
+        sequence="100"
+    />
+
+
+    <!--                     Loans Reports                     -->
+
+    <menuitem
+        id="hr_payroll_report_root_Loans"
+        name="Loans"
+        parent="hr_payroll.menu_hr_payroll_report"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_reports_loans"
+        action="payroll_report_Loans_mx_action"
+        parent="hr_payroll_report_root_Loans"
+        sequence="100"
+    />
+
+
+    <!-- Period Configuration -->
+    <menuitem
+        id="menu_hr_period_configuration"
+        name="Period"
+        parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration"
+        sequence="100"
+        groups="hr_payroll.group_hr_payroll_user"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_period_type_view"
+        action="action_view_hr_payroll_period_type_list_form"
+        name="Period Type"
+        parent="menu_hr_period_configuration"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_period_view"
+        action="action_view_hr_payroll_period_list_form"
+        name="Periods"
+        parent="menu_hr_period_configuration"
+        sequence="20"
+    />
+
+    <!-- Tables Configuration -->
+    <menuitem
+        id="menu_hr_tables_configuration"
+        name="Tables"
+        parent="hr_work_entry_contract_enterprise.menu_hr_payroll_configuration"
+        sequence="120"
+        groups="hr_payroll.group_hr_payroll_user"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_isr_view"
+        action="action_view_hr_payroll_isr_list_form"
+        name="ISR"
+        parent="menu_hr_tables_configuration"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_employee_subsidy_view"
+        action="action_view_hr_payroll_es_list_form"
+        name="Employment subsidy"
+        parent="menu_hr_tables_configuration"
+        sequence="20"
+    />
+    <menuitem
+        id="menu_hr_payroll_performance_catalog_view"
+        action="action_view_hr_payroll_pc_list_form"
+        name="Performance Catalog"
+        parent="menu_hr_tables_configuration"
+        sequence="30"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_minimum_salary_view"
+        action="action_view_hr_payroll_ms_list_form"
+        name="Minimum Salary"
+        parent="menu_hr_tables_configuration"
+        sequence="40"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_imss_table_view"
+        action="action_view_hr_payroll_imss_list"
+        name="IMSS Table"
+        parent="menu_hr_tables_configuration"
+        sequence="45"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_uma_table_view"
+        action="action_view_hr_payroll_uma_list"
+        name="UMA Table"
+        parent="menu_hr_tables_configuration"
+        sequence="50"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_umi_table_view"
+        action="action_view_hr_payroll_umi_list"
+        name="UMI Table"
+        parent="menu_hr_tables_configuration"
+        sequence="60"
+    />
+
+    <menuitem
+        id="menu_hr_payroll_employer_register_view"
+        action="action_view_hr_payroll_employer_register"
+        name="Employer Register"
+        parent="menu_hr_tables_configuration"
+        sequence="600"
+    />
+
+    <!-- IMSS -->
+
+    <menuitem
+        id="menu_hr_imss_timeoff"
+        name="IMSS"
+        parent="hr_holidays.menu_hr_holidays_root"
+        sequence="3"
+        groups="hr_payroll.group_hr_payroll_user"
+    />
+
+    <menuitem
+        id="menu_hr_leave_disabilities_view"
+        action="hr_leave_action_holiday_disabilities"
+        name="Disabilities"
+        parent="menu_hr_imss_timeoff"
+        sequence="100"
+    />
+
+    <menuitem
+        id="menu_hr_leave_absences_view"
+        action="hr_leave_action_holiday_absences"
+        name="Absences"
+        parent="menu_hr_imss_timeoff"
+        sequence="100"
+    />
+
+</odoo>

@@ -1,0 +1,203 @@
+<odoo noupdate="1">
+
+    <!-- Salary Structure -Type -->
+    <record id="structure_type_employee_weekly_mx" model="hr.payroll.structure.type">
+        <field name="name">Mexican Employee - Weekly</field>
+        <field name="default_schedule_pay">weekly</field>
+        <field name="country_id" ref="base.mx" />
+        <field name="default_resource_calendar_id" ref="resource_calendar_std_48h" />
+    </record>
+
+    <record
+        id="structure_type_employee_weekly_special_mx"
+        model="hr.payroll.structure.type"
+    >
+        <field name="name">Mexican Employee - Weekly Special</field>
+        <field name="default_schedule_pay">weekly</field>
+        <field name="country_id" ref="base.mx" />
+        <field name="default_resource_calendar_id" ref="resource_calendar_std_48h" />
+    </record>
+
+    <record id="structure_type_employee_biweekly_mx" model="hr.payroll.structure.type">
+        <field name="name">Mexican Employee - Bi-weekly</field>
+        <field name="default_schedule_pay">bi-weekly</field>
+        <field name="country_id" ref="base.mx" />
+        <field name="default_resource_calendar_id" ref="resource_calendar_std_48h" />
+    </record>
+
+    <record
+        id="structure_type_employee_biweekly_special_mx"
+        model="hr.payroll.structure.type"
+    >
+        <field name="name">Mexican Employee - Bi-weekly Special</field>
+        <field name="default_schedule_pay">bi-weekly</field>
+        <field name="country_id" ref="base.mx" />
+        <field name="default_resource_calendar_id" ref="resource_calendar_std_48h" />
+    </record>
+
+    <record id="structure_type_employee_monthly_mx" model="hr.payroll.structure.type">
+        <field name="name">Mexican Employee - Monthly</field>
+        <field name="default_schedule_pay">monthly</field>
+        <field name="country_id" ref="base.mx" />
+    </record>
+
+    <record
+        id="structure_type_employee_monthly_special_mx"
+        model="hr.payroll.structure.type"
+    >
+        <field name="name">Mexican Employee - Monthly Special</field>
+        <field name="default_schedule_pay">monthly</field>
+        <field name="country_id" ref="base.mx" />
+    </record>
+
+    <!-- Salary Structures -->
+
+    <!-- Weekly Structure    -->
+
+    <record id="structure_mx_employee_weekly" model="hr.payroll.structure">
+        <field name="name">Mexican Employee - Weekly</field>
+        <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.structure_type_employee_weekly_mx"
+        />
+        <field
+            name="journal_id"
+            ref="l10n_mx_hr_payroll.hr_salaries_mx_account_journal"
+        />
+        <field name="schedule_pay">weekly</field>
+        <field name="country_id" ref="base.mx" />
+    </record>
+
+    <record id="structure_mx_employee_weekly_special" model="hr.payroll.structure">
+        <field name="name">Mexican Employee - Weekly Special</field>
+        <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.structure_type_employee_weekly_special_mx"
+        />
+        <field
+            name="journal_id"
+            ref="l10n_mx_hr_payroll.hr_salaries_mx_account_journal"
+        />
+        <field name="use_worked_day_lines">True</field>
+        <field name="schedule_pay">weekly</field>
+        <field name="country_id" ref="base.mx" />
+    </record>
+
+    <!-- Bi-Weekly Structure -->
+
+    <record id="structure_mx_employee_biweekly" model="hr.payroll.structure">
+        <field name="name">Mexican Employee - BiWeekly</field>
+        <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.structure_type_employee_biweekly_mx"
+        />
+        <field
+            name="journal_id"
+            ref="l10n_mx_hr_payroll.hr_salaries_mx_account_journal"
+        />
+        <field name="schedule_pay">bi-weekly</field>
+        <field name="country_id" ref="base.mx" />
+    </record>
+
+    <record id="structure_mx_employee_biweekly_special" model="hr.payroll.structure">
+        <field name="name">Mexican Employee - Bi-weekly Special</field>
+        <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.structure_type_employee_biweekly_special_mx"
+        />
+        <field
+            name="journal_id"
+            ref="l10n_mx_hr_payroll.hr_salaries_mx_account_journal"
+        />
+        <field name="use_worked_day_lines">True</field>
+        <field name="schedule_pay">bi-weekly</field>
+        <field name="country_id" ref="base.mx" />
+    </record>
+
+    <!-- Monthly Structure -->
+
+    <record id="structure_mx_employee_monthly" model="hr.payroll.structure">
+        <field name="name">Mexican Employee - Monthly</field>
+        <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.structure_type_employee_monthly_mx"
+        />
+        <field
+            name="journal_id"
+            ref="l10n_mx_hr_payroll.hr_salaries_mx_account_journal"
+        />
+        <field name="schedule_pay">monthly</field>
+        <field name="country_id" ref="base.mx" />
+    </record>
+
+    <record id="structure_mx_employee_monthly_special" model="hr.payroll.structure">
+        <field name="name">Mexican Employee - Monthly Special</field>
+        <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.structure_type_employee_monthly_special_mx"
+        />
+        <field
+            name="journal_id"
+            ref="l10n_mx_hr_payroll.hr_salaries_mx_account_journal"
+        />
+        <field name="use_worked_day_lines">True</field>
+        <field name="schedule_pay">monthly</field>
+        <field name="country_id" ref="base.mx" />
+    </record>
+
+    <!-- Salary Structure - Type -->
+    <!-- pylint : disable=duplicate-xml-record-id -->
+    <record id="structure_type_employee_weekly_mx" model="hr.payroll.structure.type">
+        <field
+            name="default_struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_weekly"
+        />
+    </record>
+
+    <record
+        id="structure_type_employee_weekly_special_mx"
+        model="hr.payroll.structure.type"
+    >
+        <field
+            name="default_struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_weekly_special"
+        />
+    </record>
+
+    <record id="structure_type_employee_biweekly_mx" model="hr.payroll.structure.type">
+        <field
+            name="default_struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_biweekly"
+        />
+    </record>
+
+    <!-- pylint : disable=duplicate-xml-record-id -->
+    <record
+        id="structure_type_employee_biweekly_special_mx"
+        model="hr.payroll.structure.type"
+    >
+        <field
+            name="default_struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_biweekly_special"
+        />
+    </record>
+
+    <record id="structure_type_employee_monthly_mx" model="hr.payroll.structure.type">
+        <field
+            name="default_struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <!-- pylint : disable=duplicate-xml-record-id -->
+    <record
+        id="structure_type_employee_monthly_special_mx"
+        model="hr.payroll.structure.type"
+    >
+        <field
+            name="default_struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+</odoo>

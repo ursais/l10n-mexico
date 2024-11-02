@@ -1,0 +1,279 @@
+<odoo noupdate="1">
+
+        <record id="res_partner_102" model="res.partner">
+            <field name="name">Anita Oliver Castanieda</field>
+            <field name="zip">76380</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">AABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_al-image.jpg"
+        />
+        </record>
+
+        <record id="res_partner_103" model="res.partner">
+            <field name="name">Estevan Trebuco Byrd</field>
+            <field name="zip">76380</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_mit-image.jpg"
+        />
+        </record>
+
+        <record id="res_partner_104" model="res.partner">
+            <field name="name">Bert Evans Parker</field>
+            <field name="zip">76280</field>
+            <field name="vat">CABL840215RF4</field>
+            <field name="curp">AABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_mit-image.jpg"
+        />
+        </record>
+
+        <record id="res_partner_105" model="res.partner">
+            <field name="name">Eli Lambert Igoa</field>
+            <field name="zip">78280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_niv-image.jpg"
+        />
+        </record>
+
+        <record id="res_partner_106" model="res.partner">
+            <field name="name">Ernest Reed Miranda</field>
+            <field name="zip">78280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_niv-image.jpg"
+        />
+        </record>
+
+        <record id="res_partner_107" model="res.partner">
+            <field name="name">Manuel Adorni Perez</field>
+            <field name="zip">78280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_stw-image.jpg"
+        />
+        </record>
+
+        <record id="res_partner_108" model="res.partner">
+            <field name="name">Keith Byrd Bolatti</field>
+            <field name="zip">78280</field>
+            <field name="vat">CABL840215RF4</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_chs-image.jpg"
+        />
+        </record>
+
+        <record id="res_partner_109" model="res.partner">
+            <field name="name">Marc Demo Garcia</field>
+            <field name="zip">78280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_chs-image.jpg"
+        />
+        </record>
+
+        <record id="res_partner_110" model="res.partner">
+            <field name="name">Jeffrey Kelly Peterson</field>
+            <field name="zip">78280</field>
+            <field name="vat">CABL840215RF4</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_niv-image.jpg"
+        />
+        </record>
+
+        <record id="res_partner_111" model="res.partner">
+            <field name="name">Paulo Williams Rufin</field>
+            <field name="zip">78280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_qdp-image.png"
+        />
+        </record>
+
+        <record id="res_partner_112" model="res.partner">
+            <field name="name">Rachel Perry Stan</field>
+            <field name="zip">78380</field>
+            <field name="vat">CABL840215RF4</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_qdp-image.png"
+        />
+        </record>
+
+        <record id="res_partner_113" model="res.partner">
+            <field name="name">Randall Lewis Smith</field>
+            <field name="zip">76380</field>
+            <field name="vat">CABL840215RF4</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+        </record>
+
+        <record id="res_partner_114" model="res.partner">
+            <field name="name">Roger Scott</field>
+            <field name="zip">76380</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+        </record>
+
+        <record id="res_partner_115" model="res.partner">
+            <field name="name">Luis Majul Plate</field>
+            <field name="zip">76280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+        </record>
+
+        <record id="res_partner_116" model="res.partner">
+            <field name="name">Sharlene Rhodes Smith</field>
+            <field name="zip">78280</field>
+            <field name="vat">CABL840215RF4</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+        </record>
+
+        <record id="res_partner_117" model="res.partner">
+            <field name="name">Tina Williamson Jackson</field>
+            <field name="zip">78280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">XEXX010101MNEXXXA8</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_registry" ref="l10n_mx.partner_demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+        </record>
+
+        <record id="res_partner_118" model="res.partner">
+            <field name="name">Antonio Jimenez Perez</field>
+            <field name="zip">78280</field>
+            <field name="vat">CABL840215RF4</field>
+            <field name="curp">XEXX010101HNEXXXA4</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+        </record>
+
+        <record id="res_partner_119" model="res.partner">
+            <field name="name">Walter Horton Jackson</field>
+            <field name="zip">78280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+        </record>
+
+
+        <record id="res_partner_120" model="res.partner">
+            <field name="name">Audrey Peterson Byrd</field>
+            <field name="zip">78280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+        </record>
+
+        <record id="res_partner_121" model="res.partner">
+            <field name="name">Doris Cole Miller</field>
+            <field name="zip">78280</field>
+            <field name="vat">FIMA420127R44</field>
+            <field name="curp">CABL840215MDFSRS01</field>
+            <field name="country_id" ref="base.mx" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="email">wood.corner26@e-maanu.com</field>
+            <field name="phone">(623)-853-7197</field>
+        </record>
+
+</odoo>

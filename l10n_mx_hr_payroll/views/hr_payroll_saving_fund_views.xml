@@ -1,0 +1,119 @@
+<odoo>
+
+
+    <record id="view_hr_payroll_saving_fund_filter" model="ir.ui.view">
+        <field name="name">hr.payroll.saving_fund.search</field>
+        <field name="model">hr.payroll.saving_fund</field>
+        <field name="arch" type="xml">
+            <search string="Employees">
+                <field name="employee_id" string="Employee" />
+                <field name="company_id" string="Company" />
+                <searchpanel>
+                    <field name="state" />
+                    <field
+                        name="company_id"
+                        groups="base.group_multi_company"
+                        icon="fa-building"
+                        enable_counters="1"
+                    />
+                </searchpanel>
+            </search>
+            </field>
+    </record>
+
+    <record id="view_hr_payroll_saving_fund_form" model="ir.ui.view">
+        <field name="name">hr.payroll.saving_fund.form</field>
+        <field name="model">hr.payroll.saving_fund</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Saving Fund">
+                <header>
+                    <button
+                        string="Approve"
+                        name="approved_saving_fund"
+                        class="oe_highlight"
+                        states="draft"
+                        type='object'
+                    />
+                    <button
+                        string="Cancel"
+                        name="cancel_saving_fund"
+                        states="draft,approved"
+                        type='object'
+                    />
+                    <button
+                        string="Done"
+                        name="done_saving_fund"
+                        class="oe_highlight"
+                        states="approved"
+                        type='object'
+                    />
+                    <button
+                        string="Set to Draft"
+                        name="draft_saving_fund"
+                        class="oe_highlight"
+                        states="cancel,done"
+                        type='object'
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field
+                                name="name"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="employee_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field
+                            name="notes"
+                            nolabel="1"
+                            attrs="{'readonly':[('state','!=','draft')]}"
+                        />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_payroll_saving_fund_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.saving_fund.tree</field>
+        <field name="model">hr.payroll.saving_fund</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="state" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record
+        id="action_view_hr_payroll_process_distribute_saving_fund"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Saving Fund</field>
+        <field name="res_model">hr.payroll.saving_fund</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

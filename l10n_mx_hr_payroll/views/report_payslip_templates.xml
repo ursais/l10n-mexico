@@ -1,0 +1,427 @@
+<odoo>
+
+    <template id="report_payslip_cfdi_mx">
+        <t t-call="web.html_container">
+            <t t-foreach="inside_foreach_docs or docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <t
+                        t-set="o"
+                        t-value="o.with_context(lang=o.employee_id.address_home_id.lang or o.env.lang)"
+                    />
+                    <!-- Global variables -->
+                    <t
+                        t-set="cfdi_vals"
+                        t-value="o._l10n_mx_hr_payroll_edi_decode_cfdi()"
+                    />
+                    <t
+                        t-set="is_cfdi_signed"
+                        t-value="bool(o._get_l10n_mx_hr_payroll_edi_signed_edi_document())"
+                    />
+                    <br />
+                    <div style="width: 100%;">
+                        <table
+                            name="employee-infos"
+                            class="o_employee_info"
+                            style="width: 100%; font-size: 12px; "
+                        >
+                            <tr>
+                                <td style="height:5%"><strong>Employee: </strong><span
+                                        t-field="o.employee_id"
+                                    /></td>
+                                <td style="height:5%"><strong>Period: </strong><span
+                                        t-field="o.date_from"
+                                    /> - <span t-field="o.date_to" /></td>
+                            </tr>
+                            <tr>
+                                <td><strong>VAT:</strong><span
+                                        t-esc="o.employee_id.address_home_id.vat"
+                                    /></td>
+                                <td><strong>Pay Days: </strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CURP: </strong><span
+                                        t-esc="o.employee_id.address_home_id.curp"
+                                    /></td>
+                                <td><strong>Payment day: </strong> <span
+                                        t-esc="o.payment_day"
+                                    /></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Date: </strong><span
+                                        t-field="o.employee_id.first_contract_date"
+                                    /></td>
+                                <td><strong>Job Position: </strong> <span
+                                        t-field="o.contract_id.job_id"
+                                    /></td>
+                            </tr>
+                            <tr>
+                                <td><strong>SSN: </strong><span
+                                        t-field="o.employee_id.ssnid"
+                                    /></td>
+                                <td><strong>Working Schedule:</strong> <span
+                                        t-field="o.employee_id.contract_id.hours_per_week"
+                                    /> hs </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Salary Type: </strong><span
+                                        t-field="o.contract_id.salary_type"
+                                    /></td>
+                                <td><strong>SBC: </strong><span
+                                        t-field="o.contract_id.sbc"
+                                    /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+                    <div>
+                        <table
+                            name="alw-ded-infos"
+                            class="o_payroll_rules"
+                            style="width: 100%; font-size: 12px;"
+                        >
+                            <thead class="o_black_border">
+                                <tr>
+                                    <th
+                                        style="text-align: center; font-size: 20px;"
+                                    >Allowance</th>
+                                    <th
+                                        style="text-align: center; font-size: 20px;"
+                                    >Deductions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%; border: 1px solid black;">
+                                        <table
+                                            class="o_payroll_rules"
+                                            style="width: 100%; "
+                                        >
+                                            <thead class="o_black_border">
+                                                <tr>
+                                                    <th
+                                                        style="text-align: center;"
+                                                    >SAT</th>
+                                                    <th
+                                                        style="text-align: center;"
+                                                    >Code</th>
+                                                    <th
+                                                        style="text-align: center;"
+                                                    >Concept</th>
+                                                    <th
+                                                        style="text-align: center;"
+                                                    >Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <span
+                                                    t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip and line.category_id.code == 'ALW')"
+                                                    t-as="line"
+                                                >
+                                                    <tr
+                                                        t-att-class="line_class"
+                                                        t-att-style="line_style"
+                                                    >
+                                                        <td
+                                                            style="text-align: center;"
+                                                        ><span
+                                                                t-esc="line.salary_rule_id.allowance_type_l10n_mx.code"
+                                                            /></td>
+                                                        <td
+                                                            style="text-align: center;"
+                                                        ><span
+                                                                t-field="line.code"
+                                                            /></td>
+                                                        <td
+                                                            style="text-align: left;"
+                                                        ><span
+                                                                t-field="line.name"
+                                                            /></td>
+                                                        <td
+                                                            style="text-align: right; padding-right: 5px;"
+                                                        ><span
+                                                                t-esc="line.total"
+                                                                t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'
+                                                            /></td>
+                                                    </tr>
+                                                </span>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td style="width: 50%; border: 1px solid black;">
+                                        <table
+                                            class="o_payroll_rules"
+                                            style="width: 100%;"
+                                        >
+                                            <thead class="o_black_border">
+                                                <tr>
+                                                    <th
+                                                        style="text-align: center;"
+                                                    >SAT</th>
+                                                    <th
+                                                        style="text-align: center;"
+                                                    >Code</th>
+                                                    <th
+                                                        style="text-align: center;"
+                                                    >Concept</th>
+                                                    <th
+                                                        style="text-align: center;"
+                                                    >Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <span
+                                                    t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip and line.category_id.code == 'DED' and line.total > 0)"
+                                                    t-as="line"
+                                                >
+                                                    <tr
+                                                        t-att-class="line_class"
+                                                        t-att-style="line_style"
+                                                    >
+                                                        <td
+                                                            style="text-align: center;"
+                                                        ><span
+                                                                t-esc="line.salary_rule_id.deduction_type_l10n_mx.code or line.salary_rule_id.otherpayment_type_l10n_mx.code"
+                                                            /></td>
+                                                        <td
+                                                            style="text-align: center;"
+                                                        ><span
+                                                                t-field="line.code"
+                                                            /></td>
+                                                        <td
+                                                            style="text-align: left;"
+                                                        ><span
+                                                                t-field="line.name"
+                                                            /></td>
+                                                        <td
+                                                            style="text-align: right; padding-right: 5px;"
+                                                        ><span
+                                                                t-esc="line.total"
+                                                                t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'
+                                                            /></td>
+                                                    </tr>
+                                                </span>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div>
+                        <table
+                            name="alw-ded-infos"
+                            class="o_payroll_rules"
+                            style="width: 100%; border: 1px solid black; font-size: 15px; "
+                        >
+                            <tr valign="top">
+                                <td style="width: 50%;">
+                                    <table
+                                        class="o_payroll_rules"
+                                        style="width: 100%; border: 1px solid black;"
+                                    >
+                                        <span
+                                            t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip and line.category_id.code == 'NET' and line.salary_rule_id.code == 'TALW')"
+                                            t-as="line"
+                                        >
+                                            <tr
+                                                t-att-class="line_class"
+                                                t-att-style="line_style"
+                                            >
+                                                <td
+                                                    style="text-align: left; padding-left: 5px;"
+                                                ><strong
+                                                    >Total Allowances and others</strong></td>
+                                                <td
+                                                    style="text-align: right; padding-right: 5px;"
+                                                ><strong
+                                                        t-esc="line.total"
+                                                        t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'
+                                                    /></td>
+                                            </tr>
+                                        </span>
+                                    </table>
+                                </td>
+                                <td style="width: 50%;">
+                                    <table
+                                        class="o_payroll_rules"
+                                        style="width: 100%; border: 1px solid black;"
+                                        cellpadding="10"
+                                        cellspacing="10"
+                                        padding="10"
+                                        margin="10"
+                                    >
+                                        <span
+                                            t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip and line.category_id.code == 'NET' and line.salary_rule_id.code == 'TALW')"
+                                            t-as="line"
+                                        >
+                                            <tr
+                                                t-att-class="line_class"
+                                                t-att-style="line_style"
+                                            >
+                                                <td
+                                                    style="text-align: left; padding-left: 5px;"
+                                                ><strong>Subtotal</strong></td>
+                                                <td
+                                                    style="text-align: right; padding-right: 5px;"
+                                                ><strong
+                                                        t-esc="line.total"
+                                                        t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'
+                                                    /></td>
+                                            </tr>
+                                        </span>
+                                        <span
+                                            t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip and line.category_id.code == 'NET' and line.salary_rule_id.code == 'TDED')"
+                                            t-as="line"
+                                        >
+                                            <tr
+                                                t-att-class="line_class"
+                                                t-att-style="line_style"
+                                            >
+                                                <td
+                                                    style="text-align: left; padding-left: 5px;"
+                                                ><strong>Discounts</strong></td>
+                                                <td
+                                                    style="text-align: right; padding-right: 5px;"
+                                                ><strong
+                                                        t-esc="line.total"
+                                                        t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'
+                                                    /></td>
+                                            </tr>
+                                        </span>
+                                        <tr>
+                                            <td
+                                                style="text-align: left; padding-left: 5px;"
+                                            ><strong>Retentions</strong></td>
+                                            <td
+                                                style="text-align: right; padding-right: 5px;"
+                                            ><strong>266.94</strong></td>
+                                        </tr>
+                                        <span
+                                            t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip and line.category_id.code == 'NET' and line.salary_rule_id.code == 'SLYN')"
+                                            t-as="line"
+                                        >
+                                            <tr
+                                                t-att-class="line_class"
+                                                t-att-style="line_style"
+                                            >
+                                                <td
+                                                    style="text-align: left; padding-left: 5px;"
+                                                ><strong>Total</strong></td>
+                                                <td
+                                                    style="text-align: right; padding-right: 5px;"
+                                                ><strong
+                                                        t-esc="line.total"
+                                                        t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'
+                                                    /></td>
+                                            </tr>
+                                        </span>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td />
+                                <td style="text-align: center;">Importe en letras</td>
+                            </tr>
+                            <tr>
+                                <td />
+                                <td style="text-align: center; font-size: 10px;">
+                                    <span
+                                        t-esc="o._l10n_mx_edi_cfdi_amount_to_text()"
+                                    />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+                    <t t-if="o.l10n_mx_edi_stamp_status == 'stamped'">
+                        <div class="row" id='complement'>
+                            <div t-if="cfdi_vals.get('sello')" class="barcode col-3">
+                                <img
+                                    alt="Barcode"
+                                    t-att-src="'/report/barcode/?barcode_type=QR&amp;value=%s&amp;width=180&amp;height=180' % quote_plus(
+                                    'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?' + keep_query(
+                                        re=o.l10n_mx_edi_cfdi_supplier_rfc, rr=o.l10n_mx_edi_cfdi_customer_rfc,
+                                        tt='%.*f' % (o.currency_id.decimal_places, o.l10n_mx_edi_cfdi_amount), id=o.l10n_mx_edi_cfdi_uuid)
+                                        + '&amp;fe=%s' % quote_plus(
+                                            cfdi_vals['sello'][-8:], 'utf-8', 'strict', '=/').replace('%2B', '+'))"
+                                />
+                            </div>
+                            <br />
+                            <div class="complement-details col-9">
+                                <div class="digital-stamp">
+                                    <span>Digital stamp of the emitter</span>
+                                </div>
+                                <div class="digital-stamp-content">
+                                    <span t-esc="cfdi_vals.get('sello')" />
+                                </div>
+                                <div class="digital-stamp">
+                                    <span>Digital stamp SAT</span>
+                                </div>
+                                <div class="digital-stamp-content">
+                                    <span t-esc="cfdi_vals.get('sello_sat')" />
+                                </div>
+                                <div class="digital-stamp">
+                                    <span
+                                    >Original chain complement of digital certification SAT</span>
+                                </div>
+                                <div class="digital-stamp-content">
+                                    <span
+                                        class="nowrap"
+                                        t-esc="cfdi_vals.get('cadena')"
+                                    />
+                                </div>
+                                <div class="digital-stamp">
+                                    <span>Extra Info</span>
+                                </div>
+                                <div class="digital-stamp-content">
+                                    <span>Emitter certificate:</span> <span
+                                        t-esc="cfdi_vals.get('certificate_number')"
+                                    />
+                                    <span> | SAT Certificate:</span> <span
+                                        t-esc="cfdi_vals.get('certificate_sat_number')"
+                                    />
+                                    <span> | Expedition place:</span> <span
+                                        t-esc="cfdi_vals.get('expedition')"
+                                    />
+                                    <span> | Fiscal Regime:</span><span
+                                        t-esc="cfdi_vals.get('fiscal_regime')"
+                                    />
+                                    <span> | Emission Date:</span> <span
+                                        t-esc="cfdi_vals.get('emission_date_str')"
+                                    />
+                                    <span> | Certification Date:</span> <span
+                                        t-esc="cfdi_vals.get('stamp_date')"
+                                    />
+                                    <span> | Fiscal Folio:</span> <span
+                                        t-esc="cfdi_vals.get('uuid')"
+                                    />
+                                </div>
+                                <div class="digital-stamp-content text-center">
+                                    <strong
+                                    >This document is a printed representation of a CFDI</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <br />
+                    <div>
+                        <p
+                            class="text-center"
+                        >Made by e-Maanu, Open Source Integrators and Odoo</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_payslip_mx_lang">
+        <t t-foreach="docs" t-as="o">
+            <t t-set="inside_foreach_docs" t-value="o" />
+            <t
+                t-call="l10n_mx_hr_payroll.report_payslip_cfdi_mx"
+                t-lang="o.employee_id.sudo().address_home_id.lang"
+            />
+        </t>
+    </template>
+</odoo>

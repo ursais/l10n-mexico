@@ -1,0 +1,663 @@
+<odoo noupdate="1">
+
+<!--   Allowance rules   -->
+
+    <record
+        id="hr_salary_rule_monthly_1000"
+        model="hr.salary.rule"
+    >    <!--
+     Daily Wage -->
+        <field name="sequence" eval="1000" />
+        <field name="code">P001</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Salary</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance001"
+        />
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = contract.wage*(worked_days.WORK100.number_of_days)</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_1010" model="hr.salary.rule">
+        <field name="sequence" eval="1001" />
+        <field name="code">P002</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Seventh Day</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance001"
+        />
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.wage </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_extratime_double" model="hr.salary.rule">
+        <field name="sequence" eval="1350" />
+        <field name="code">P003</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Tiempo Extra Doble</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance014"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.DET.amount > 0.0 if inputs.DET else False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = contract.wage * inputs.DET.amount </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_extratime_triple" model="hr.salary.rule">
+        <field name="sequence" eval="1350" />
+        <field name="code">P005</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Tiempo Extra Triple</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance014"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.DET.amount > 0.0 if inputs.DET else False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = contract.wage * inputs.DET.amount </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_1300" model="hr.salary.rule">
+        <field name="sequence" eval="1300" />
+        <field name="code">P014</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Despensa</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance024"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.FOODP.amount > 0.0 if inputs.FOODP else False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = inputs.FOODP.amount if inputs.FOODP else 0 </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_PA_1400" model="hr.salary.rule">
+        <field name="sequence" eval="1300" />
+        <field name="code">P015</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Premio de asistencia</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance040"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.ATTAW.amount > 0.0 if inputs.ATTAW else False</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.wage * 0.455 </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_BP_1015" model="hr.salary.rule">
+        <field name="sequence" eval="1015" />
+        <field name="code">P016</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Bono de puntualidad</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance008"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.PPA.amount > 0.0 if inputs.PPA else False</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.wage * 0.455 </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_1200" model="hr.salary.rule">
+        <field name="sequence" eval="1200" />
+        <field name="code">P021</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Comisiones</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance023"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.COMSS.amount > 0.0 if inputs.COMSS else False</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.wage * 0.455</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_idfa" model="hr.salary.rule">
+        <field name="sequence" eval="3100" />
+        <field name="code">IDFA</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Intereses del Fondo de Ahorrro</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance005"
+        />
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = 1</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_3500" model="hr.salary.rule">
+        <field name="sequence" eval="3500" />
+        <field name="code">PPE</field>
+        <field name="category_id" ref="l10n_mx_hr_payroll.OTALW" />
+        <field name="name">Prestamo Personal Empresa</field>
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.PPE.amount > 0.0 if inputs.PPE else False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = inputs.PPE.amount if inputs.PPE else 0 </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <!--      Deductions       -->
+
+    <record id="hr_salary_rule_monthly_SAE_5109" model="hr.salary.rule">
+        <field name="sequence" eval="5109" />
+        <field name="code">AUXSAE</field>
+        <field name="category_id" ref="hr_payroll.DED" />
+        <field name="name">Auxiliar Subsidio al empledo</field>
+        <field name="hide_rule">False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        ><![CDATA[
+sbc = 100.00
+result = contract.env['hr.payroll.es.line'].search([('line_id','=', 2),('inf_sup','>=', sbc ),('lim_sup','<=', sbc )],limit=1).fix_fee
+            ]]>
+        </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_AISR_5110" model="hr.salary.rule">
+        <field name="sequence" eval="5110" />
+        <field name="code">AUXISR</field>
+        <field name="category_id" ref="CAT_AUX" />
+        <field name="name">Auxiliar de ISR</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        ><![CDATA[
+sbc = categories.ALW
+lim_inf = contract.env['hr.payroll.isr.line'].search([('line_id','=', 4),('lim_inf','<=', sbc ),('lim_sup','>=', sbc )],limit=1).lim_inf
+excedente_lim_inf = sbc - lim_inf
+percent = contract.env['hr.payroll.isr.line'].search([('line_id','=', 4),('lim_inf','<=', sbc ),('lim_sup','>=', sbc )],limit=1).percent
+marginal_tax = excedente_lim_inf * ( percent / 100 )
+fix_fee = contract.env['hr.payroll.isr.line'].search([('line_id','=', 4),('lim_inf','<=', sbc ),('lim_sup','>=', sbc )],limit=1).fix_fee
+result = fix_fee + marginal_tax
+            ]]></field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_SAE" model="hr.salary.rule">
+        <field name="sequence" eval="5150" />
+        <field name="code">D041</field>
+        <field name="category_id" ref="OTPAY" />
+        <field name="name">Subsidio al empledo</field>
+        <field name="rule_type_cfdi">ded</field>
+        <field
+            name="otherpayment_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_otherpayment002"
+        />
+        <field name="deduction_type_l10n_mx">002</field>
+        <field name="hide_rule">False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        ><![CDATA[
+sbc = TALW
+result = contract.env['hr.payroll.es.line'].search([('line_id','=', 2),('inf_sup','>=', sbc ),('lim_sup','<=', sbc )],limit=1).fix_fee
+            ]]>
+        </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_ISR_5150" model="hr.salary.rule">
+        <field name="sequence" eval="5150" />
+        <field name="code">D045</field>
+        <field name="category_id" ref="hr_payroll.DED" />
+        <field name="name">ISR</field>
+        <field name="rule_type_cfdi">ded</field>
+        <field
+            name="deduction_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_deduction002"
+        />
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = AUXISR - D041  </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_5200" model="hr.salary.rule">
+        <field name="sequence" eval="5200" />
+        <field name="code">D052</field>
+        <field name="category_id" ref="hr_payroll.DED" />
+        <field name="name">IMSS</field>
+        <field name="rule_type_cfdi">ded</field>
+        <field
+            name="deduction_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_deduction001"
+        />
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = contract.env['hr.payslip'].browse(payslip.id).calculate_imss('employee')</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_5300" model="hr.salary.rule">
+        <field name="sequence" eval="5300" />
+        <field name="code">D015</field>
+        <field name="category_id" ref="hr_payroll.DED" />
+        <field name="name">Prestamo Infonavit</field>
+        <field name="rule_type_cfdi">ded</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_deduction010"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.IVIT.amount > 0.0 if inputs.IVIT else False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = inputs.IVIT.amount if inputs.IVIT else 0 </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_5400" model="hr.salary.rule">
+        <field name="sequence" eval="5400" />
+        <field name="code">FCOT</field>
+        <field name="category_id" ref="hr_payroll.DED" />
+        <field name="name">Prestamo Fonacot</field>
+        <field name="rule_type_cfdi">ded</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_deduction011"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.FCOT.amount > 0.0 if inputs.FCOT else False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = inputs.FCOT.amount if inputs.FCOT else 0 </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_5401" model="hr.salary.rule">
+        <field name="sequence" eval="5400" />
+        <field name="code">ALM</field>
+        <field name="category_id" ref="hr_payroll.DED" />
+        <field name="name">Pension Alimenticia</field>
+        <field name="rule_type_cfdi">ded</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_deduction007"
+        />
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.AL.amount > 0.0 if inputs.AL else False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        ><![CDATA[
+type = contract.env['hr.payroll.alimony'].search([('employee_id','=', payslip.employee_id),('state','=', 'approved' )],limit=1).amount_type
+result = TALW * ( inputs.AL.amount  / 100 ) if type  == 'percent' else inputs.AL.amount
+        ]]></field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_5500" model="hr.salary.rule">
+        <field name="sequence" eval="5500" />
+        <field name="code">PPEC</field>
+        <field name="category_id" ref="l10n_mx_hr_payroll.OTDED" />
+        <field name="name">Prestamo Personal Empresa ( Cuota )</field>
+        <field name="condition_select">python</field>
+        <field
+            name="condition_python"
+        >result = inputs.PPEC.amount > 0.0 if inputs.PPEC else False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = inputs.PPEC.amount if inputs.PPEC else 0 </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <!-- Totals Allowance and Deductions-->
+
+    <record id="hr_salary_rule_monthly_4999" model="hr.salary.rule">
+        <field name="sequence" eval="4999" />
+        <field name="code">TALW</field>
+        <field name="category_id" ref="hr_payroll.NET" />
+        <field name="name">Total Percepciones</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = categories.ALW</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_9999" model="hr.salary.rule">
+        <field name="sequence" eval="9999" />
+        <field name="code">TDED</field>
+        <field name="category_id" ref="hr_payroll.NET" />
+        <field name="name">Total Deducciones</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = categories.DED</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_10000" model="hr.salary.rule">
+        <field name="sequence" eval="10000" />
+        <field name="code">SLYN</field>
+        <field name="category_id" ref="hr_payroll.NET" />
+        <field name="name">Salario Neto</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = categories.ALW - categories.DED</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <!-- Totals taxes for companies -->
+
+    <record id="hr_salary_rule_monthly_company_infonavit" model="hr.salary.rule">
+        <field name="sequence" eval="20100" />
+        <field name="code">IVITCOM</field>
+        <field name="category_id" ref="CAT_IMSS_C" />
+        <field name="name">Invonavit Compañia</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = contract.env['hr.payslip'].browse(payslip.id).calculate_imss('infonavit')</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_20100" model="hr.salary.rule">
+        <field name="sequence" eval="20100" />
+        <field name="code">SSCOM</field>
+        <field name="category_id" ref="CAT_IMSS_C" />
+        <field name="name">Company IMSS</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = contract.env['hr.payslip'].browse(payslip.id).calculate_imss('company')</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_30000" model="hr.salary.rule">
+        <field name="sequence" eval="30000" />
+        <field name="code">ISN</field>
+        <field name="category_id" ref="CAT_ISN" />
+        <field name="name">Impuesto sobre la nomina</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = 100 * 7 * 0.02</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly"
+        />
+    </record>
+
+    <!-- Rules for Special periods                      -->
+    <!-- Allowances                                     -->
+    <!-- Perceptions for Allowances for Special Payslip -->
+
+    <record id="hr_salary_rule_monthly_sp_bonus" model="hr.salary.rule">
+        <field name="sequence" eval="3001" />
+        <field name="code">AGD</field>
+        <field name="category_id" ref="hr_payroll.ALW" />
+        <field name="name">Aguinaldo</field>
+        <field name="rule_type_cfdi">alw</field>
+        <field
+            name="allowance_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_allowance002"
+        />
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = 1</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+    <!-- Deductions -->
+
+    <record id="hr_salary_rule_monthly_sp_SAE_5109" model="hr.salary.rule">
+        <field name="sequence" eval="5109" />
+        <field name="code">AUXSAE</field>
+        <field name="category_id" ref="hr_payroll.DED" />
+        <field name="name">Auxiliar Subsidio al empledo</field>
+        <field name="hide_rule">False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        ><![CDATA[
+sbc = 100.00
+result = contract.env['hr.payroll.es.line'].search([('line_id','=', 2),('inf_sup','>=', sbc ),('lim_sup','<=', sbc )],limit=1).fix_fee
+            ]]>
+        </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_sp_AISR_5110" model="hr.salary.rule">
+        <field name="sequence" eval="5110" />
+        <field name="code">AUXISR</field>
+        <field name="category_id" ref="CAT_AUX" />
+        <field name="name">Auxiliar de ISR</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        ><![CDATA[
+sbc = categories.ALW
+lim_inf = contract.env['hr.payroll.isr.line'].search([('line_id','=', 4),('lim_inf','<=', sbc ),('lim_sup','>=', sbc )],limit=1).lim_inf
+excedente_lim_inf = sbc - lim_inf
+percent = contract.env['hr.payroll.isr.line'].search([('line_id','=', 4),('lim_inf','<=', sbc ),('lim_sup','>=', sbc )],limit=1).percent
+marginal_tax = excedente_lim_inf * ( percent / 100 )
+fix_fee = contract.env['hr.payroll.isr.line'].search([('line_id','=', 4),('lim_inf','<=', sbc ),('lim_sup','>=', sbc )],limit=1).fix_fee
+result = fix_fee + marginal_tax
+            ]]></field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_sp_SAE" model="hr.salary.rule">
+        <field name="sequence" eval="5150" />
+        <field name="code">D041</field>
+        <field name="category_id" ref="OTPAY" />
+        <field name="name">Subsidio al empledo</field>
+        <field name="rule_type_cfdi">ded</field>
+        <field name="deduction_type_l10n_mx">002</field>
+        <field name="hide_rule">False</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        ><![CDATA[
+sbc = TALW
+result = contract.env['hr.payroll.es.line'].search([('line_id','=', 2),('inf_sup','>=', sbc ),('lim_sup','<=', sbc )],limit=1).fix_fee
+            ]]>
+        </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_sp_isr_5150" model="hr.salary.rule">
+        <field name="sequence" eval="5150" />
+        <field name="code">D045</field>
+        <field name="category_id" ref="hr_payroll.DED" />
+        <field name="name">ISR</field>
+        <field name="rule_type_cfdi">ded</field>
+        <field
+            name="deduction_type_l10n_mx"
+            ref="l10n_mx_hr_payroll.cat_deduction002"
+        />
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = AUXISR - D041  </field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+    <!-- Totals Allowance and Deductions-->
+
+    <record id="hr_salary_rule_monthly_sp_4999" model="hr.salary.rule">
+        <field name="sequence" eval="4999" />
+        <field name="code">TALW</field>
+        <field name="category_id" ref="hr_payroll.NET" />
+        <field name="name">Total Percepciones</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = categories.ALW</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_sp_9999" model="hr.salary.rule">
+        <field name="sequence" eval="9999" />
+        <field name="code">TDED</field>
+        <field name="category_id" ref="hr_payroll.NET" />
+        <field name="name">Total Deducciones</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = categories.DED</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+    <record id="hr_salary_rule_monthly_sp_10000" model="hr.salary.rule">
+        <field name="sequence" eval="10000" />
+        <field name="code">SLYN</field>
+        <field name="category_id" ref="hr_payroll.NET" />
+        <field name="name">Salario Neto</field>
+        <field name="amount_select">code</field>
+        <field
+            name="amount_python_compute"
+        >result = categories.ALW - categories.DED</field>
+        <field
+            name="struct_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_monthly_special"
+        />
+    </record>
+
+</odoo>

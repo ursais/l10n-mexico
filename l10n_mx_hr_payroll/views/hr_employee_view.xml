@@ -1,0 +1,55 @@
+<odoo>
+
+    <record id="hr_employee_inherit_hr_payroll_mx_view_form" model="ir.ui.view">
+        <field name="name">hr.payroll.mx.employee.inherit.form.view</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="no_label">1</attribute>
+                <attribute name="required">0</attribute>
+            </xpath>
+            <xpath expr="//h1//field[@name='name']/.." position="after">
+                <group>
+                    <field name="total_overtime" invisible="1" />
+                    <field
+                        name="firstname"
+                        attrs="{'required': [('lastname', '=', False)]}"
+                    />
+                    <field
+                        name="lastname"
+                        attrs="{'required': [('firstname', '=', False)]}"
+                    />
+                    <field name="second_lastname" />
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="before">
+                    <field name="employee_number" />
+            </xpath>
+            <xpath expr="//field[@name='place_of_birth']" position="after">
+                    <field name="state_of_birth" />
+            </xpath>
+            <xpath expr="//div[@id='o_work_employee_main']" position='inside'>
+                <group string="Mexican Payroll">
+                </group>
+                <group string="General">
+                    <field name="syndicated" />
+                </group>
+                <group string="IMSS">
+                    <field
+                        name="ssnid"
+                        placeholder="Social Security Number [ XXXX-XX-XXXX-X ]"
+                    />
+                    <field name="umf" />
+                    <field name="l10n_mx_hr_payroll_fiscal_regime" />
+                    <field
+                        name="employer_register"
+                        domain="[('company_id', '=', company_id)]"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

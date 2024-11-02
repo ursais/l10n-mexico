@@ -1,0 +1,43 @@
+<odoo noupdate="1">
+
+        <record id="table_uma_2024" model="hr.payroll.uma">
+            <field name="name">UMA - 01/01/2024</field>
+            <field name="date" eval="time.strftime('2022-01-01')" />
+            <field name="daily">108.57</field>
+            <field name="monthly">3300.53</field>
+            <field name="yearly">39606.36</field>
+        </record>
+
+        <record id="table_uma_2023" model="hr.payroll.uma">
+            <field name="name">UMA - 01/01/2023</field>
+            <field name="date" eval="time.strftime('2019-01-01')" />
+            <field name="daily">103.74</field>
+            <field name="monthly">3153.70</field>
+            <field name="yearly">37844.40</field>
+        </record>
+
+        <record id="table_uma_2022" model="hr.payroll.uma">
+            <field name="name">UMA - 01/01/2022</field>
+            <field name="date" eval="time.strftime('2019-01-01')" />
+            <field name="daily">96.22</field>
+            <field name="monthly">2925.09</field>
+            <field name="yearly">35101.08</field>
+        </record>
+
+        <record id="table_uma_2021" model="hr.payroll.uma">
+            <field name="name">UMA - 01/01/2021</field>
+            <field name="date" eval="time.strftime('2021-01-01')" />
+            <field name="daily">89.62</field>
+            <field name="monthly">2724.45</field>
+            <field name="yearly">32693.40</field>
+        </record>
+
+        <record id="table_uma_2020" model="hr.payroll.uma">
+            <field name="name">UMA - 01/01/2020</field>
+            <field name="date" eval="time.strftime('2020-01-01')" />
+            <field name="daily">86.88</field>
+            <field name="monthly">2641.15</field>
+            <field name="yearly">31693.80</field>
+        </record>
+
+</odoo>

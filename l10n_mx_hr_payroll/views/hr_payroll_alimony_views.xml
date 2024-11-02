@@ -1,0 +1,208 @@
+<odoo>
+
+    <record id="view_hr_payroll_alimony_filter" model="ir.ui.view">
+        <field name="name">hr.payroll.alimony.search</field>
+        <field name="model">hr.payroll.alimony</field>
+        <field name="arch" type="xml">
+            <search string="Employees">
+                <field name="name" string="Employee" />
+                <field name="folio" />
+                <searchpanel>
+                    <field name="state" />
+                    <field
+                        name="company_id"
+                        groups="base.group_multi_company"
+                        icon="fa-building"
+                        enable_counters="1"
+                    />
+                </searchpanel>
+            </search>
+            </field>
+    </record>
+
+    <record id="view_hr_payroll_alimony_form" model="ir.ui.view">
+        <field name="name">hr.payroll.alimony.form</field>
+        <field name="model">hr.payroll.alimony</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Alimony">
+                <header>
+                    <button
+                        string="Approve"
+                        name="approved_alimony"
+                        class="oe_highlight"
+                        states="draft"
+                        type='object'
+                    />
+                    <button
+                        string="Cancel"
+                        name="cancel_alimony"
+                        states="draft,approved"
+                        type='object'
+                    />
+                    <button
+                        string="Done"
+                        name="done_alimony"
+                        class="oe_highlight"
+                        states="approved"
+                        type='object'
+                    />
+                    <button
+                        string="Set to Draft"
+                        name="draft_alimony"
+                        class="oe_highlight"
+                        states="cancel,done"
+                        type='object'
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" placeholder="Folio" readonly="1" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field
+                                name="employee_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="beneficiary"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="payment_method"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="amount_anual_increase"
+                                invisible="1"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="payslip_input_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                                domain="[('input_type_mx', '=', 'alimony')]"
+                                options="{'no_create': True, 'no_create_edit': True}"
+                            />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="proceeding"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="folio"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="amount_type"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <label for="amount" string="Discount / Percent" />
+                            <span>
+                                <label
+                                    for="amount"
+                                    string="$"
+                                    attrs="{'invisible':[('amount_type','=','percent')]}"
+                                />
+                                <field
+                                    name="amount"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                />
+                                <label
+                                    for="amount"
+                                    string="%"
+                                    attrs="{'invisible':[('amount_type','=','amount_fixed')]}"
+                                    class="oe_inline"
+                                />
+                            </span>
+                            <label for="date_start" string="Period" />
+                            <span>
+                                <field
+                                    name="date_start"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                /> - <field
+                                    name="date_end"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                />
+                            </span>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Payments">
+                            <field name="payment_ids" nolabel="1" readonly="1">
+                                <tree>
+                                    <field name="date" />
+                                    <field name="name" />
+                                    <field name="payslip_id" />
+                                    <field
+                                        name="state"
+                                        widget="badge"
+                                        decoration-info="state == 'draft'"
+                                        decoration-success="state == 'paid'"
+                                    />
+                                    <field name="amount" sum="Total Amount" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field
+                                name="note"
+                                nolabel="1"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_alimony_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.alimony.tree</field>
+        <field name="model">hr.payroll.alimony</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="beneficiary" />
+                <field
+                    name="amount_type"
+                    attrs="{'readonly':[('state','!=','draft')]}"
+                />
+                <field name="amount" string="Amount" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'approved'"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_hr_alimonies" model="ir.actions.act_window">
+        <field name="name">Alimony</field>
+        <field name="res_model">hr.payroll.alimony</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

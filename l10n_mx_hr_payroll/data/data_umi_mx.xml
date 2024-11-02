@@ -1,0 +1,33 @@
+<odoo noupdate="1">
+
+        <record id="table_umi_2024" model="hr.payroll.umi">
+            <field name="name">UMI - 01/01/2024</field>
+            <field name="date" eval="time.strftime('2024-01-01')" />
+            <field name="amount">100.81</field>
+        </record>
+
+        <record id="table_umi_2023" model="hr.payroll.umi">
+            <field name="name">UMI - 01/01/2023</field>
+            <field name="date" eval="time.strftime('2023-01-01')" />
+            <field name="amount">96.32</field>
+        </record>
+
+        <record id="table_umi_2022" model="hr.payroll.umi">
+            <field name="name">UMI - 01/01/2022</field>
+            <field name="date" eval="time.strftime('2022-01-01')" />
+            <field name="amount">91.56</field>
+        </record>
+
+        <record id="table_umi_2021" model="hr.payroll.umi">
+            <field name="name">UMI - 01/01/2021</field>
+            <field name="date" eval="time.strftime('2021-01-01')" />
+            <field name="amount">87.21</field>
+        </record>
+
+        <record id="table_umi_2020" model="hr.payroll.umi">
+            <field name="name">UMI - 01/01/2020</field>
+            <field name="date" eval="time.strftime('2020-01-01')" />
+            <field name="amount">84.55</field>
+        </record>
+
+</odoo>

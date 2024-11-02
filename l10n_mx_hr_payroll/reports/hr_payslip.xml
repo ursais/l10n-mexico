@@ -1,0 +1,28 @@
+<odoo>
+        <record id="hr_payroll.action_report_payslip" model="ir.actions.report">
+            <field name="name">Payslip CFDI</field>
+            <field name="model">hr.payslip</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_mx_hr_payroll.report_payslip_mx_lang</field>
+            <field name="report_file">l10n_mx_hr_payroll.report_payslip_mx_lang</field>
+            <field
+            name="print_report_name"
+        >'Payslip - %s' % (object.employee_id.name)</field>
+            <field name="binding_model_id" ref="model_hr_payslip" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_payslip_simple" model="ir.actions.report">
+            <field name="name">Payslip Simple</field>
+            <field name="model">hr.payslip</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_mx_hr_payroll.report_payslip_mx_lang</field>
+            <field name="report_file">l10n_mx_hr_payroll.report_payslip_mx_lang</field>
+            <field
+            name="print_report_name"
+        >'Payslip - %s' % (object.employee_id.name)</field>
+            <field name="binding_model_id" ref="model_hr_payslip" />
+            <field name="binding_type">report</field>
+        </record>
+
+</odoo>

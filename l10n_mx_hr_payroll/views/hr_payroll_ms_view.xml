@@ -1,0 +1,52 @@
+<odoo>
+
+    <!-- Payroll - Employment Subsidy -->
+    <record id="view_hr_payroll_ms_list_view" model="ir.ui.view">
+        <field name="name">hr.payroll.ms.tree</field>
+        <field name="model">hr.payroll.ms</field>
+        <field name="arch" type="xml">
+            <tree default_order='date desc'>
+                <field name="name" />
+                <field name="date" />
+                <field name="zone1" digits="[2,6]" />
+                <field name="zone2" digits="[2,6]" />
+                <field name="zone3" digits="[2,6]" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_ms_form" model="ir.ui.view">
+        <field name="name">hr.payroll.ms.form</field>
+        <field name="model">hr.payroll.ms</field>
+        <field name="arch" type="xml">
+            <form string="Payroll - Minimum Salary">
+            <sheet>
+                <group>
+                    <group name="payroll_ms">
+                        <field name="name" />
+                        <field name="date" />
+                        <field name="zone1" />
+                        <field name="zone2" />
+                        <field name="zone3" />
+                        <field name="company_id" />
+                    </group>
+                </group>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user" />
+                <field name="activity_ids" />
+                <field name="message_ids" />
+            </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_hr_payroll_ms_list_form" model="ir.actions.act_window">
+        <field name="name">Payroll Minimum Salary</field>
+        <field name="res_model">hr.payroll.ms</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

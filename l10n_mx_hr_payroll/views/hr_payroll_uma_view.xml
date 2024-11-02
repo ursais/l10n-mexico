@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Payroll - UMA Table -->
+    <record id="view_hr_payroll_uma_form_view" model="ir.ui.view">
+        <field name="name">hr.payroll.uma.form</field>
+        <field name="model">hr.payroll.uma</field>
+        <field name="arch" type="xml">
+            <form string="Payroll UMA Table">
+                <sheet>
+                    <group>
+                        <field name="date" />
+                        <field name="name" />
+                        <field name="daily" digits="[3,4]" />
+                        <field name="monthly" digits="[3,4]" />
+                        <field name="yearly" digits="[3,4]" />
+                        <field name="company_id" groups="base.group_multi_company" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_uma_tree_view" model="ir.ui.view">
+        <field name="name">hr.payroll.uma.tree</field>
+        <field name="model">hr.payroll.uma</field>
+        <field name="arch" type="xml">
+            <tree default_order='date desc' editable="bottom">
+                <field name="date" />
+                <field name="name" digits="[3,4]" />
+                <field name="daily" digits="[3,4]" />
+                <field name="monthly" digits="[3,4]" />
+                <field name="yearly" digits="[3,4]" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_hr_payroll_uma_list" model="ir.actions.act_window">
+        <field name="name">Payroll UMA table</field>
+        <field name="res_model">hr.payroll.uma</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

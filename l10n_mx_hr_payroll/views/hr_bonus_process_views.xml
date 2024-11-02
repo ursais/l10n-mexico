@@ -1,0 +1,118 @@
+<odoo>
+
+
+    <record id="view_hr_payroll_bonus_process_form" model="ir.ui.view">
+        <field name="name">hr.bonus.process.form</field>
+        <field name="model">hr.bonus.process</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Bonus Process">
+                <header>
+                    <button
+                        string="Approve"
+                        name="approved_bonus_process"
+                        class="oe_highlight"
+                        states="draft"
+                        type='object'
+                    />
+                    <button
+                        string="Cancel"
+                        name="cancel_bonus_process"
+                        states="draft,approved"
+                        type='object'
+                    />
+                    <button
+                        string="Done"
+                        name="done_bonus_process"
+                        class="oe_highlight"
+                        states="approved"
+                        type='object'
+                    />
+                    <button
+                        string="Set to Draft"
+                        name="draft_bonus_process"
+                        class="oe_highlight"
+                        states="cancel,done"
+                        type='object'
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_open_payslips"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            type="object"
+                            help="Generated Payslips"
+                            attrs="{'invisible': [('payslip_count', '=', 0)]}"
+                        >
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field
+                                        name="payslip_count"
+                                    /></span>
+                                <span class="o_stat_text">Payslips</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" placeholder="Folio" readonly="1" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date" />
+                            <field
+                                name="structure_id"
+                                options="{'no_create': True}"
+                                domain="[('type_use', '=', 'PTU')]"
+                            />
+                            <field name="company_id" />
+                        </group>
+                        <group>
+                            <field name="payslip_run_id" invisible="0" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field
+                                name="note"
+                                nolabel="1"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_payroll_bonus_tree" model="ir.ui.view">
+        <field name="name">hr.bonus.process.tree</field>
+        <field name="model">hr.bonus.process</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'approved'"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_view_hr_payroll_bonus_process" model="ir.actions.act_window">
+        <field name="name">Bonus</field>
+        <field name="res_model">hr.bonus.process</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,265 @@
+<odoo>
+    <record id="view_hr_contract_buttons_form" model="ir.ui.view">
+        <field name="name">hr.contract.buttons</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+        <field name="priority" eval="7" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    class="oe_stat_button"
+                    type="object"
+                    name="action_view_salary_histories"
+                    attrs="{'invisible': [('salaries_history_count','=',0)]}"
+                    icon="fa-tasks"
+                >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field
+                                name="salaries_history_count"
+                                widget="statinfo"
+                                nolabel="1"
+                                class="mr4"
+                            />
+                            <field name='salary_history_ids' invisible="1" />
+                        </span>
+                        <span class="o_stat_text">Salary History</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="hr_contract_hr_payroll_view_form" model="ir.ui.view">
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position='before'>
+                <field name="contract_type" />
+                <field name="period_cfdi" />
+                <field name="journal_type" />
+            </xpath>
+            <xpath expr="//div[@name='wage']" position='replace'>
+                <div class="o_row" name="wage">
+                    <field name="wage" nolabel="1" />
+                    <span>/ per day</span>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='salary_info']" position='after'>
+                <group name="salaty_and_advantages">
+                    <field name="salary_type" string="Quotation basis" />
+                    <field name="allowance_catalog" string="Benefits table" />
+                    <label for="sdi" />
+                    <div class="o_row" name="sdi">
+                        <field name="sdi" nolabel="1" />
+                        <button
+                            name="update_sdi"
+                            icon="fa-arrow-right"
+                            type="object"
+                            class="oe_inline"
+                        >
+                            <span>
+                                Update
+                            </span>
+                        </button>
+                    </div>
+                    <label for="sbc" />
+                    <div class="o_row" name="sbc">
+                        <field name="sbc" nolabel="1" />
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_contract_antiquity_view_form" model="ir.ui.view">
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_end']" position='after'>
+                <field name="antiquity" />
+                <field
+                    name="restday_ids"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color', 'no_create_edit': True}"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_contract_antiquity_view_tree" model="ir.ui.view">
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_tree" />
+        <field name="arch" type="xml">
+            <field name="date_end" position="after">
+                <field name="antiquity" />
+            </field>
+        </field>
+    </record>
+
+<!-- Payroll Process for contracts  -->
+
+    <record id="hr_contract_process_form" model="ir.ui.view">
+        <field name="name">hr.contract.process.form</field>
+        <field name="model">hr.contract.process</field>
+        <field name="arch" type="xml">
+            <form string="Job">
+                <field name="active" invisible="1" />
+                <field name="company_id" invisible="1" />
+                <header>
+                    <button
+                        string="Approve"
+                        name="approved_process"
+                        class="oe_highlight"
+                        states="draft"
+                        type='object'
+                    />
+                    <button
+                        string="Cancel"
+                        name="cancel_process"
+                        class="oe_highlight"
+                        states="draft,approved"
+                        type='object'
+                    />
+                    <button
+                        string="Draft"
+                        name="draft_process"
+                        class="oe_highlight"
+                        states="cancel"
+                        type='object'
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,in_process,done,cancel"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" placeholder="e.g. Sales Manager" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date" />
+                        </group>
+                        <group>
+                            <field name="process_type" invisible="1" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="employee_id" />
+                            <field name="department_id" />
+                            <field name="job_id" />
+                        </group>
+                        <group>
+                            <field name="contract_id" />
+                            <field name="date_start" />
+                            <field name="date_end" />
+                            <field name="antiquity" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                        </group>
+                        <group string="Salary">
+                            <field
+                                name="renew_type"
+                                widget='radio'
+                                options="{'horizontal': true}"
+                            />
+                            <field name="current_wage" />
+                            <field
+                                name="new_wage"
+                                attrs="{'invisible': [('process_type', '!=', 'renew')]}"
+                            />
+                            <field
+                                name="reason"
+                                attrs="{'invisible': [('process_type', '!=', 'terminate')]}"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Information" name="contract_information_page">
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field
+                        name="message_follower_ids"
+                        options="{'open_attachments': True}"
+                    />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_contract_process_tree_view" model="ir.ui.view">
+        <field name="name">hr.contract.process.tree</field>
+        <field name="model">hr.contract.process</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" />
+                <field name="date" />
+                <field name="employee_id" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="process_type" invisible="0" />
+                <field name="state" />
+                <field name="active" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_process_contracts_filter" model="ir.ui.view">
+        <field name="name">hr.payroll.process.contracts.search</field>
+        <field name="model">hr.contract.process</field>
+        <field name="arch" type="xml">
+            <search string="Employees">
+                <field name="employee_id" string="Employee" />
+                <field name="company_id" string="Company" />
+                <searchpanel>
+                    <field name="state" />
+                    <field
+                        name="company_id"
+                        groups="base.group_multi_company"
+                        icon="fa-building"
+                        enable_counters="1"
+                    />
+                </searchpanel>
+            </search>
+            </field>
+    </record>
+
+
+    <record id="action_view_hr_payroll_renew_contrats" model="ir.actions.act_window">
+        <field name="name">Renew contracts</field>
+        <field name="res_model">hr.contract.process</field>
+        <field name="context" eval="{'default_process_type': 'renew' }" />
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record
+        id="action_view_hr_payroll_contrats_expiration"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Contracts Expirations</field>
+        <field name="res_model">hr.contract.process</field>
+        <field name="context" eval="{'default_process_type': 'terminate' }" />
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="hr_salaries_history_action" model="ir.actions.act_window">
+        <field name="name">Salary History</field>
+        <field name="res_model">hr.contract.salary_history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+
+</odoo>

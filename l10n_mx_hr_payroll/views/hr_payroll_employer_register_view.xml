@@ -1,0 +1,58 @@
+<odoo>
+
+    <!-- Period type -->
+    <record id="view_hr_payroll_employer_register_tree_view" model="ir.ui.view">
+        <field name="name">hr.payroll.employer_register.tree</field>
+        <field name="model">hr.payroll.employer_register</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="job_risk" />
+                <field name="job_risk_value" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_employer_register_form_view" model="ir.ui.view">
+        <field name="name">hr.payroll.employer_register.form</field>
+        <field name="model">hr.payroll.employer_register</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Employer Register">
+            <sheet>
+                <field name="active" invisible="1" />
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" placeholder="Employer Register number" />
+                    </h1>
+                    <field name="company_id" groups="base.group_multi_company" />
+                </div>
+                <group>
+                    <group name="risk">
+                        <field name="job_risk" />
+                        <field name="job_risk_value" />
+                        <field name="company_zone_l10n_mx" />
+                    </group>
+                    <group name="location">
+                        <field name="city" placeholder="City" />
+                        <field name="state_id" placeholder="State" />
+                        <field name="zip" placeholder="ZIP" />
+                    </group>
+                </group>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user" />
+                <field name="activity_ids" />
+                <field name="message_ids" />
+            </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_hr_payroll_employer_register" model="ir.actions.act_window">
+        <field name="name">Employer Register</field>
+        <field name="res_model">hr.payroll.employer_register</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

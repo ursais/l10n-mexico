@@ -1,0 +1,101 @@
+<odoo>
+
+    <record id="hr_payslip_run_tree_inherit_payroll_mx" model="ir.ui.view">
+        <field name="name">hr.payslip.run.tree.inherit_page_payroll_mx</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="payroll_type_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_payslip_run_add_buttons_inherit_payroll_mx" model="ir.ui.view">
+        <field name="name">hr.payslip.run.add.buttons.inherit_page_payroll_mx</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_draft']" position="before">
+                <button
+                    name="action_stamp_payroll_pac"
+                    type="object"
+                    states="verify,close"
+                    string="Stamp Payroll"
+                    class="oe_highlight"
+                />
+            </xpath>
+            <xpath expr="//button[@name='action_draft']" position="after">
+                <button
+                    name="confirm_payroll"
+                    type="object"
+                    states="close"
+                    string="Send by email"
+                    class="oe_highlight"
+                />
+                <button
+                    name="%(action_hr_payroll_dispersion_wizard)d"
+                    type="action"
+                    states="close"
+                    string="Payroll Dispersion"
+                    class="oe_highlight"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payslip_run_form_inherit_payroll_mx" model="ir.ui.view">
+        <field name="name">hr.payslip.run.form.inherit_page_payroll_mx</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form" />
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="replace">
+                <div>
+                    <group>
+                        <label for="payroll_type_id" string="Period Setting" />
+                        <div class="o_row">
+                            <field
+                                name="payroll_type_id"
+                                options="{'no_open':True,'no_create': True}"
+                            /> -
+                            <field
+                                name="payroll_period_id"
+                                domain="[('type_id','=',payroll_type_id)]"
+                                class="oe_inline"
+                                options="{'no_open':True,'no_create': True}"
+                            /> -
+                            <field
+                                name="payroll_period_line_id"
+                                domain="[('state','=','open'),('period_id','=',payroll_period_id)]"
+                                class="oe_inline"
+                                options="{'no_open':True,'no_create': True}"
+                            />
+                        </div>
+                    </group>
+                    <group>
+                        <group>
+                            <label for="date_start" string="Period" />
+                            <div class="o_row">
+                                <field name="date_start" class="oe_inline" /> - <field
+                                    name="date_end"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <label for="structure_id" string="Structure" />
+                            <field name="structure_id" nolabel="1" />
+                        </group>
+                        <group>
+                            <field name="payment_day" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                     </group>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

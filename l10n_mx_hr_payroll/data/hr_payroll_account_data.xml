@@ -1,0 +1,10 @@
+<odoo>
+
+        <record id="hr_salaries_mx_account_journal" model="account.journal">
+            <field name="name">Payroll Payments and Salaries </field>
+            <field name="code">PSS</field>
+            <field name="type">general</field>
+            <field name="sequence">99</field>
+        </record>
+
+</odoo>

@@ -1,0 +1,530 @@
+<odoo noupdate="1">
+
+    <!-- Employer register  -->
+
+        <record
+        id="employer_register_payroll_mx_001"
+        model="hr.payroll.employer_register"
+    >
+            <field name="name">E3950579100</field>
+            <field name="job_risk">1</field>
+            <field name="job_risk_value" eval="0.54" />
+            <field name="zip" eval="78000" />
+        </record>
+
+    <!--  Departments  -->
+
+      <record id="dep_system" model="hr.department">
+          <field name="name">Professional of IT</field>
+      </record>
+
+    <!-- Employee Data -->
+
+
+        <record id="employee_101" model="hr.employee">
+            <field name="name">Luis Majul Plate</field>
+            <field name="firstname">Luis</field>
+            <field name="lastname">Majul</field>
+            <field name="second_lastname">Plate</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000001</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_115" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_fme-image.jpg"
+        />
+        </record>
+
+        <record id="employee_102" model="hr.employee">
+            <field name="name">Ana Luisa Fluminian Castanieda</field>
+            <field name="firstname">Ana Luisa</field>
+            <field name="lastname">Fluminian</field>
+            <field name="second_lastname">Castanieda</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000002</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_fpi-image.jpg"
+        />
+        </record>
+
+        <record id="employee_103" model="hr.employee">
+            <field name="name">Valerie Rufin Paez</field>
+            <field name="firstname">Valerie</field>
+            <field name="lastname">Rufail</field>
+            <field name="second_lastname">Paez</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000003</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_jth-image.jpg"
+        />
+        </record>
+
+        <record id="employee_104" model="hr.employee">
+            <field name="name">Gabriela Echeverri</field>
+            <field name="firstname">Gabriela</field>
+            <field name="lastname">Echeverri</field>
+            <field name="second_lastname" />
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000004</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+
+        <record id="employee_105" model="hr.employee">
+            <field name="name">Luz Maria Perez Romo</field>
+            <field name="firstname">Luz Maria</field>
+            <field name="lastname">Perez</field>
+            <field name="second_lastname">Romo</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000005</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_han-image.jpg"
+        />
+        </record>
+        <record id="employee_106" model="hr.employee">
+            <field name="name">Ana Maria Salas Escobedo</field>
+            <field name="firstname">Ana Maria</field>
+            <field name="lastname">Salas</field>
+            <field name="second_lastname">Escobedo</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000006</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_jve-image.jpg"
+        />
+        </record>
+        <record id="employee_107" model="hr.employee">
+            <field name="name">Margarita Garcia Jimenez</field>
+            <field name="firstname">Margarita</field>
+            <field name="lastname">Garcia</field>
+            <field name="second_lastname">Jimenez</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000007</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_jep-image.jpg"
+        />
+        </record>
+        <record id="employee_108" model="hr.employee">
+            <field name="name">Fernanda Garcia Rodriguez</field>
+            <field name="firstname">Fernanda</field>
+            <field name="lastname">Garcia</field>
+            <field name="second_lastname">Rodriguez</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000008</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_jog-image.jpg"
+        />
+        </record>
+        <record id="employee_109" model="hr.employee">
+            <field name="name">Daniela Fernandez Fernandez</field>
+            <field name="firstname">Ana Luisa</field>
+            <field name="lastname">Fernandez</field>
+            <field name="second_lastname">Fernandez</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000009</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_jgo-image.jpg"
+        />
+        </record>
+        <record id="employee_110" model="hr.employee">
+            <field name="name">Matias Vargas Lima</field>
+            <field name="firstname">Matias</field>
+            <field name="lastname">Vargas</field>
+            <field name="second_lastname">Lima</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000010</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_lur-image.jpg"
+        />
+        </record>
+        <record id="employee_111" model="hr.employee">
+            <field name="name">Emmanuel Macron Castex</field>
+            <field name="firstname">Emmanuel</field>
+            <field name="lastname">Macron</field>
+            <field name="second_lastname">Castex</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000011</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_hne-image.jpg"
+        />
+        </record>
+        <record id="employee_112" model="hr.employee">
+            <field name="name">Eduardo Bruno Diaz</field>
+            <field name="firstname">Eduardo</field>
+            <field name="lastname">Bruno</field>
+            <field name="second_lastname">Diaz</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000012</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_113" model="hr.employee">
+            <field name="name">Gregorio Rome Zamora</field>
+            <field name="firstname">Gregorio</field>
+            <field name="lastname">Rome</field>
+            <field name="second_lastname">Zamora</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000013</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_114" model="hr.employee">
+            <field name="name">Manuel Garcia Garcia</field>
+            <field name="firstname">Manuel</field>
+            <field name="lastname">Garcia</field>
+            <field name="second_lastname">Garcia</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000014</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_115" model="hr.employee">
+            <field name="name">Francisco Hollande Castor</field>
+            <field name="firstname">Francisco</field>
+            <field name="lastname">Hollande</field>
+            <field name="second_lastname">Castor</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000015</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+
+        <record id="employee_116" model="hr.employee">
+            <field name="name">Liliana Valdez Valdez</field>
+            <field name="firstname">Liliana</field>
+            <field name="lastname">Valdez</field>
+            <field name="second_lastname">Valdez</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000016</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+
+        <record id="employee_117" model="hr.employee">
+            <field name="name">Vanessa Diaz Murrieta</field>
+            <field name="firstname">Vanessa</field>
+            <field name="lastname">Diaz</field>
+            <field name="second_lastname">Murrieta</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000017</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+
+        <record id="employee_118" model="hr.employee">
+            <field name="name">Adriana Paez Barber</field>
+            <field name="firstname">Adriana</field>
+            <field name="lastname">Paez</field>
+            <field name="second_lastname">Barber</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000018</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_119" model="hr.employee">
+            <field name="name">Paola Dent Costa</field>
+            <field name="firstname">Paola</field>
+            <field name="lastname">Dent</field>
+            <field name="second_lastname">Costa</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000019</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_120" model="hr.employee">
+            <field name="name">Irene Costa Paez</field>
+            <field name="firstname">Irene</field>
+            <field name="lastname">Costa</field>
+            <field name="second_lastname">Paez</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000020</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_121" model="hr.employee">
+            <field name="name">Francisco Choux Malfert</field>
+            <field name="firstname">Francisco</field>
+            <field name="lastname">Choux</field>
+            <field name="second_lastname" />
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000021</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_122" model="hr.employee">
+            <field name="name">Claudia Rojas Paez</field>
+            <field name="firstname">Claudia</field>
+            <field name="lastname">Rojas</field>
+            <field name="second_lastname">Paez</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000022</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_123" model="hr.employee">
+            <field name="name">Vicente Vargas Rojas</field>
+            <field name="firstname">Vicente</field>
+            <field name="lastname">Vargas</field>
+            <field name="second_lastname">Rojas</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000023</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_124" model="hr.employee">
+            <field name="name">Johan Loza Vasquez</field>
+            <field name="firstname">Johan</field>
+            <field name="lastname">Loza</field>
+            <field name="second_lastname">Vasquez</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000024</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+        <record id="employee_125" model="hr.employee">
+            <field name="name">Rodrigo Lencina Rios</field>
+            <field name="firstname">Rodrigo</field>
+            <field name="lastname">Lencina</field>
+            <field name="second_lastname">Rios</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000025</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+        </record>
+
+        <record id="employee_126" model="hr.employee">
+            <field name="name">Eleonora Catanea Choux</field>
+            <field name="firstname">Eleonora</field>
+            <field name="lastname">Catanea</field>
+            <field name="second_lastname">Choux</field>
+            <field name="ssnid">02157040787</field>
+            <field name="employee_number">000026</field>
+            <field name="l10n_mx_hr_payroll_fiscal_regime">02</field>
+            <field
+            name="employer_register"
+            ref="l10n_mx_hr_payroll.employer_register_payroll_mx_001"
+        />
+            <field name="address_home_id" ref="l10n_mx_hr_payroll.res_partner_102" />
+            <field name="company_id" ref="l10n_mx.demo_company_mx" />
+            <field name="resource_calendar_id" ref="resource_calendar_std_48h" />
+            <field name="tz">America/Mexico_City</field>
+            <field
+            name="image_1920"
+            type="base64"
+            file="hr/static/img/employee_ngh-image.jpg"
+        />
+        </record>
+
+</odoo>

@@ -1,0 +1,2 @@
+- Federico Manuel Echeverry Choux \<<echeverrifm@e-maanu.com>\>
+- Maxime Chambreuil \<<mchambreuil@opensourceintegrators.com>\>

@@ -1,0 +1,45 @@
+id,code,description
+cat_allowance001,001,"Sueldos, Salarios  Rayas y Jornales"
+cat_allowance002,002,Gratificación Anual (Aguinaldo)
+cat_allowance003,003,Participación de los Trabajadores en las Utilidades PTU
+cat_allowance004,004,Reembolso de Gastos Médicos Dentales y Hospitalarios
+cat_allowance005,005,Fondo de Ahorro
+cat_allowance006,006,Caja de ahorro
+cat_allowance007,009,Contribuciones a Cargo del Trabajador Pagadas por el Patrón
+cat_allowance008,010,Premios por puntualidad
+cat_allowance009,011,Prima de Seguro de vida
+cat_allowance010,012,Seguro de Gastos Médicos Mayores
+cat_allowance011,013,Cuotas Sindicales Pagadas por el Patrón
+cat_allowance012,014,Subsidios por incapacidad
+cat_allowance013,015,Becas para trabajadores y/o hijos
+cat_allowance014,019,Horas extra
+cat_allowance015,020,Prima dominical
+cat_allowance016,021,Prima vacacional
+cat_allowance017,022,Prima por antigüedad
+cat_allowance018,023,Pagos por separación
+cat_allowance019,024,Seguro de retiro
+cat_allowance020,025,Indemnizaciones
+cat_allowance021,026,Reembolso por funeral
+cat_allowance022,027,Cuotas de seguridad social pagadas por el patrón
+cat_allowance023,028,Comisiones
+cat_allowance024,029,Vales de despensa
+cat_allowance025,030,Vales de restaurante
+cat_allowance026,031,Vales de gasolina
+cat_allowance027,032,Vales de ropa
+cat_allowance028,033,Ayuda para renta
+cat_allowance029,034,Ayuda para artículos escolares
+cat_allowance030,035,Ayuda para anteojos
+cat_allowance031,036,Ayuda para transporte
+cat_allowance032,037,Ayuda para gastos de funeral
+cat_allowance033,038,Otros ingresos por salarios
+cat_allowance034,039,"Jubilaciones, pensiones o haberes de retiro"
+cat_allowance035,044,"Jubilaciones, pensiones o haberes de retiro en parcialidades"
+cat_allowance036,045,Ingresos en acciones o títulos valor que representan bienes
+cat_allowance037, 046,Ingresos asimilados a salarios
+cat_allowance038, 047,Alimentación diferentes a los establecidos en el Art 94 último párrafo LISR
+cat_allowance039,048,Habitación
+cat_allowance040,049,Premios por asistencia
+cat_allowance041,050,Viáticos
+cat_allowance042,051,"Pagos por gratificaciones, primas, compensaciones, recompensas u otros a extrabajadores derivados de jubilación en parcialidades"
+cat_allowance043,052,Pagos que se realicen a extrabajadores que obtengan una jubilación en parcialidades derivados de la ejecución de resoluciones judicial o de un laudo
+cat_allowance044,053,Pagos que se realicen a extrabajadores que obtengan una jubilación en una sola exhibición derivados de la ejecución de resoluciones judicial o de un laudo

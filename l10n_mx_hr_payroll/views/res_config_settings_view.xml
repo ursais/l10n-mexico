@@ -1,0 +1,112 @@
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr_payroll_mx</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='hr_payroll_accountant']" position="after">
+                <h2>Mexican Payroll</h2>
+                <div class="row mt16 o_settings_container" id="hr_payroll_mx_settings">
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="hr_reporting_setting"
+                        title="Payroll of employees report"
+                    >
+                        <div class="o_setting_left_pane">
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Global Amount</span>
+                            <div class="text-muted">
+                                Configure Global Amount
+                            </div>
+                            <br />
+                            <div class="content-group">
+                                <label
+                                    for="hr_payroll_smg_l10n_mx"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field name="hr_payroll_smg_l10n_mx" />
+                            </div>
+                            <div />
+                            <div class="content-group">
+                                <label
+                                    for="hr_payroll_uma_l10n_mx"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field name="hr_payroll_uma_l10n_mx" />
+                            </div>
+                            <div class="content-group">
+                                <label
+                                    for="hr_payroll_umi_l10n_mx"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field name="hr_payroll_umi_l10n_mx" />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="payroll_email_setting"
+                    >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Configuration for e-mail</span>
+                            <div class="text-muted">
+                                Select an email for the payroll, Your employee will
+                                receive the payroll from this email
+                            </div>
+                            <br />
+                            <div class="content-group">
+                                <label
+                                    for="hr_payroll_email"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field name="hr_payroll_email" />
+                            </div>
+                            <div />
+                            <div class="content-group">
+                                <label
+                                    for="hr_payroll_email_template"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field name="hr_payroll_email_template" />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="payroll_settlement_setting"
+                    >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Settlement configuration</span>
+                            <div class="text-muted">
+                            </div>
+                            <br />
+                            <div class="content-group">
+                                <label
+                                    for="hr_payroll_settlement_structure_l10n_mx"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field name="hr_payroll_settlement_structure_l10n_mx" />
+                            </div>
+                            <div />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@id='companies']" position='after'>
+                <h2>Employee Names Order</h2>
+                <div class="row mt16 o_settings_container" name="employee_names_order">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane" />
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

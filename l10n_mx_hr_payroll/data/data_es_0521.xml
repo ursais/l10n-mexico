@@ -1,0 +1,96 @@
+<odoo>
+        <!-- Employment Subsidy Table - Weekly -->
+        <record id="table_of_es_weekly_0524" model="hr.payroll.es">
+            <field name="code">ES 2024 - weekly</field>
+            <field name="name">Tabla de Employment Subsidy 2024 - Weekly</field>
+            <field name="type_table">w</field>
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line001" model="hr.payroll.es.line">
+            <field name="name">1</field>
+            <field name="inf_sup">0.01</field>
+            <field name="lim_sup">407.33</field>
+            <field name="fix_fee">93.73</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line002" model="hr.payroll.es.line">
+            <field name="name">2</field>
+            <field name="inf_sup">407.34</field>
+            <field name="lim_sup">610.96</field>
+            <field name="fix_fee">93.66</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line003" model="hr.payroll.es.line">
+            <field name="name">3</field>
+            <field name="inf_sup">610.97</field>
+            <field name="lim_sup">799.68</field>
+            <field name="fix_fee">93.66</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line004" model="hr.payroll.es.line">
+            <field name="name">4</field>
+            <field name="inf_sup">799.69</field>
+            <field name="lim_sup">814.66</field>
+            <field name="fix_fee">90.44</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line005" model="hr.payroll.es.line">
+            <field name="name">5</field>
+            <field name="inf_sup">814.67</field>
+            <field name="lim_sup">1023.75</field>
+            <field name="fix_fee">88.06</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line006" model="hr.payroll.es.line">
+            <field name="name">6</field>
+            <field name="inf_sup">1023.76</field>
+            <field name="lim_sup">1086.19</field>
+            <field name="fix_fee">81.55</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line007" model="hr.payroll.es.line">
+            <field name="name">7</field>
+            <field name="inf_sup">1086.20</field>
+            <field name="lim_sup">1228.57</field>
+            <field name="fix_fee">74.83</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line008" model="hr.payroll.es.line">
+            <field name="name">8</field>
+            <field name="inf_sup">1228.58</field>
+            <field name="lim_sup">1433.32</field>
+            <field name="fix_fee">67.83</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line009" model="hr.payroll.es.line">
+            <field name="name">9</field>
+            <field name="inf_sup">1433.33</field>
+            <field name="lim_sup">1638.07</field>
+            <field name="fix_fee">58.38</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line010" model="hr.payroll.es.line">
+            <field name="name">10</field>
+            <field name="inf_sup">1638.08</field>
+            <field name="lim_sup">1699.88</field>
+            <field name="fix_fee">50.12</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+
+        <record id="hr_payroll_es_anual_0521_line011" model="hr.payroll.es.line">
+            <field name="name">11</field>
+            <field name="inf_sup">1699.89</field>
+            <field name="lim_sup">999999999.00</field>
+            <field name="fix_fee">0.00</field>
+            <field name="line_id" ref="table_of_es_weekly_0524" />
+        </record>
+</odoo>

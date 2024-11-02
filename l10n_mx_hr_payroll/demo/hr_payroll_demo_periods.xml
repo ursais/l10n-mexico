@@ -1,0 +1,144 @@
+<odoo noupdate="1">
+
+    <!-- Period Type  -->
+
+        <record id="hr_payroll_type_weekly_001" model="hr.payroll.period.type">
+            <field name="code">Semanal</field>
+            <field name="name">Normal - Semanal</field>
+            <field name="period_cfdi">02</field>
+            <field name="payroll_type">O</field>
+        </record>
+
+        <record id="hr_payroll_type_special_099" model="hr.payroll.period.type">
+            <field name="code">SP</field>
+            <field name="name">Especial</field>
+            <field name="period_cfdi">99</field>
+            <field name="payroll_type">E</field>
+        </record>
+
+    <!-- Payroll Periods  -->
+
+        <record id="hr_payroll_weekly_001" model="hr.payroll.period">
+            <field name="code">Semanal</field>
+            <field name="name">Semanal</field>
+            <field name="active">True</field>
+            <field
+            name="structure_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_weekly"
+        />
+            <field name="type_id" ref="l10n_mx_hr_payroll.hr_payroll_type_weekly_001" />
+        </record>
+
+        <record id="hr_payroll_bonus_001" model="hr.payroll.period">
+            <field name="code">Aguinaldo</field>
+            <field name="name">Bonus</field>
+            <field name="active">True</field>
+            <field
+            name="structure_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_weekly_special"
+        />
+            <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.hr_payroll_type_special_099"
+        />
+        </record>
+
+        <record id="hr_payroll_ptu_002" model="hr.payroll.period">
+            <field name="code">PTU</field>
+            <field name="name">PTU</field>
+            <field name="active">True</field>
+            <field
+            name="structure_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_weekly_special"
+        />
+            <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.hr_payroll_type_special_099"
+        />
+        </record>
+
+        <record id="hr_payroll_finiquitos_003" model="hr.payroll.period">
+            <field name="code">FQT</field>
+            <field name="name">Finiquitos</field>
+            <field name="active">True</field>
+            <field
+            name="structure_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_weekly_special"
+        />
+            <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.hr_payroll_type_special_099"
+        />
+        </record>
+
+        <record id="hr_payroll_liquidaciones_004" model="hr.payroll.period">
+            <field name="code">LQD</field>
+            <field name="name">Liquidaciones</field>
+            <field name="active">True</field>
+            <field
+            name="structure_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_weekly_special"
+        />
+            <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.hr_payroll_type_special_099"
+        />
+        </record>
+
+        <record id="hr_payroll_despidos_005" model="hr.payroll.period">
+            <field name="code">DPD</field>
+            <field name="name">Despidos</field>
+            <field name="active">True</field>
+            <field
+            name="structure_id"
+            ref="l10n_mx_hr_payroll.structure_mx_employee_weekly_special"
+        />
+            <field
+            name="type_id"
+            ref="l10n_mx_hr_payroll.hr_payroll_type_special_099"
+        />
+        </record>
+
+    <!-- Payroll Period Line-->
+
+        <record id="hr_payroll_weekly_line_05" model="hr.payroll.period.line">
+            <field name="sequence">5</field>
+            <field name="name">Semana 5</field>
+            <field name="date_start" eval="time.strftime('2024-02-01')" />
+            <field name="date_end" eval="time.strftime('2024-02-07')" />
+            <field name="date_pay" eval="time.strftime('2024-02-08')" />
+            <field name="state">open</field>
+            <field name="period_id" ref="l10n_mx_hr_payroll.hr_payroll_weekly_001" />
+        </record>
+
+        <record id="hr_payroll_weekly_line_006" model="hr.payroll.period.line">
+            <field name="sequence">6</field>
+            <field name="name">Semana 6</field>
+            <field name="date_start" eval="time.strftime('2024-02-08')" />
+            <field name="date_end" eval="time.strftime('2024-02-14')" />
+            <field name="date_pay" eval="time.strftime('2024-02-15')" />
+            <field name="state">open</field>
+            <field name="period_id" ref="l10n_mx_hr_payroll.hr_payroll_weekly_001" />
+        </record>
+
+        <record id="hr_payroll_weekly_line_007" model="hr.payroll.period.line">
+            <field name="sequence">7</field>
+            <field name="name">Semana 7</field>
+            <field name="date_start" eval="time.strftime('2024-02-15')" />
+            <field name="date_end" eval="time.strftime('2024-02-21')" />
+            <field name="date_pay" eval="time.strftime('2024-02-22')" />
+            <field name="state">open</field>
+            <field name="period_id" ref="l10n_mx_hr_payroll.hr_payroll_weekly_001" />
+        </record>
+
+        <record id="hr_payroll_weekly_line_008" model="hr.payroll.period.line">
+            <field name="sequence">8</field>
+            <field name="name">Semana 8</field>
+            <field name="date_start" eval="time.strftime('2024-02-22')" />
+            <field name="date_end" eval="time.strftime('2024-02-28')" />
+            <field name="date_pay" eval="time.strftime('2024-02-29')" />
+            <field name="state">open</field>
+            <field name="period_id" ref="l10n_mx_hr_payroll.hr_payroll_weekly_001" />
+        </record>
+
+</odoo>

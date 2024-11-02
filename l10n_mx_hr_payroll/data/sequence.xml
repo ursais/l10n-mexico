@@ -1,0 +1,75 @@
+<odoo noupdate="1">
+
+        <record id="seq_hr_payroll_loans" model="ir.sequence">
+            <field name="name">Sequence of loans</field>
+            <field name="code">hr.payroll.loan</field>
+            <field name="prefix">HPL-</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_hr_payroll_infonavit" model="ir.sequence">
+            <field name="name">Sequence of Infonavit</field>
+            <field name="code">hr.payroll.loan</field>
+            <field name="prefix">HPI-</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_hr_payroll_alimony" model="ir.sequence">
+            <field name="name">Sequence of Alimony</field>
+            <field name="code">hr.payroll.alimony</field>
+            <field name="prefix">HPA-</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_hr_payroll_settlement" model="ir.sequence">
+            <field name="name">Sequence of settlement</field>
+            <field name="code">hr.payroll.settlement</field>
+            <field name="prefix">STT-</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_hr_payroll_general_salary_increase" model="ir.sequence">
+            <field name="name">Sequence of General Salary Increase</field>
+            <field name="code">hr.payroll.general_salary_increases</field>
+            <field name="prefix">HRGSI - </field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_hr_payroll_salary_increase" model="ir.sequence">
+            <field name="name">Sequence of Salary Increase</field>
+            <field name="code">hr.payroll.salary_increases</field>
+            <field name="prefix">HRSI - </field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_hr_payroll_salary_history" model="ir.sequence">
+            <field name="name">Sequence of Salary Historial</field>
+            <field name="code">hr.contract.salary_history</field>
+            <field name="prefix">HRCAH - </field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_hr_payroll_extratime" model="ir.sequence">
+            <field name="name">Sequence of extratime</field>
+            <field name="code">hr.contract.extratime</field>
+            <field name="prefix">HRET - </field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_hr_payroll_contract_process" model="ir.sequence">
+            <field name="name">Sequence of Contract process</field>
+            <field name="code">hr.contract.extratime</field>
+            <field name="prefix">HRET - </field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+</odoo>

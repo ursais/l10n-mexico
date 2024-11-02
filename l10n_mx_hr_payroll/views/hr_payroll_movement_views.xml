@@ -1,0 +1,321 @@
+<odoo>
+
+    <record id="view_hr_payroll_movement_filter" model="ir.ui.view">
+        <field name="name">hr.payroll.movement.search</field>
+        <field name="model">hr.payroll.movement.line</field>
+        <field name="arch" type="xml">
+            <search string="Movement">
+                <field name="employee_id" />
+                <field name="name" filter_domain="[('name', 'ilike', self)]" />
+                <field name="state" string="Status" />
+                <searchpanel>
+                    <field
+                        name="company_id"
+                        groups="base.group_multi_company"
+                        icon="fa-building"
+                        enable_counters="1"
+                    />
+                    <field name="payslip_input_id" icon="fa-bars" enable_counters="1" />
+                </searchpanel>
+            </search>
+            </field>
+    </record>
+
+    <record id="view_hr_payroll_movement_line_form" model="ir.ui.view">
+        <field name="name">hr.payroll.movement.line.form</field>
+        <field name="model">hr.payroll.movement.line</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Movement Line">
+                <header>
+                    <button
+                        string="Approve"
+                        name="approved_movement"
+                        class="oe_highlight"
+                        states="draft"
+                        type='object'
+                    />
+                    <button
+                        string="Cancel"
+                        name="cancel_movement"
+                        states="draft,approved"
+                        type='object'
+                    />
+                    <button
+                        string="Done"
+                        name="done_movement"
+                        class="oe_highlight"
+                        states="approved"
+                        type='object'
+                    />
+                    <button
+                        string="Set to Draft"
+                        name="draft_movement"
+                        class="oe_highlight"
+                        states="cancel,done"
+                        type='object'
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field
+                                name="name"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="employee_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <label for="date_start" string="Period" />
+                            <span>
+                                <field
+                                    name="date_start"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                /> - <field
+                                    name="date_end"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                />
+                            </span>
+                            <field
+                                name="amount"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="payslip_input_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                                domain="[('input_type_mx', '=', 'movement')]"
+                                options="{'no_create': True, 'no_create_edit': True}"
+                            />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_movement_line_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.movement.tree</field>
+        <field name="model">hr.payroll.movement.line</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="payslip_input_id" />
+                <field name="amount" />
+                <field
+                    name="state"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'approved'"
+                    decoration-warning="state == 'done'"
+                    widget="badge"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record
+        id="action_view_hr_movement_one_employee_form"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Movements for one employee</field>
+        <field name="res_model">hr.payroll.movement.line</field>
+        <field name="domain">[('multi_form', '=', False)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_hr_payroll_movement_form" model="ir.ui.view">
+        <field name="name">hr.payroll.movement.form</field>
+        <field name="model">hr.payroll.movement</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Movement">
+                <header>
+                    <button
+                        string="Approve"
+                        name="approved_movement"
+                        class="oe_highlight"
+                        states="draft"
+                        type='object'
+                    />
+                    <button
+                        string="Cancel"
+                        name="cancel_movement"
+                        states="draft,approved"
+                        type='object'
+                    />
+                    <button
+                        string="Done"
+                        name="done_movement"
+                        class="oe_highlight"
+                        states="approved"
+                        type='object'
+                    />
+                    <button
+                        string="Set to Draft"
+                        name="draft_movement"
+                        class="oe_highlight"
+                        states="cancel,done"
+                        type='object'
+                    />
+                    <button
+                        name="%(action_hr_movement_by_employees)d"
+                        type="action"
+                        states="draft"
+                        string="Assign employees"
+                        class="btn btn-secondary"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_open_payroll_movements"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            type="object"
+                            help="Generated Payslips"
+                            attrs="{'invisible': [('movements_count', '=', 0)]}"
+                        >
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field
+                                        name="movements_count"
+                                    /></span>
+                                <span class="o_stat_text">Movements</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field
+                                name="name"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <label for="date_start" string="Period" />
+                            <span>
+                                <field
+                                    name="date_start"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                /> - <field
+                                    name="date_end"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                />
+                            </span>
+                            <field
+                                name="amount"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="payslip_input_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                                domain="[('input_type_mx', '=', 'movement')]"
+                                options="{'no_create': True, 'no_create_edit': True}"
+                            />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page
+                            string="Lines"
+                            attrs="{'readonly':[('state','!=','draft')]}"
+                        >
+                            <field
+                                name="line_ids"
+                                nolabel="1"
+                                create="0"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            >
+                                <tree>
+                                    <field name="employee_id" />
+                                    <field name="date_start" />
+                                    <field name="date_end" />
+                                    <field name="payslip_input_id" />
+                                    <field name="amount" />
+                                    <field
+                                        name="state"
+                                        decoration-info="state == 'draft'"
+                                        decoration-success="state == 'approved'"
+                                        decoration-warning="state == 'done'"
+                                        widget="badge"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <group string="Notes">
+                                <field
+                                    name="note"
+                                    nolabel="1"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_movement_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.movement.tree</field>
+        <field name="model">hr.payroll.movement</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="payslip_input_id" />
+                <field name="amount" />
+                <field
+                    name="state"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'approved'"
+                    decoration-warning="state == 'done'"
+                    widget="badge"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record
+        id="action_view_hr_movement_many_employees_form"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Movement for many employees</field>
+        <field name="res_model">hr.payroll.movement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,65 @@
+<odoo>
+
+    <!-- Payroll - Employment Subsidy -->
+    <record id="view_hr_payroll_es_list_view" model="ir.ui.view">
+        <field name="name">hr.payroll.es.tree</field>
+        <field name="model">hr.payroll.es</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_es_form" model="ir.ui.view">
+        <field name="name">hr.payroll.es.form</field>
+        <field name="model">hr.payroll.es</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Employment Subsidy">
+            <sheet>
+                <group>
+                    <group name="payroll_es">
+                        <field name="active" invisible="1" />
+                        <field name="code" />
+                        <field name="name" />
+                        <field name="type_table" />
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Periods">
+                        <field name="line_ids" colspan="4" nolabel="1">
+                            <tree>
+                                    <field name="name" />
+                                    <field name="inf_sup" />
+                                    <field name="lim_sup" />
+                                    <field name="fix_fee" />
+                            </tree>
+                            <form string="Period Line">
+                                <group col="4">
+                                    <field name="name" />
+                                    <field name="inf_sup" />
+                                    <field name="lim_sup" />
+                                    <field name="fix_fee" />
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user" />
+                <field name="activity_ids" />
+                <field name="message_ids" />
+            </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_hr_payroll_es_list_form" model="ir.actions.act_window">
+        <field name="name">Payroll Employment Subsidy Table</field>
+        <field name="res_model">hr.payroll.es</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

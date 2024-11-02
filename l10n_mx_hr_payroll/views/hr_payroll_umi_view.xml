@@ -1,0 +1,40 @@
+<odoo>
+
+    <!-- Payroll - UMI Table -->
+    <record id="view_hr_payroll_umi_form_view" model="ir.ui.view">
+        <field name="name">hr.payroll.umi.form</field>
+        <field name="model">hr.payroll.umi</field>
+        <field name="arch" type="xml">
+            <form string="Payroll UMI Table" default_order='date desc'>
+                <sheet>
+                    <group>
+                        <field name="date" />
+                        <field name="name" />
+                        <field name="amount" digits="[3,2]" />
+                        <field name="company_id" groups="base.group_multi_company" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_umi_tree_view" model="ir.ui.view">
+        <field name="name">hr.payroll.umi.tree</field>
+        <field name="model">hr.payroll.umi</field>
+        <field name="arch" type="xml">
+            <tree default_order='date desc'>
+                <field name="date" />
+                <field name="name" />
+                <field name="amount" digits="[3,2]" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_hr_payroll_umi_list" model="ir.actions.act_window">
+        <field name="name">Payroll UMI table</field>
+        <field name="res_model">hr.payroll.umi</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

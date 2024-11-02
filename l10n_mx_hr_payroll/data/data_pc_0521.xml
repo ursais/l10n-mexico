@@ -1,0 +1,423 @@
+<odoo>
+        <!--  -->
+        <record id="table_of_pc_employee_anual_0521" model="hr.payroll.pc">
+            <field name="code">PC - Employees</field>
+            <field name="name">Performance Catalog for employees</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line001"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">1</field>
+            <field name="antiquity">1</field>
+            <field name="holidays">12.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line002"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">2</field>
+            <field name="antiquity">2</field>
+            <field name="holidays">14.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line003"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">3</field>
+            <field name="antiquity">3</field>
+            <field name="holidays">16.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line004"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">4</field>
+            <field name="antiquity">4</field>
+            <field name="holidays">18.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line005"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">5</field>
+            <field name="antiquity">5</field>
+            <field name="holidays">20.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line006"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">6</field>
+            <field name="antiquity">6</field>
+            <field name="holidays">22.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line007"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">7</field>
+            <field name="antiquity">7</field>
+            <field name="holidays">22.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line008"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">8</field>
+            <field name="antiquity">8</field>
+            <field name="holidays">22.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line009"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">9</field>
+            <field name="antiquity">9</field>
+            <field name="holidays">22.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line010"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">10</field>
+            <field name="antiquity">10</field>
+            <field name="holidays">22.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line011"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">11</field>
+            <field name="antiquity">11</field>
+            <field name="holidays">24.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line012"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">12</field>
+            <field name="antiquity">12</field>
+            <field name="holidays">24.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line013"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">13</field>
+            <field name="antiquity">13</field>
+            <field name="holidays">24.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line014"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">14</field>
+            <field name="antiquity">14</field>
+            <field name="holidays">24.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line015"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">15</field>
+            <field name="antiquity">15</field>
+            <field name="holidays">24.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line016"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">16</field>
+            <field name="antiquity">16</field>
+            <field name="holidays">26.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line017"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">17</field>
+            <field name="antiquity">17</field>
+            <field name="holidays">26.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line018"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">18</field>
+            <field name="antiquity">18</field>
+            <field name="holidays">26.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line019"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">19</field>
+            <field name="antiquity">19</field>
+            <field name="holidays">26.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line020"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">20</field>
+            <field name="antiquity">20</field>
+            <field name="holidays">26.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line021"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">21</field>
+            <field name="antiquity">21</field>
+            <field name="holidays">28.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line022"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">22</field>
+            <field name="antiquity">22</field>
+            <field name="holidays">28.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line021"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">21</field>
+            <field name="antiquity">21</field>
+            <field name="holidays">28.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line022"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">22</field>
+            <field name="antiquity">22</field>
+            <field name="holidays">28.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line023"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">23</field>
+            <field name="antiquity">23</field>
+            <field name="holidays">28.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line024"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">24</field>
+            <field name="antiquity">24</field>
+            <field name="holidays">28.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line025"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">25</field>
+            <field name="antiquity">25</field>
+            <field name="holidays">28.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line026"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">26</field>
+            <field name="antiquity">26</field>
+            <field name="holidays">30.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line027"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">27</field>
+            <field name="antiquity">27</field>
+            <field name="holidays">30.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line028"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">28</field>
+            <field name="antiquity">28</field>
+            <field name="holidays">30.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line029"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">29</field>
+            <field name="antiquity">29</field>
+            <field name="holidays">30.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+
+        <record
+        id="hr_payroll_pc_employee_anual_0521_line030"
+        model="hr.payroll.pc.line"
+    >
+            <field name="line_id" ref="table_of_pc_employee_anual_0521" />
+            <field name="name">30</field>
+            <field name="antiquity">30</field>
+            <field name="holidays">30.00</field>
+            <field name="pvp">25.00</field>
+            <field name="bonus">15.00</field>
+            <field name="factor">0.00</field>
+        </record>
+</odoo>

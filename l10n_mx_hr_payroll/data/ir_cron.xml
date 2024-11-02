@@ -1,0 +1,44 @@
+<odoo noupdate="1">
+
+        <record id="ir_cron_update_pac_status_payroll" model="ir.cron">
+            <field
+            name="name"
+        >Automatic update of state on the SAT (for Payslip)</field>
+            <field name="model_id" ref="account.model_account_move" />
+            <field name="state">code</field>
+            <field name="code">
+    env['hr.payslip']._l10n_mx_payroll_edi_cron_update_sat_status()
+            </field>
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field
+            name="nextcall"
+            eval="(DateTime.now() ).strftime('%Y-%m-%d 22:00:00')"
+        />
+        </record>
+
+        <record id="ir_cron_update_salary_increase" model="ir.cron">
+            <field name="name">Automatic update salary wage</field>
+            <field
+            name="model_id"
+            ref="l10n_mx_hr_payroll.model_hr_payroll_salary_increases"
+        />
+            <field name="state">code</field>
+            <field name="code">
+    env['hr.payroll.salary_increases'].execute_cron_compute_salary_increase()
+            </field>
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">30</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field
+            name="nextcall"
+            eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 22:00:00')"
+        />
+        </record>
+
+</odoo>

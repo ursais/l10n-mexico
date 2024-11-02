@@ -1,0 +1,99 @@
+<odoo noupdate="1">
+
+        <!-- CATEGORIES -->
+
+        <record id="CAT_CONFIG" model="hr.salary.rule.category">
+            <field name="name">Configure</field>
+            <field name="code">CONFIG</field>
+        </record>
+
+        <record id="CAT_AUX" model="hr.salary.rule.category">
+            <field name="name">Auxiliares</field>
+            <field name="code">AUX</field>
+        </record>
+
+        <record id="CAT_ALW_C" model="hr.salary.rule.category">
+                <field name="name">Allowance Cash</field>
+                <field name="code">ALWC</field>
+        </record>
+        <record id="CAT_ALW_S" model="hr.salary.rule.category">
+                <field name="name">Allowance Specie</field>
+                <field name="code">ALWS</field>
+        </record>
+
+        <record id="OTALW" model="hr.salary.rule.category">
+            <field name="name">Others Allowances</field>
+            <field name="code">OTALW</field>
+        </record>
+
+        <record id="OTDED" model="hr.salary.rule.category">
+            <field name="name">Others Deductions</field>
+            <field name="code">OTDED</field>
+        </record>
+
+        <record id="OTPAY" model="hr.salary.rule.category">
+            <field name="name">Others Payments</field>
+            <field name="code">OTPAY</field>
+        </record>
+
+        <record id="MICEL" model="hr.salary.rule.category">
+            <field name="name">MCL</field>
+            <field name="code">Micelaneos</field>
+        </record>
+
+        <record id="CAT_IT" model="hr.salary.rule.category">
+            <field name="name">IT</field>
+            <field name="code">IT</field>
+        </record>
+
+        <record id="CAT_SEA" model="hr.salary.rule.category">
+            <field name="name">SEA</field>
+            <field name="code">SEA</field>
+        </record>
+
+        <record id="CAT_SESP" model="hr.salary.rule.category">
+            <field name="name">SESP</field>
+            <field name="code">SESP</field>
+        </record>
+
+        <record id="CAT_IMSS_E" model="hr.salary.rule.category">
+            <field name="name">IMSS Employee</field>
+            <field name="code">IMSS_E</field>
+        </record>
+
+        <record id="CAT_IMSS_BE" model="hr.salary.rule.category">
+            <field name="name">IMSS Bimonthly Employee</field>
+            <field name="code">IMSS_BE</field>
+        </record>
+
+        <record id="CAT_IMSS_ME" model="hr.salary.rule.category">
+            <field name="name">IMSS Monthly Employee</field>
+            <field name="code">IMSS_ME</field>
+        </record>
+
+        <record id="CAT_IMSS_C" model="hr.salary.rule.category">
+            <field name="name">IMSS Company</field>
+            <field name="code">IMSS_C</field>
+        </record>
+
+        <record id="CAT_IMSS_BC" model="hr.salary.rule.category">
+            <field name="name">IMSS Bimonthly Company</field>
+            <field name="code">IMSS_BC</field>
+        </record>
+
+        <record id="CAT_IMSS_MC" model="hr.salary.rule.category">
+            <field name="name">IMSS Monthly Company</field>
+            <field name="code">IMSS_MC</field>
+        </record>
+
+        <record id="CAT_IMSS_IC" model="hr.salary.rule.category">
+            <field name="name">IMSS Company Infonavit</field>
+            <field name="code">IMSS_IC</field>
+        </record>
+
+        <record id="CAT_ISN" model="hr.salary.rule.category">
+            <field name="name">Impuesto sobre la nomina</field>
+            <field name="code">ISN</field>
+        </record>
+
+</odoo>

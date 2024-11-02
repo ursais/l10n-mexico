@@ -1,0 +1,33 @@
+<odoo noupdate="1">
+
+    <!--  crm categories -->
+    <record id="resyday_1" model="hr.contract.restday">
+        <field name="name">Sunday</field>
+        <field name="color" eval="1" />
+    </record>
+    <record id="restday_2" model="hr.contract.restday">
+        <field name="name">Monday</field>
+        <field name="color" eval="2" />
+    </record>
+    <record id="restday_3" model="hr.contract.restday">
+        <field name="name">Tuesday</field>
+        <field name="color" eval="3" />
+    </record>
+    <record id="restday_4" model="hr.contract.restday">
+        <field name="name">Wednesday</field>
+        <field name="color" eval="4" />
+    </record>
+    <record id="restday_5" model="hr.contract.restday">
+        <field name="name">Thurday</field>
+        <field name="color" eval="5" />
+    </record>
+    <record id="restday_6" model="hr.contract.restday">
+        <field name="name">Friday</field>
+        <field name="color" eval="6" />
+    </record>
+    <record id="restday_7" model="hr.contract.restday">
+        <field name="name">Saturday</field>
+        <field name="color" eval="7" />
+    </record>
+
+</odoo>

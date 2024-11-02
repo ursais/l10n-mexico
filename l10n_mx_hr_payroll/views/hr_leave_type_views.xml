@@ -1,0 +1,19 @@
+<odoo>
+
+    <record id="hr_holidays_mx_edit_holiday_status_form" model="ir.ui.view">
+        <field name="name">hr.leave.type.payroll_mx</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form" />
+        <field name="priority" eval="7" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='visual']" position="before">
+                <group>
+                    <group name="IMSS" string="IMSS">
+                        <field name="disabilities_type" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

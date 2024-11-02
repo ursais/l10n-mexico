@@ -1,0 +1,21 @@
+<odoo noupdate="1">
+    <!-- Periods Types -->
+    <record id="hr_payroll_type_weekly_001" model="hr.payroll.period.type">
+        <field name="code">Semanal</field>
+        <field name="name">Normal - Semanal</field>
+        <field name="period_cfdi">02</field>
+        <field name="payroll_type">O</field>
+    </record>
+    <record id="hr_payroll_type_biweekly_001" model="hr.payroll.period.type">
+        <field name="code">Quincenal</field>
+        <field name="name">Normal - Quincenal</field>
+        <field name="period_cfdi">04</field>
+        <field name="payroll_type">O</field>
+    </record>
+    <record id="hr_payroll_type_monthly_001" model="hr.payroll.period.type">
+        <field name="code">Mensual</field>
+        <field name="name">Normal - Mensual</field>
+        <field name="period_cfdi">05</field>
+        <field name="payroll_type">O</field>
+    </record>
+</odoo>

@@ -1,0 +1,103 @@
+<odoo>
+
+    <record id="view_hr_payroll_salary_history_form" model="ir.ui.view">
+        <field name="name">hr.contract.salary_history.form</field>
+        <field name="model">hr.contract.salary_history</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Contract Salary History">
+                <header>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" placeholder="Folio" readonly="1" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date" />
+                            <field name="date_applied" />
+                            <field
+                                name="employee_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="contract_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                    </group>
+                    <group attrs="{'invisible':[('contract_id','=', False)]}">
+                        <group string="Older Salary">
+                            <label for="older_wage" string="Wage" />
+                            <div class="o_row" name="c_wage">
+                                <field name="older_wage" nolabel="1" readonly="1" />
+                                <span>/ per day</span>
+                            </div>
+                            <label for="older_sdi" string="Current SDI" />
+                            <div class="o_row" name="sdi">
+                                <field name="older_sdi" nolabel="1" readonly="1" />
+                                <span>/ per day</span>
+                            </div>
+                        </group>
+                        <group string="New Salary">
+                            <label for="date" string="Date" />
+                            <field name="date" nolabel="1" />
+                            <label for="wage" string="Wage" />
+                            <div class="o_row" name="new_wage">
+                                <field name="wage" nolabel="1" />
+                                <span>/ per day</span>
+                            </div>
+                            <label for="sdi" string="New SDI" />
+                            <div class="o_row" name="sdi">
+                                <field name="sdi" nolabel="1" readonly="1" />
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_contract_salary_history_tree" model="ir.ui.view">
+        <field name="name">hr.contract.salary_history.tree</field>
+        <field name="model">hr.contract.salary_history</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" invisible="1" />
+                <field name="date" />
+                <field name="date_applied" />
+                <field name="employee_id" />
+                <field name="wage" />
+                <field name="contract_id" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-primary="state == 'approved'"
+                    decoration-success="state == 'applied'"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_hr_payroll_salary_history" model="ir.actions.act_window">
+        <field name="name">History of Contracts</field>
+        <field name="res_model">hr.contract.salary_history</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

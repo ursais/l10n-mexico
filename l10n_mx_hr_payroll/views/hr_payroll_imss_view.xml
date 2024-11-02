@@ -1,0 +1,52 @@
+<odoo>
+
+    <!-- Payroll - IMSS Table -->
+    <record id="view_hr_payroll_imss_form_view" model="ir.ui.view">
+        <field name="name">hr.payroll.imss.form</field>
+        <field name="model">hr.payroll.imss</field>
+        <field name="arch" type="xml">
+            <form string="Payroll IMSS Table">
+                <sheet>
+                    <group>
+                        <field name="code" />
+                        <field name="name" />
+                    </group>
+                    <group>
+                        <group string="Employer">
+                            <field name="enf_mat_cuota_fija" />
+                            <field name="enf_mat_excedente_p" />
+                            <field name="enf_mat_prestaciones_p" />
+                            <field name="enf_mat_gastos_med_p" />
+                            <field name="inv_vida_p" />
+                        </group>
+                        <group string="Employee">
+                            <field name="enf_mat_excedente_e" />
+                            <field name="enf_mat_prestaciones_e" />
+                            <field name="enf_mat_gastos_med_e" />
+                            <field name="inv_vida_e" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_imss_tree_view" model="ir.ui.view">
+        <field name="name">hr.payroll.imss.tree</field>
+        <field name="model">hr.payroll.imss</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code" />
+                <field name="name" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_hr_payroll_imss_list" model="ir.actions.act_window">
+        <field name="name">Payroll IMSS table</field>
+        <field name="res_model">hr.payroll.imss</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

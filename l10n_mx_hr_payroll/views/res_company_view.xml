@@ -1,0 +1,28 @@
+<odoo>
+
+    <record id="res_company_form_inherit_payroll_mx" model="ir.ui.view">
+        <field name="name">res.company.form.inherit_page_payroll</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Payroll">
+                    <field
+                        name="hr_payroll_employer_registers"
+                        widget="section_and_note_one2many"
+                        mode="tree,form"
+                        nolabel="1"
+                    >
+                        <form>
+                            <field name="name" />
+                        </form>
+                        <tree>
+                            <field name="name" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

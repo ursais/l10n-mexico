@@ -1,0 +1,426 @@
+<odoo>
+        <!-- ISR Table - Anual -->
+        <record id="table_of_isr_anual_0524" model="hr.payroll.isr">
+            <field name="code">ISR 2024 - Anual</field>
+            <field name="name">Tabla de ISR 2024 - Anual</field>
+            <field name="type_table">a</field>
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line001" model="hr.payroll.isr.line">
+            <field name="name">1</field>
+            <field name="lim_inf">0.01</field>
+            <field name="lim_sup">7735.00</field>
+            <field name="fix_fee">0.00</field>
+            <field name="percent">1.92</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line002" model="hr.payroll.isr.line">
+            <field name="name">2</field>
+            <field name="lim_inf">7735.01</field>
+            <field name="lim_sup">65651.07</field>
+            <field name="fix_fee">148.51</field>
+            <field name="percent">6.40</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line003" model="hr.payroll.isr.line">
+            <field name="name">3</field>
+            <field name="lim_inf">65651.08</field>
+            <field name="lim_sup">115375.90</field>
+            <field name="fix_fee">3855.14</field>
+            <field name="percent">10.88</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line004" model="hr.payroll.isr.line">
+            <field name="name">4</field>
+            <field name="lim_inf">115375.91</field>
+            <field name="lim_sup">134119.41</field>
+            <field name="fix_fee">9265.16</field>
+            <field name="percent">16.00</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line005" model="hr.payroll.isr.line">
+            <field name="name">5</field>
+            <field name="lim_inf">134119.42</field>
+            <field name="lim_sup">160577.65</field>
+            <field name="fix_fee">12264.16</field>
+            <field name="percent">17.92</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line006" model="hr.payroll.isr.line">
+            <field name="name">6</field>
+            <field name="lim_inf">160577.66</field>
+            <field name="lim_sup">323862.00</field>
+            <field name="fix_fee">17005.47</field>
+            <field name="percent">21.36</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line007" model="hr.payroll.isr.line">
+            <field name="name">7</field>
+            <field name="lim_inf">323862.01</field>
+            <field name="lim_sup">510451.00</field>
+            <field name="fix_fee">51883.01</field>
+            <field name="percent">23.52</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line008" model="hr.payroll.isr.line">
+            <field name="name">8</field>
+            <field name="lim_inf">510451.01</field>
+            <field name="lim_sup">974535.03</field>
+            <field name="fix_fee">95768.74</field>
+            <field name="percent">30.00</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line009" model="hr.payroll.isr.line">
+            <field name="name">9</field>
+            <field name="lim_inf">974535.04</field>
+            <field name="lim_sup">1299380.04</field>
+            <field name="fix_fee">234993.95</field>
+            <field name="percent">32.00</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line010" model="hr.payroll.isr.line">
+            <field name="name">10</field>
+            <field name="lim_inf">1299380.05</field>
+            <field name="lim_sup">3898140.12</field>
+            <field name="fix_fee">338944.34</field>
+            <field name="percent">34.00</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <record id="hr_payroll_isr_anual_0521_line011" model="hr.payroll.isr.line">
+            <field name="name">11</field>
+            <field name="lim_inf">3898140.13</field>
+            <field name="lim_sup">999999999.00</field>
+            <field name="fix_fee">1222522.76</field>
+            <field name="percent">35.00</field>
+            <field name="line_id" ref="table_of_isr_anual_0524" />
+        </record>
+
+        <!-- ISR Table - Monthly -->
+        <record id="table_of_isr_monthly_0521" model="hr.payroll.isr">
+            <field name="code">ISR 2024 - Monthly</field>
+            <field name="name">Tabla de ISR 2024 - Monthly</field>
+            <field name="type_table">m</field>
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line001" model="hr.payroll.isr.line">
+            <field name="name">1</field>
+            <field name="lim_inf">0.01</field>
+            <field name="lim_sup">746.04</field>
+            <field name="fix_fee">0.00</field>
+            <field name="percent">1.92</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line002" model="hr.payroll.isr.line">
+            <field name="name">2</field>
+            <field name="lim_inf">746.05</field>
+            <field name="lim_sup">6332.05</field>
+            <field name="fix_fee">14.32</field>
+            <field name="percent">6.40</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line003" model="hr.payroll.isr.line">
+            <field name="name">3</field>
+            <field name="lim_inf">6332.06</field>
+            <field name="lim_sup">11128.01</field>
+            <field name="fix_fee">371.83</field>
+            <field name="percent">10.88</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line004" model="hr.payroll.isr.line">
+            <field name="name">4</field>
+            <field name="lim_inf">11128.02</field>
+            <field name="lim_sup">12935.82</field>
+            <field name="fix_fee">893.63</field>
+            <field name="percent">16.00</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line005" model="hr.payroll.isr.line">
+            <field name="name">5</field>
+            <field name="lim_inf">12935.83</field>
+            <field name="lim_sup">15487.71</field>
+            <field name="fix_fee">1182.88</field>
+            <field name="percent">17.92</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line006" model="hr.payroll.isr.line">
+            <field name="name">6</field>
+            <field name="lim_inf">15487.72</field>
+            <field name="lim_sup">31236.49	</field>
+            <field name="fix_fee">1640.18</field>
+            <field name="percent">21.36</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line007" model="hr.payroll.isr.line">
+            <field name="name">7</field>
+            <field name="lim_inf">31236.50</field>
+            <field name="lim_sup">49233.00	</field>
+            <field name="fix_fee">5004.12</field>
+            <field name="percent">23.52</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line008" model="hr.payroll.isr.line">
+            <field name="name">8</field>
+            <field name="lim_inf">49233.01	</field>
+            <field name="lim_sup">93993.90	</field>
+            <field name="fix_fee">9236.89</field>
+            <field name="percent">30.00</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line009" model="hr.payroll.isr.line">
+            <field name="name">9</field>
+            <field name="lim_inf">93993.91</field>
+            <field name="lim_sup">125325.20</field>
+            <field name="fix_fee">22665.17	</field>
+            <field name="percent">32.00</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line010" model="hr.payroll.isr.line">
+            <field name="name">10</field>
+            <field name="lim_inf">125325.21</field>
+            <field name="lim_sup">375975.61</field>
+            <field name="fix_fee">32691.18</field>
+            <field name="percent">34.00</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_monthly_0521_line011" model="hr.payroll.isr.line">
+            <field name="name">11</field>
+            <field name="lim_inf">375975.62</field>
+            <field name="lim_sup">999999999.00</field>
+            <field name="fix_fee">117912.32</field>
+            <field name="percent">35.00</field>
+            <field name="line_id" ref="table_of_isr_monthly_0521" />
+        </record>
+
+        <!-- ISR Table - biweekly -->
+        <record id="table_of_isr_quincenal_1121" model="hr.payroll.isr">
+            <field name="code">ISR 2024 - Quincenal</field>
+            <field name="name">Tabla de ISR 2024 - Quincenal</field>
+            <field name="type_table">b</field>
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line001" model="hr.payroll.isr.line">
+            <field name="name">1</field>
+            <field name="lim_inf">0.01</field>
+            <field name="lim_sup">368.1</field>
+            <field name="fix_fee">0.00</field>
+            <field name="percent">1.92</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line002" model="hr.payroll.isr.line">
+            <field name="name">2</field>
+            <field name="lim_inf">368.11</field>
+            <field name="lim_sup">3124.35</field>
+            <field name="fix_fee">7.05</field>
+            <field name="percent">6.40</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line003" model="hr.payroll.isr.line">
+            <field name="name">3</field>
+            <field name="lim_inf">3124.36</field>
+            <field name="lim_sup">5490.75</field>
+            <field name="fix_fee">183.45</field>
+            <field name="percent">10.88</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line004" model="hr.payroll.isr.line">
+            <field name="name">4</field>
+            <field name="lim_inf">5490.76</field>
+            <field name="lim_sup">6382.80</field>
+            <field name="fix_fee">441.00</field>
+            <field name="percent">16.00</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line005" model="hr.payroll.isr.line">
+            <field name="name">5</field>
+            <field name="lim_inf">6382.81</field>
+            <field name="lim_sup">7641.90</field>
+            <field name="fix_fee">583.65</field>
+            <field name="percent">17.92</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line006" model="hr.payroll.isr.line">
+            <field name="name">6</field>
+            <field name="lim_inf">7641.91</field>
+            <field name="lim_sup">15412.80</field>
+            <field name="fix_fee">809.25</field>
+            <field name="percent">21.36</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line007" model="hr.payroll.isr.line">
+            <field name="name">7</field>
+            <field name="lim_inf">15412.81</field>
+            <field name="lim_sup">24292.65</field>
+            <field name="fix_fee">2469.15</field>
+            <field name="percent">23.52</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line008" model="hr.payroll.isr.line">
+            <field name="name">8</field>
+            <field name="lim_inf">24292.66</field>
+            <field name="lim_sup">46378.50</field>
+            <field name="fix_fee">4557.75</field>
+            <field name="percent">30.00</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line009" model="hr.payroll.isr.line">
+            <field name="name">9</field>
+            <field name="lim_inf">46378.51</field>
+            <field name="lim_sup">61838.10</field>
+            <field name="fix_fee">11183.40	</field>
+            <field name="percent">32.00</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line010" model="hr.payroll.isr.line">
+            <field name="name">10</field>
+            <field name="lim_inf">61838.11</field>
+            <field name="lim_sup">185514.30</field>
+            <field name="fix_fee">16130.55</field>
+            <field name="percent">34.00</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <record id="hr_payroll_isr_quincenal_1121_line011" model="hr.payroll.isr.line">
+            <field name="name">11</field>
+            <field name="lim_inf">185514.31</field>
+            <field name="lim_sup">999999999.00</field>
+            <field name="fix_fee">58180.35</field>
+            <field name="percent">35.00</field>
+            <field name="line_id" ref="table_of_isr_quincenal_1121" />
+        </record>
+
+        <!-- ISR Table - weekly -->
+        <record id="table_of_isr_weekly_0521" model="hr.payroll.isr">
+            <field name="code">ISR 2024 - weekly</field>
+            <field name="name">Tabla de ISR 2024 - weekly</field>
+            <field name="type_table">w</field>
+        </record>
+
+        <record id="hr_payroll_isr_weekly_1121_line001" model="hr.payroll.isr.line">
+            <field name="name">1</field>
+            <field name="lim_inf">0.01</field>
+            <field name="lim_sup">171.78</field>
+            <field name="fix_fee">0.00</field>
+            <field name="percent">1.92</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_0521_line002" model="hr.payroll.isr.line">
+            <field name="name">2</field>
+            <field name="lim_inf">171.79</field>
+            <field name="lim_sup">1458.03</field>
+            <field name="fix_fee">3.29</field>
+            <field name="percent">6.40</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_0521_line003" model="hr.payroll.isr.line">
+            <field name="name">3</field>
+            <field name="lim_inf">1458.04</field>
+            <field name="lim_sup">2562.35</field>
+            <field name="fix_fee">85.61</field>
+            <field name="percent">10.88</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_0521_line004" model="hr.payroll.isr.line">
+            <field name="name">4</field>
+            <field name="lim_inf">2562.36</field>
+            <field name="lim_sup">2978.64</field>
+            <field name="fix_fee">205.80</field>
+            <field name="percent">16.00</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_0521_line005" model="hr.payroll.isr.line">
+            <field name="name">5</field>
+            <field name="lim_inf">2978.65</field>
+            <field name="lim_sup">3566.22</field>
+            <field name="fix_fee">272.37</field>
+            <field name="percent">17.92</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_0521_line006" model="hr.payroll.isr.line">
+            <field name="name">6</field>
+            <field name="lim_inf">3566.23</field>
+            <field name="lim_sup">7192.64</field>
+            <field name="fix_fee">377.65</field>
+            <field name="percent">21.36</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_1121_line007" model="hr.payroll.isr.line">
+            <field name="name">7</field>
+            <field name="lim_inf">7192.65</field>
+            <field name="lim_sup">11336.57</field>
+            <field name="fix_fee">1152.27</field>
+            <field name="percent">23.52</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_1121_line008" model="hr.payroll.isr.line">
+            <field name="name">8</field>
+            <field name="lim_inf">11336.58</field>
+            <field name="lim_sup">21643.30</field>
+            <field name="fix_fee">2126.95</field>
+            <field name="percent">30.00</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_1121_line009" model="hr.payroll.isr.line">
+            <field name="name">9</field>
+            <field name="lim_inf">21643.31</field>
+            <field name="lim_sup">28857.78</field>
+            <field name="fix_fee">5218.92</field>
+            <field name="percent">32.00</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_1121_line010" model="hr.payroll.isr.line">
+            <field name="name">10</field>
+            <field name="lim_inf">28857.79</field>
+            <field name="lim_sup">86573.34</field>
+            <field name="fix_fee">7527.59</field>
+            <field name="percent">34.00</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+        <record id="hr_payroll_isr_weekly_1121_line011" model="hr.payroll.isr.line">
+            <field name="name">11</field>
+            <field name="lim_inf">86573.35</field>
+            <field name="lim_sup">999999999.00</field>
+            <field name="fix_fee">27150.83</field>
+            <field name="percent">35.00</field>
+            <field name="line_id" ref="table_of_isr_weekly_0521" />
+        </record>
+
+</odoo>

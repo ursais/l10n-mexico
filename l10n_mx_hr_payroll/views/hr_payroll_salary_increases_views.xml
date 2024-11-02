@@ -1,0 +1,309 @@
+<odoo>
+
+    <record id="view_hr_payroll_salary_increases_form" model="ir.ui.view">
+        <field name="name">hr.payroll.salary_increases.form</field>
+        <field name="model">hr.payroll.salary_increases</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Salary Increases">
+                <header>
+                    <button
+                        string="Approve"
+                        name="approved_salary_increase"
+                        class="oe_highlight"
+                        states="draft"
+                        type='object'
+                    />
+                    <button
+                        string="Cancel"
+                        name="cancel_salary_increase"
+                        states="draft,approved"
+                        type='object'
+                    />
+                    <button
+                        string="Set to Draft"
+                        name="draft_salary_increase"
+                        class="oe_highlight"
+                        states="cancel,done"
+                        type='object'
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field
+                                name="name"
+                                placeholder="Folio"
+                                readonly="1"
+                                nolabel="1"
+                            /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="currency_id" invisible="1" />
+                            <field name="date_apply" />
+                            <field
+                                name="employee_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field name="contract_id" readonly="1" />
+                            <field
+                                name="salary_history_id"
+                                invisible="1"
+                                readonly="1"
+                            />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                readonly="1"
+                            />
+                        </group>
+                        <group string="Contract Info">
+                            <field name="contract_date_start" readonly="1" />
+                            <field name="contract_date_end" readonly="1" />
+                            <field name="salary_type" readonly="1" />
+                        </group>
+                    </group>
+                    <group attrs="{'invisible':[('contract_id','=', False)]}">
+                        <group string="Current Salary">
+                            <label for="c_date" string="Date" />
+                            <field name="c_date" nolabel="1" readonly="1" />
+                            <label for="c_wage" string="Wage" />
+                            <div class="o_row" name="c_wage">
+                                <field name="c_wage" nolabel="1" />
+                                <span>/ per day</span>
+                            </div>
+                            <label for="c_sdi" string="Current SDI" />
+                            <div class="o_row" name="sdi">
+                                <field name="c_sdi" nolabel="1" />
+                                <span>/ per day</span>
+                            </div>
+                        </group>
+                        <group string="New Salary">
+                            <label for="new_date" string="Date" />
+                            <field name="new_date" nolabel="1" />
+                            <label for="new_wage" string="Wage" />
+                            <div class="o_row" name="new_wage">
+                                <field name="new_wage" nolabel="1" />
+                                <span>/ per day</span>
+                            </div>
+                            <label for="new_sdi" string="New SDI" />
+                            <div class="o_row" name="new_sdi">
+                                <field name="new_sdi" nolabel="1" />
+                            </div>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field
+                            name="notes"
+                            nolabel="1"
+                            attrs="{'readonly':[('state','!=','draft')]}"
+                        />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_payroll_salary_increases_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.salary_increases.tree</field>
+        <field name="model">hr.payroll.salary_increases</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="date_apply" string="Date to apply" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-warning="state == 'approved'"
+                    decoration-success="state == 'applied'"
+                    decoration-info="state == 'done'"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record
+        id="action_view_hr_payroll_Salary_increases_individual"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Salary Increases - Individual</field>
+        <field name="res_model">hr.payroll.salary_increases</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--                          General Salary Increases                   -->
+
+    <record id="view_hr_payroll_general_salary_filter" model="ir.ui.view">
+        <field name="name">hr.payroll.general_salary.search</field>
+        <field name="model">hr.payroll.general_salary_increases</field>
+        <field name="arch" type="xml">
+            <search string="Employees">
+                <field name="company_id" string="Company" />
+                <searchpanel>
+                    <field
+                        name="company_id"
+                        groups="base.group_multi_company"
+                        icon="fa-building"
+                        enable_counters="1"
+                    />
+                </searchpanel>
+            </search>
+            </field>
+    </record>
+
+    <record id="view_hr_payroll_salary_increases_form2" model="ir.ui.view">
+        <field name="name">hr.payroll.salary_increases.form</field>
+        <field name="model">hr.payroll.general_salary_increases</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Salary Increases">
+                <header>
+                    <button
+                        string="Approve"
+                        name="approved_salary_increase"
+                        class="oe_highlight"
+                        states="draft"
+                        type='object'
+                    />
+                    <button
+                        string="Cancel"
+                        name="cancel_salary_increase"
+                        states="draft,approved"
+                        type='object'
+                    />
+                    <button
+                        string="Set to Draft"
+                        name="draft_salary_increase"
+                        class="oe_highlight"
+                        states="cancel,done"
+                        type='object'
+                    />
+                    <button
+                        name="%(action_hr_salary_increase_by_employees)d"
+                        type="action"
+                        states="draft"
+                        string="Assign employees"
+                        class="btn btn-secondary"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_open_payroll_wage_increase"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            type="object"
+                            help="Wage Increase movements"
+                            attrs="{'invisible': [('movs_count', '=', 0)]}"
+                        >
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field
+                                        name="movs_count"
+                                    /></span>
+                                <span class="o_stat_text">Movements</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field
+                                name="name"
+                                placeholder="Folio"
+                                readonly="1"
+                                nolabel="1"
+                            /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="currency_id" invisible="1" />
+                            <field name="date_start" />
+                            <field
+                                name="current_date"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                            <field name="increase_type" />
+                            <field
+                                name="amount"
+                                attrs="{'invisible':[('increase_type','!=','amount')]}"
+                            />
+                            <field
+                                name="percent"
+                                attrs="{'invisible':[('increase_type','!=','percent')]}"
+                            />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                readonly="1"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="department_id"
+                                options="{'no_create': True, 'no_create_edit': True}"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Employees">
+                            <field name="line_ids" />
+
+                        </page>
+                        <page string="Notes">
+                            <group string="Notes">
+                                <field
+                                    name="notes"
+                                    nolabel="1"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                />
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_payroll_general_salary_increases_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.general_salary_increases.tree</field>
+        <field name="model">hr.payroll.general_salary_increases</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name" />
+                <field name="current_date" />
+                <field name="date_start" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-warning="state == 'approved'"
+                    decoration-success="state == 'done'"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record
+        id="action_view_hr_payroll_general_Salary_increases_general"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Salary Increases - General</field>
+        <field name="res_model">hr.payroll.general_salary_increases</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

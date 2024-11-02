@@ -1,0 +1,62 @@
+<odoo noupdate="1">
+
+    <!-- Working Times  -->
+
+    <record id="resource_calendar_std_48h" model="resource.calendar">
+        <field name="name">Standard 48 hours/week</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="hours_per_day">8.0</field>
+        <field name="tz">America/Mexico_City</field>
+        <field name="full_time_required_hours">48.0</field>
+        <field
+            name="attendance_ids"
+            eval="[(5, 0, 0),
+                (0, 0, {'name': 'Monday Morning', 'dayofweek': '0', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Tuesday Morning', 'dayofweek': '1', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Wednesday Morning', 'dayofweek': '2', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Thursday Morning', 'dayofweek': '3', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Friday Morning', 'dayofweek': '4', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Saturday Morning', 'dayofweek': '5', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+            ]"
+        />
+    </record>
+
+    <record id="resource_calendar_30h" model="resource.calendar">
+        <field name="name">30 hours/week</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="hours_per_day">5.0</field>
+        <field name="tz">America/Mexico_City</field>
+        <field name="full_time_required_hours">30.0</field>
+        <field
+            name="attendance_ids"
+            eval="[(5, 0, 0),
+                (0, 0, {'name': 'Monday Morning', 'dayofweek': '0', 'hour_from': 7, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Tuesday Morning', 'dayofweek': '1', 'hour_from': 7, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Wednesday Morning', 'dayofweek': '2', 'hour_from': 7, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Thursday Morning', 'dayofweek': '3', 'hour_from': 7, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Friday Morning', 'dayofweek': '4', 'hour_from': 7, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Saturday Morning', 'dayofweek': '5', 'hour_from': 7, 'hour_to': 12, 'day_period': 'morning'}),
+            ]"
+        />
+    </record>
+
+    <record id="resource_calendar_36h" model="resource.calendar">
+        <field name="name">36 hours/week</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="hours_per_day">6.0</field>
+        <field name="tz">America/Mexico_City</field>
+        <field name="full_time_required_hours">36.0</field>
+        <field
+            name="attendance_ids"
+            eval="[(5, 0, 0),
+                (0, 0, {'name': 'Monday Morning', 'dayofweek': '0', 'hour_from': 7, 'hour_to': 13, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Tuesday Morning', 'dayofweek': '1', 'hour_from': 7, 'hour_to': 13, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Wednesday Morning', 'dayofweek': '2', 'hour_from': 7, 'hour_to': 13, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Thursday Morning', 'dayofweek': '3', 'hour_from': 7, 'hour_to': 13, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Friday Morning', 'dayofweek': '4', 'hour_from': 7, 'hour_to': 13, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Saturday Morning', 'dayofweek': '5', 'hour_from': 7, 'hour_to': 13, 'day_period': 'morning'}),
+            ]"
+        />
+    </record>
+
+</odoo>
