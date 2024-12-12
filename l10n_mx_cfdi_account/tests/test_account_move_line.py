@@ -73,6 +73,8 @@ class TestAccountMoveLine(TransactionCase):
             "price_subtotal": 200.00,
             "price_total": 220.00,
             # 'tax_ids': [(6, 0, [self.tax.id])],
+            "amount_currency": 200,
+            "balance": 200,
             "debit": 200,
             "account_id": self.account.id,
         }
@@ -85,6 +87,8 @@ class TestAccountMoveLine(TransactionCase):
             "price_subtotal": 200.00,
             "price_total": 220.00,
             # 'tax_ids': [(6, 0, [self.tax.id])],
+            "amount_currency": -200,
+            "balance": -200,
             "credit": 200,
             "account_id": self.account.id,
         }
