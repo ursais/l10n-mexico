@@ -46,7 +46,7 @@ class HrExpenseSheet(models.Model):
                     "invoice_date_due": inv_date,
                     "journal_id": sheet.journal_id.id,
                     "ref": _("Gastos %s") % sheet.name,
-                    "expense_sheet_id": sheet.id,
+                    "expense_sheet_id": sheet.id,   # To bypass the tier validation on gaqsa_account_move_tier_validation in domain [('expense_sheet_id','=',False)]
                     "invoice_line_ids": invoice_lines,
                 }
                 invoice = self.env["account.move"].create(inv_vals)
@@ -176,6 +176,7 @@ class HrExpenseSheet(models.Model):
                 "invoice_date": inv_date,
                 "invoice_date_due": inv_date,
                 "ref": _("Reembolso %s") % sheet.name,
+                "expense_sheet_id": sheet.id,   # To bypass the tier validation on gaqsa_account_move_tier_validation in domain [('expense_sheet_id','=',False)]
                 "journal_id": journal.id,
                 "invoice_line_ids": invoice_lines,
             }
