@@ -5,3 +5,4 @@ from . import test_sat_client
 from . import test_sat_constants
 from . import test_sat_helpers
 from . import test_res_company
+from . import test_res_config_settings

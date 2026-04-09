@@ -1,7 +1,8 @@
 # Copyright 2026 Open Source Integrators
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from unittest import TestCase
+from odoo.tests import tagged
+from odoo.tests.common import TransactionCase
 
 from ..services.sat_constants import (
     MX_TZ,
@@ -11,7 +12,8 @@ from ..services.sat_constants import (
 )
 
 
-class TestSatConstants(TestCase):
+@tagged("post_install", "-at_install")
+class TestSatConstants(TransactionCase):
     """Verify SAT constants are properly defined."""
 
     def test_mx_tz_is_mexico_city(self):

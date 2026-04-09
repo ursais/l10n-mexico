@@ -82,12 +82,30 @@ class TestResCompanySATConnection(TransactionCase):
         self.assertEqual(key, b"fake-key-content")
         self.assertEqual(pwd, MOCK_PASSWORD)
 
+    def test_invalid_base64_credentials_raise_user_error(self):
+        self.company.write(
+            {
+                "l10n_mx_sat_fiel_cer": b"abc",
+                "l10n_mx_sat_fiel_key": MOCK_KEY,
+                "l10n_mx_sat_fiel_password": MOCK_PASSWORD,
+            }
+        )
+        with self.assertRaises(UserError):
+            self.company.l10n_mx_sat_get_credentials()
+
     @patch(f"{_SVC}.Fiel")
     def test_get_client_returns_sat_client(self, MockFiel):
         self._set_credentials()
         client = self.company.l10n_mx_sat_get_client()
         self.assertIsInstance(client, SatClient)
         MockFiel.assert_called_once()
+
+    @patch("odoo.addons.l10n_mx_sat.models.res_company.SatClient")
+    def test_get_client_exception_raises_user_error(self, MockSatClient):
+        self._set_credentials()
+        MockSatClient.side_effect = Exception("Invalid credentials")
+        with self.assertRaises(UserError):
+            self.company.l10n_mx_sat_get_client()
 
     @patch(f"{_SVC}.Autenticacion")
     @patch(f"{_SVC}.Fiel")
