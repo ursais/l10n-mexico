@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [currency_rate_update_banxico](currency_rate_update_banxico/) | 18.0.1.0.0 |  | Update exchange rates using Banxico
+[l10n_mx_sat](l10n_mx_sat/) | 18.0.1.0.0 |  | Update exchange rates using Banxico
 
 [//]: # (end addons)
 
