@@ -149,3 +149,10 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 This module is part of the `OCA/l10n-mexico <https://github.com/OCA/l10n-mexico/tree/19.0/l10n_mx_sat>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
+
+.. todo::
+
+   - Make this module compatible with multicompany environments.
+   - Manage the SAT CFDIs download requests.
+   - Manage the SAT CFDIs downloaded documents.
+
