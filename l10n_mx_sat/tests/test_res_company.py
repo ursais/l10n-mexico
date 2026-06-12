@@ -93,12 +93,14 @@ class TestResCompanySATConnection(TransactionCase):
         with self.assertRaises(UserError):
             self.company.l10n_mx_sat_get_credentials()
 
-    @patch(f"{_SVC}.Fiel")
-    def test_get_client_returns_sat_client(self, MockFiel):
+    @patch(f"{_SVC}.Signer.load")
+    @patch(f"{_SVC}.SAT")
+    def test_get_client_returns_sat_client(self, mock_sat_cls, mock_signer_load):
         self._set_credentials()
         client = self.company.l10n_mx_sat_get_client()
         self.assertIsInstance(client, SatClient)
-        MockFiel.assert_called_once()
+        mock_signer_load.assert_called_once()
+        mock_sat_cls.assert_called_once()
 
     @patch("odoo.addons.l10n_mx_sat.models.res_company.SatClient")
     def test_get_client_exception_raises_user_error(self, MockSatClient):
@@ -107,21 +109,25 @@ class TestResCompanySATConnection(TransactionCase):
         with self.assertRaises(UserError):
             self.company.l10n_mx_sat_get_client()
 
-    @patch(f"{_SVC}.Autenticacion")
-    @patch(f"{_SVC}.Fiel")
-    def test_get_token_returns_string(self, MockFiel, MockAuth):
+    @patch(f"{_SVC}.SAT")
+    @patch(f"{_SVC}.Signer.load")
+    def test_get_token_returns_string(self, mock_signer_load, mock_sat_cls):
         self._set_credentials()
-        MockAuth.return_value.obtener_token.return_value = "fake-token"
+        mock_sat_cls.return_value._autentica_comprobante.return_value = {
+            "AutenticaResult": "fake-token"
+        }
 
         token = self.company.l10n_mx_sat_get_token()
 
         self.assertEqual(token, "fake-token")
 
-    @patch(f"{_SVC}.Autenticacion")
-    @patch(f"{_SVC}.Fiel")
-    def test_test_connection_success(self, MockFiel, MockAuth):
+    @patch(f"{_SVC}.SAT")
+    @patch(f"{_SVC}.Signer.load")
+    def test_test_connection_success(self, mock_signer_load, mock_sat_cls):
         self._set_credentials()
-        MockAuth.return_value.obtener_token.return_value = "fake-token"
+        mock_sat_cls.return_value._autentica_comprobante.return_value = {
+            "AutenticaResult": "fake-token"
+        }
 
         result = self.company.l10n_mx_sat_test_connection()
 
@@ -129,21 +135,25 @@ class TestResCompanySATConnection(TransactionCase):
         self.assertEqual(result["params"]["type"], "success")
 
     @mute_logger("odoo.addons.l10n_mx_sat.models.res_company")
-    @patch(f"{_SVC}.Autenticacion")
-    @patch(f"{_SVC}.Fiel")
-    def test_connection_exception_raises(self, MockFiel, MockAuth):
+    @patch(f"{_SVC}.SAT")
+    @patch(f"{_SVC}.Signer.load")
+    def test_connection_exception_raises(self, mock_signer_load, mock_sat_cls):
         self._set_credentials()
-        MockAuth.return_value.obtener_token.side_effect = Exception("Network error")
+        mock_sat_cls.return_value._autentica_comprobante.side_effect = Exception(
+            "Network error"
+        )
 
         with self.assertRaises(UserError):
             self.company.l10n_mx_sat_test_connection()
 
     @mute_logger("odoo.addons.l10n_mx_sat.models.res_company")
-    @patch(f"{_SVC}.Autenticacion")
-    @patch(f"{_SVC}.Fiel")
-    def test_empty_token_raises(self, MockFiel, MockAuth):
+    @patch(f"{_SVC}.SAT")
+    @patch(f"{_SVC}.Signer.load")
+    def test_empty_token_raises(self, mock_signer_load, mock_sat_cls):
         self._set_credentials()
-        MockAuth.return_value.obtener_token.return_value = ""
+        mock_sat_cls.return_value._autentica_comprobante.return_value = {
+            "AutenticaResult": ""
+        }
 
         with self.assertRaises(UserError):
             self.company.l10n_mx_sat_test_connection()

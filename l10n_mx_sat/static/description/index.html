@@ -383,8 +383,8 @@ portal using FIEL electronic signature credentials.</p>
 password on the company configuration.</li>
 <li>A button to test the connection to the SAT.</li>
 <li>An adapter (<tt class="docutils literal">SatClient</tt>) that wraps communication with the SAT via
-the <tt class="docutils literal">cfdiclient</tt> library. Other modules can use this adapter without
-depending directly on <tt class="docutils literal">cfdiclient</tt>.</li>
+the <tt class="docutils literal">satcfdi</tt> library. Other modules can use this adapter without
+depending directly on <tt class="docutils literal">satcfdi</tt>.</li>
 <li>A factory method <tt class="docutils literal">company.l10n_mx_sat_get_client()</tt> that returns an
 adapter instance. It can be overridden via <tt class="docutils literal">_inherit</tt> to swap the
 underlying implementation.</li>
@@ -416,11 +416,11 @@ Only for development or testing purpose, do not use in production.
 <div class="section" id="installation">
 <h2><a class="toc-backref" href="#toc-entry-1">Installation</a></h2>
 <p>This module requires the Python library
-<tt class="docutils literal">`cfdiclient</tt> &lt;<a class="reference external" href="https://pypi.org/project/cfdiclient/">https://pypi.org/project/cfdiclient/</a>&gt;`__ to communicate
+<tt class="docutils literal">satcfdi</tt> (<a class="reference external" href="https://pypi.org/project/satcfdi/">https://pypi.org/project/satcfdi/</a>) to communicate
 with the SAT web services.</p>
 <p>Install it with pip:</p>
 <pre class="literal-block">
-pip install cfdiclient
+pip install satcfdi
 </pre>
 </div>
 <div class="section" id="configuration">

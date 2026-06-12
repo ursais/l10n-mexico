@@ -7,8 +7,8 @@ It provides:
   password on the company configuration.
 - A button to test the connection to the SAT.
 - An adapter (`SatClient`) that wraps communication with the SAT via
-  the `cfdiclient` library. Other modules can use this adapter without
-  depending directly on `cfdiclient`.
+  the `satcfdi` library. Other modules can use this adapter without
+  depending directly on `satcfdi`.
 - A factory method `company.l10n_mx_sat_get_client()` that returns an
   adapter instance. It can be overridden via `_inherit` to swap the
   underlying implementation.

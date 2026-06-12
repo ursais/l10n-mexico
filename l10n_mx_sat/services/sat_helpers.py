@@ -5,7 +5,7 @@ from lxml import etree
 
 
 def sat_str(value):
-    """Normalize SAT/cfdiclient values to str.
+    """Normalize SAT client values to str.
 
     XML attributes are usually text; tests may pass int. This ensures a
     consistent str regardless of source.
@@ -18,7 +18,7 @@ def sat_str(value):
 def sat_int(value, default=0):
     """Safely cast a SAT numeric status to int.
 
-    cfdiclient returns raw SOAP attributes as-is (str or None).
+    SAT SOAP responses may return raw attributes as str or None.
     """
     if value is None or value == "":
         return default
