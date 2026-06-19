@@ -1,14 +1,11 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import logging
 from datetime import datetime as dt
 
-from lxml import etree
-
 from odoo import api, fields, models
 
-from ..services import SAFE_XML_PARSER
 from ..services.sat_metadata import (
     SAT_ESTADO_CANCELADO,
     SAT_ESTADO_EN_PROCESO,
@@ -99,9 +96,13 @@ class L10nMxSatDocument(models.Model):
         for doc in self:
             parts = [doc.uuid or "?"]
             if doc.document_kind:
-                parts.append(dict(doc._fields["document_kind"].selection).get(doc.document_kind))
+                parts.append(
+                    dict(doc._fields["document_kind"].selection).get(doc.document_kind)
+                )
             if doc.direction:
-                parts.append(dict(doc._fields["direction"].selection).get(doc.direction))
+                parts.append(
+                    dict(doc._fields["direction"].selection).get(doc.direction)
+                )
             doc.display_name = " / ".join(parts)
 
     @api.model
@@ -145,8 +146,8 @@ class L10nMxSatDocument(models.Model):
         if row.get("total"):
             try:
                 write_vals["total"] = float(row["total"])
-            except (TypeError, ValueError):
-                pass
+            except (TypeError, ValueError) as err:
+                _logger.debug("Could not parse metadata total: %s", err)
         for date_field, row_key in (
             ("fecha_emision", "fecha_emision"),
             ("fecha_timbrado", "fecha_timbrado"),
@@ -272,28 +273,38 @@ class L10nMxSatDocument(models.Model):
             vals["folio"] = tree.get("Folio")
             try:
                 vals["total"] = float(tree.get("Total") or 0)
-            except (TypeError, ValueError):
-                pass
+            except (TypeError, ValueError) as err:
+                _logger.debug("Could not parse CFDI total: %s", err)
             vals["fecha_emision"] = self._parse_sat_datetime(tree.get("Fecha"))
             tfd = tree.xpath("//*[local-name()='TimbreFiscalDigital']")
             if tfd:
-                vals["fecha_timbrado"] = self._parse_sat_datetime(tfd[0].get("FechaTimbrado"))
+                vals["fecha_timbrado"] = self._parse_sat_datetime(
+                    tfd[0].get("FechaTimbrado")
+                )
         else:
             emisor = tree.find(".//*[local-name()='Emisor']")
             receptor = tree.find(".//*[local-name()='Receptor']")
             if emisor is not None:
                 vals["rfc_emisor"] = emisor.get("Rfc") or emisor.get("RfcEmisor")
-                vals["nombre_emisor"] = emisor.get("Nombre") or emisor.get("NomDenRazSocE")
+                vals["nombre_emisor"] = emisor.get("Nombre") or emisor.get(
+                    "NomDenRazSocE"
+                )
             if receptor is not None:
-                vals["rfc_receptor"] = receptor.get("Rfc") or receptor.get("RfcReceptor")
-                vals["nombre_receptor"] = receptor.get("Nombre") or receptor.get("NomDenRazSocR")
+                vals["rfc_receptor"] = receptor.get("Rfc") or receptor.get(
+                    "RfcReceptor"
+                )
+                vals["nombre_receptor"] = receptor.get("Nombre") or receptor.get(
+                    "NomDenRazSocR"
+                )
             vals["fecha_emision"] = self._parse_sat_datetime(
                 tree.get("FechaExp") or tree.get("Fecha")
             )
             try:
-                vals["total"] = float(tree.get("MontoTotOperacion") or tree.get("Total") or 0)
-            except (TypeError, ValueError):
-                pass
+                vals["total"] = float(
+                    tree.get("MontoTotOperacion") or tree.get("Total") or 0
+                )
+            except (TypeError, ValueError) as err:
+                _logger.debug("Could not parse retention total: %s", err)
         if not vals.get("estado_sat"):
             vals["estado_sat"] = SAT_ESTADO_VIGENTE
         return vals

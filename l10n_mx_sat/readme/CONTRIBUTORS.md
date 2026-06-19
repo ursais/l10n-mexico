@@ -1,4 +1,3 @@
-- `Open Source Integrators <https://opensourceintegrators.com>`__:
-
-  - Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
+- [Gray Matter Logic](https://www.graymatterlogic.com):
+  - Maxime Chambreuil <maxime.chambreuil@graymatterlogic.com>
   - Roberto Cifuentes <roberto@cloudlotus.net>

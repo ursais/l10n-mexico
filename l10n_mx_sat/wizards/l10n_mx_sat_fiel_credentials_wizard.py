@@ -1,4 +1,4 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import base64
@@ -6,7 +6,7 @@ import base64
 from odoo import fields, models
 from odoo.exceptions import UserError
 
-from odoo.addons.l10n_mx_sat.services import SatClient
+from ..services import SatClient
 
 
 class L10nMxSatFielCredentialsWizard(models.TransientModel):
@@ -48,9 +48,7 @@ class L10nMxSatFielCredentialsWizard(models.TransientModel):
             if not wizard.fiel_password:
                 raise UserError(wizard.env._("Ingrese la contrasena FIEL primero."))
             fiel_rfc = wizard._get_fiel_rfc()
-            wizard.company_id.with_context(
-                l10n_mx_sat_sync_vat_from_fiel=True
-            ).write(
+            wizard.company_id.with_context(l10n_mx_sat_sync_vat_from_fiel=True).write(
                 {
                     "l10n_mx_sat_fiel_cer": wizard.fiel_cer,
                     "l10n_mx_sat_fiel_key": wizard.fiel_key,

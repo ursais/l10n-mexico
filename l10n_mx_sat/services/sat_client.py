@@ -1,13 +1,22 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import logging
+
 from lxml.etree import QName
-from satcfdi.models import Signer
-from satcfdi.pacs.sat import (
-    SAT,
-    EstadoComprobante,
-    TipoDescargaMasivaTerceros,
-)
+
+_logger = logging.getLogger(__name__)
+
+try:
+    from satcfdi.models import Signer
+    from satcfdi.pacs.sat import (
+        SAT,
+        EstadoComprobante,
+        TipoDescargaMasivaTerceros,
+    )
+except ImportError as err:
+    Signer = SAT = EstadoComprobante = TipoDescargaMasivaTerceros = None
+    _logger.debug(err)
 
 
 class SatClient:
@@ -26,9 +35,18 @@ class SatClient:
 
     _REQUEST_METHODS = {
         (DOCUMENT_KIND_CFDI, DIRECTION_ISSUED): "recover_comprobante_emitted_request",
-        (DOCUMENT_KIND_CFDI, DIRECTION_RECEIVED): "recover_comprobante_received_request",
-        (DOCUMENT_KIND_RETENTION, DIRECTION_ISSUED): "recover_retencion_emitted_request",
-        (DOCUMENT_KIND_RETENTION, DIRECTION_RECEIVED): "recover_retencion_received_request",
+        (
+            DOCUMENT_KIND_CFDI,
+            DIRECTION_RECEIVED,
+        ): "recover_comprobante_received_request",
+        (
+            DOCUMENT_KIND_RETENTION,
+            DIRECTION_ISSUED,
+        ): "recover_retencion_emitted_request",
+        (
+            DOCUMENT_KIND_RETENTION,
+            DIRECTION_RECEIVED,
+        ): "recover_retencion_received_request",
     }
     _STATUS_METHODS = {
         DOCUMENT_KIND_CFDI: "recover_comprobante_status",
@@ -41,6 +59,10 @@ class SatClient:
 
     def __init__(self, cer_der, key_der, password):
         """Initialize the client with FIEL credentials."""
+        if Signer is None or SAT is None:
+            raise ImportError(
+                "The satcfdi library is required. Install it with: pip install satcfdi"
+            )
         signer = Signer.load(
             certificate=cer_der,
             key=key_der,
@@ -93,7 +115,9 @@ class SatClient:
                 if value is not None:
                     request_kwargs[key] = value
             if request_type == self.REQUEST_TYPE_XML:
-                estado = kwargs.pop("estado_comprobante", None) or EstadoComprobante.VIGENTE
+                estado = (
+                    kwargs.pop("estado_comprobante", None) or EstadoComprobante.VIGENTE
+                )
                 request_kwargs["estado_comprobante"] = estado
         elif document_kind == self.DOCUMENT_KIND_RETENTION:
             if direction == self.DIRECTION_ISSUED:
@@ -104,7 +128,9 @@ class SatClient:
             if complemento is not None:
                 request_kwargs["complemento"] = complemento
             if request_type == self.REQUEST_TYPE_XML:
-                estado = kwargs.pop("estado_comprobante", None) or EstadoComprobante.VIGENTE
+                estado = (
+                    kwargs.pop("estado_comprobante", None) or EstadoComprobante.VIGENTE
+                )
                 request_kwargs["estado_comprobante"] = estado
 
         request_kwargs = {
@@ -116,7 +142,9 @@ class SatClient:
         response = method(**request_kwargs)
         return self._normalize_request_response(response)
 
-    def verify_download(self, token, rfc, id_solicitud, document_kind=DOCUMENT_KIND_CFDI):
+    def verify_download(
+        self, token, rfc, id_solicitud, document_kind=DOCUMENT_KIND_CFDI
+    ):
         """Check the status of a download request."""
         self._ensure_token(token)
         method_name = self._STATUS_METHODS[document_kind]

@@ -1,4 +1,4 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import base64
@@ -9,10 +9,10 @@ from io import BytesIO
 
 from lxml import etree
 
-from odoo import Command, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
-from odoo.addons.l10n_mx_sat.services import (
+from ..services import (
     MX_TZ,
     SAFE_XML_PARSER,
     SAT_CODE_DAILY_LIMIT,
@@ -30,14 +30,14 @@ from odoo.addons.l10n_mx_sat.services import (
     SAT_ESTADO_PROCESSING,
     SAT_ESTADO_READY,
     SAT_ESTADO_REJECTED,
-    SAT_STATUS_CODE_LABELS,
     SAT_METADATA_DEFAULT_WINDOW_DAYS,
     SAT_METADATA_MIN_WINDOW_HOURS,
     SAT_REJECT_CODES,
+    SAT_STATUS_CODE_LABELS,
     sat_int,
     sat_str,
 )
-from odoo.addons.l10n_mx_sat.services.sat_metadata import (
+from ..services.sat_metadata import (
     build_request_fingerprint,
     parse_metadata_content,
 )
@@ -593,9 +593,7 @@ class L10nMxSatDownloadRequest(models.Model):
             )
             notif_type = "success"
         elif self.state == "error":
-            message = self.error_message or self.env._(
-                "La solicitud volvio a fallar."
-            )
+            message = self.error_message or self.env._("La solicitud volvio a fallar.")
             notif_type = "danger"
         else:
             message = self.env._(
@@ -708,9 +706,9 @@ class L10nMxSatDownloadRequest(models.Model):
                         continue
                     rows = parse_metadata_content(content)
                     for row in rows:
-                        doc = self.env["l10n_mx_sat.document"]._upsert_from_metadata_row(
-                            row, company, self
-                        )
+                        doc = self.env[
+                            "l10n_mx_sat.document"
+                        ]._upsert_from_metadata_row(row, company, self)
                         if doc:
                             documents |= doc
                             processed += 1
@@ -813,7 +811,9 @@ class L10nMxSatDownloadRequest(models.Model):
                 order="write_date desc",
                 limit=1,
             )
-            if last_error and SAT_CODE_DUPLICATE_LIFETIME in (last_error.error_message or ""):
+            if last_error and SAT_CODE_DUPLICATE_LIFETIME in (
+                last_error.error_message or ""
+            ):
                 continue
             req = self._create_next_request(
                 company, document_kind, direction, request_type
@@ -865,7 +865,9 @@ class L10nMxSatDownloadRequest(models.Model):
             fecha_inicial = fecha_inicial.replace(tzinfo=None)
 
         if request_type == "metadata" and not last_done:
-            window_end = fecha_inicial + timedelta(days=SAT_METADATA_DEFAULT_WINDOW_DAYS)
+            window_end = fecha_inicial + timedelta(
+                days=SAT_METADATA_DEFAULT_WINDOW_DAYS
+            )
             if window_end < fecha_final:
                 fecha_final = window_end.replace(hour=23, minute=59, second=59)
 

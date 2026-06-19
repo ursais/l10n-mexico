@@ -1,4 +1,4 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import csv
@@ -64,7 +64,9 @@ def parse_metadata_content(content_bytes):
     reader = csv.DictReader(io.StringIO(text), delimiter=delimiter)
     rows = []
     for raw in reader:
-        normalized = {_normalize_header(k): (v or "").strip() for k, v in raw.items() if k}
+        normalized = {
+            _normalize_header(k): (v or "").strip() for k, v in raw.items() if k
+        }
         uuid = (
             normalized.get("uuid")
             or normalized.get("folio_fiscal")

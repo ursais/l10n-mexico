@@ -1,8 +1,10 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from unittest.mock import MagicMock, patch
+
+from psycopg2 import IntegrityError
 
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
@@ -139,7 +141,7 @@ class TestDownloadRequest(TransactionCase):
 
     def test_fingerprint_prevents_duplicate_request(self):
         req = self._create_request()
-        with self.assertRaises(Exception):
+        with self.assertRaises(IntegrityError):
             self._create_request(
                 fecha_inicial=req.fecha_inicial,
                 fecha_final=req.fecha_final,
@@ -448,11 +450,15 @@ class TestMultiCompanySAT(TransactionCase):
             self.company_b,
             req_b,
         )
-        docs_a = self.env["l10n_mx_sat.document"].with_company(self.company_a).search(
-            [("uuid", "=", uuid)]
+        docs_a = (
+            self.env["l10n_mx_sat.document"]
+            .with_company(self.company_a)
+            .search([("uuid", "=", uuid)])
         )
-        docs_b = self.env["l10n_mx_sat.document"].with_company(self.company_b).search(
-            [("uuid", "=", uuid)]
+        docs_b = (
+            self.env["l10n_mx_sat.document"]
+            .with_company(self.company_b)
+            .search([("uuid", "=", uuid)])
         )
         self.assertEqual(len(docs_a), 1)
         self.assertEqual(len(docs_b), 1)

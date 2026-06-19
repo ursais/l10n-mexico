@@ -38,7 +38,10 @@
                     <group>
                         <group>
                             <field name="uuid" />
-                            <field name="company_id" groups="base.group_multi_company" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
                             <field name="document_kind" />
                             <field name="direction" />
                             <field name="estado_sat" />
@@ -74,22 +77,74 @@
                 <field name="rfc_emisor" />
                 <field name="rfc_receptor" />
                 <field name="company_id" groups="base.group_multi_company" />
-                <filter string="Vigente" name="vigente" domain="[('estado_sat', '=', 'vigente')]" />
-                <filter string="Cancelado" name="cancelado" domain="[('estado_sat', '=', 'cancelado')]" />
-                <filter string="En proceso" name="en_proceso" domain="[('estado_sat', '=', 'en_proceso')]" />
-                <filter string="Con XML" name="has_xml" domain="[('has_xml', '=', True)]" />
-                <filter string="Sin XML" name="no_xml" domain="[('has_xml', '=', False)]" />
+                <filter
+                    string="Vigente"
+                    name="vigente"
+                    domain="[('estado_sat', '=', 'vigente')]"
+                />
+                <filter
+                    string="Cancelado"
+                    name="cancelado"
+                    domain="[('estado_sat', '=', 'cancelado')]"
+                />
+                <filter
+                    string="En proceso"
+                    name="en_proceso"
+                    domain="[('estado_sat', '=', 'en_proceso')]"
+                />
+                <filter
+                    string="Con XML"
+                    name="has_xml"
+                    domain="[('has_xml', '=', True)]"
+                />
+                <filter
+                    string="Sin XML"
+                    name="no_xml"
+                    domain="[('has_xml', '=', False)]"
+                />
                 <separator />
-                <filter string="CFDI" name="cfdi" domain="[('document_kind', '=', 'cfdi')]" />
-                <filter string="Retencion" name="retention" domain="[('document_kind', '=', 'retention')]" />
+                <filter
+                    string="CFDI"
+                    name="cfdi"
+                    domain="[('document_kind', '=', 'cfdi')]"
+                />
+                <filter
+                    string="Retencion"
+                    name="retention"
+                    domain="[('document_kind', '=', 'retention')]"
+                />
                 <separator />
-                <filter string="Emitidos" name="issued" domain="[('direction', '=', 'issued')]" />
-                <filter string="Recibidos" name="received" domain="[('direction', '=', 'received')]" />
+                <filter
+                    string="Emitidos"
+                    name="issued"
+                    domain="[('direction', '=', 'issued')]"
+                />
+                <filter
+                    string="Recibidos"
+                    name="received"
+                    domain="[('direction', '=', 'received')]"
+                />
                 <group expand="0" string="Agrupar por">
-                    <filter string="Compania" name="group_company" context="{'group_by': 'company_id'}" />
-                    <filter string="Estado SAT" name="group_estado" context="{'group_by': 'estado_sat'}" />
-                    <filter string="Tipo" name="group_kind" context="{'group_by': 'document_kind'}" />
-                    <filter string="Direccion" name="group_direction" context="{'group_by': 'direction'}" />
+                    <filter
+                        string="Compania"
+                        name="group_company"
+                        context="{'group_by': 'company_id'}"
+                    />
+                    <filter
+                        string="Estado SAT"
+                        name="group_estado"
+                        context="{'group_by': 'estado_sat'}"
+                    />
+                    <filter
+                        string="Tipo"
+                        name="group_kind"
+                        context="{'group_by': 'document_kind'}"
+                    />
+                    <filter
+                        string="Direccion"
+                        name="group_direction"
+                        context="{'group_by': 'direction'}"
+                    />
                 </group>
             </search>
         </field>

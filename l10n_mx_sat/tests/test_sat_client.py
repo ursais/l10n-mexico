@@ -1,4 +1,4 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from unittest.mock import patch
@@ -66,9 +66,8 @@ class TestSatClient(TransactionCase):
             "2026-01-31",
             direction="issued",
         )
-        call_kwargs = (
-            mock_sat_cls.return_value.recover_comprobante_emitted_request.call_args.kwargs
-        )
+        mock_method = mock_sat_cls.return_value.recover_comprobante_emitted_request
+        call_kwargs = mock_method.call_args.kwargs
         self.assertEqual(call_kwargs.get("rfc_emisor"), "RFC1")
         self.assertNotIn("tipo_comprobante", call_kwargs)
 
@@ -103,9 +102,8 @@ class TestSatClient(TransactionCase):
             "2026-01-31",
             request_type="metadata",
         )
-        call_kwargs = (
-            mock_sat_cls.return_value.recover_comprobante_received_request.call_args.kwargs
-        )
+        mock_method = mock_sat_cls.return_value.recover_comprobante_received_request
+        call_kwargs = mock_method.call_args.kwargs
         tipo = call_kwargs.get("tipo_solicitud")
         tipo_value = getattr(tipo, "value", tipo)
         self.assertEqual(tipo_value, "Metadata")
@@ -169,7 +167,6 @@ class TestSatClient(TransactionCase):
         mock_sat_cls.return_value.recover_comprobante_received_request.return_value = {}
         client = SatClient(b"cer", b"key", "pwd")
         client.request_download("tok", "RFC1", "2026-01-01", "2026-01-31")
-        call_kwargs = (
-            mock_sat_cls.return_value.recover_comprobante_received_request.call_args.kwargs
-        )
+        mock_method = mock_sat_cls.return_value.recover_comprobante_received_request
+        call_kwargs = mock_method.call_args.kwargs
         self.assertEqual(call_kwargs.get("estado_comprobante"), "Vigente")

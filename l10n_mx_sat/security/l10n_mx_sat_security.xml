@@ -8,6 +8,9 @@
         <field name="name">SAT / Administrador</field>
         <field name="category_id" ref="base.module_category_hidden" />
         <field name="implied_ids" eval="[(4, ref('group_sat_user'))]" />
-        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
     </record>
 </odoo>

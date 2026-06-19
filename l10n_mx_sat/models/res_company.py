@@ -1,4 +1,4 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import base64
@@ -103,9 +103,7 @@ class ResCompany(models.Model):
             company.l10n_mx_sat_fiel_certificate_configured = bool(
                 company.l10n_mx_sat_fiel_cer
             )
-            company.l10n_mx_sat_fiel_key_configured = bool(
-                company.l10n_mx_sat_fiel_key
-            )
+            company.l10n_mx_sat_fiel_key_configured = bool(company.l10n_mx_sat_fiel_key)
             company.l10n_mx_sat_fiel_configured = company.l10n_mx_sat_has_credentials()
             company.l10n_mx_sat_fiel_rfc = False
             if company.l10n_mx_sat_fiel_configured:
