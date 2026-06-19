@@ -175,6 +175,7 @@ Authors
 -------
 
 * Gray Matter Logic
+* Asociacion Mexicana de Odoo (AMOdoo)
 * Cloud Lotus
 
 Contributors
@@ -184,6 +185,8 @@ Contributors
 
   - Maxime Chambreuil maxime.chambreuil@graymatterlogic.com
   - Roberto Cifuentes roberto@cloudlotus.net
+
+- `Asociacion Mexicana de Odoo (AMOdoo) <https://amodoo.org/>`__
 
 Maintainers
 -----------
