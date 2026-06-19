@@ -1,4 +1,4 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import base64
@@ -16,70 +16,70 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     l10n_mx_sat_fiel_cer = fields.Binary(
-        string="Certificado FIEL (.cer)",
+        string="FIEL certificate (.cer)",
         groups="base.group_system",
         attachment=False,
     )
     l10n_mx_sat_fiel_key = fields.Binary(
-        string="Llave privada FIEL (.key)",
+        string="FIEL private key (.key)",
         groups="base.group_system",
         attachment=False,
     )
     l10n_mx_sat_fiel_password = fields.Char(
-        string="Contrasena FIEL",
+        string="FIEL password",
         groups="base.group_system",
     )
     l10n_mx_sat_sync_from = fields.Date(
-        string="Sincronizar documentos desde",
-        help="Fecha inicial para la primera descarga masiva de XML. "
-        "Después de la primera sincronización exitosa, el sistema continúa "
-        "incrementalmente desde el último rango completado.",
+        string="Sync documents from",
+        help="Initial date for the first bulk XML download. "
+        "After the first successful sync, the system continues "
+        "incrementally from the last completed range.",
     )
     l10n_mx_sat_metadata_sync_from = fields.Date(
-        string="Sincronizar metadatos desde",
-        help="Fecha inicial para la descarga masiva de metadatos (estatus SAT). "
-        "Si se deja vacío, se usa la misma fecha que la sincronización de XML.",
+        string="Sync metadata from",
+        help="Initial date for bulk metadata download (SAT status). "
+        "If empty, the same date as XML sync is used.",
     )
     l10n_mx_sat_last_sync = fields.Datetime(
-        string="Ultima sincronizacion XML",
+        string="Last XML sync",
         readonly=True,
     )
     l10n_mx_sat_last_metadata_sync = fields.Datetime(
-        string="Ultima sincronizacion metadatos",
+        string="Last metadata sync",
         readonly=True,
     )
     l10n_mx_sat_auto_download = fields.Boolean(
-        string="Descarga automatica SAT",
+        string="Automatic SAT download",
         default=True,
-        help="Habilita la creacion y procesamiento diario de solicitudes "
-        "de descarga masiva para esta empresa.",
+        help="Enables daily creation and processing of bulk download "
+        "requests for this company.",
     )
     l10n_mx_sat_download_cfdi_issued = fields.Boolean(
-        string="Descargar CFDI emitidos",
+        string="Download issued CFDIs",
         default=True,
     )
     l10n_mx_sat_download_cfdi_received = fields.Boolean(
-        string="Descargar CFDI recibidos",
+        string="Download received CFDIs",
         default=True,
     )
     l10n_mx_sat_download_retention_issued = fields.Boolean(
-        string="Descargar retenciones emitidas",
+        string="Download issued retentions",
         default=True,
     )
     l10n_mx_sat_download_retention_received = fields.Boolean(
-        string="Descargar retenciones recibidas",
+        string="Download received retentions",
         default=True,
     )
     l10n_mx_sat_fiel_configured = fields.Boolean(
-        string="FIEL configurada",
+        string="FIEL configured",
         compute="_compute_l10n_mx_sat_fiel_status",
     )
     l10n_mx_sat_fiel_certificate_configured = fields.Boolean(
-        string="Certificado FIEL configurado",
+        string="FIEL certificate configured",
         compute="_compute_l10n_mx_sat_fiel_status",
     )
     l10n_mx_sat_fiel_key_configured = fields.Boolean(
-        string="Llave FIEL configurada",
+        string="Llave FIEL configured",
         compute="_compute_l10n_mx_sat_fiel_status",
     )
     l10n_mx_sat_fiel_rfc = fields.Char(
@@ -103,9 +103,7 @@ class ResCompany(models.Model):
             company.l10n_mx_sat_fiel_certificate_configured = bool(
                 company.l10n_mx_sat_fiel_cer
             )
-            company.l10n_mx_sat_fiel_key_configured = bool(
-                company.l10n_mx_sat_fiel_key
-            )
+            company.l10n_mx_sat_fiel_key_configured = bool(company.l10n_mx_sat_fiel_key)
             company.l10n_mx_sat_fiel_configured = company.l10n_mx_sat_has_credentials()
             company.l10n_mx_sat_fiel_rfc = False
             if company.l10n_mx_sat_fiel_configured:
@@ -163,8 +161,8 @@ class ResCompany(models.Model):
                 if company.l10n_mx_sat_has_credentials():
                     raise UserError(
                         self.env._(
-                            "No puede modificar el RFC/VAT mientras la FIEL "
-                            "este configurada. Actualice la FIEL para cambiarlo."
+                            "You cannot change the company RFC/VAT while FIEL "
+                            "credentials are configured. Update the FIEL to change it."
                         )
                     )
         return super().write(vals)
@@ -173,17 +171,17 @@ class ResCompany(models.Model):
         """Return decoded FIEL credentials."""
         self.ensure_one()
         if not self.l10n_mx_sat_fiel_cer:
-            raise UserError(self.env._("Suba el certificado FIEL (.cer) primero."))
+            raise UserError(self.env._("Upload the FIEL certificate (.cer) first."))
         if not self.l10n_mx_sat_fiel_key:
-            raise UserError(self.env._("Suba la llave privada FIEL (.key) primero."))
+            raise UserError(self.env._("Upload the FIEL private key (.key) first."))
         if not self.l10n_mx_sat_fiel_password:
-            raise UserError(self.env._("Ingrese la contrasena FIEL primero."))
+            raise UserError(self.env._("Enter the FIEL password first."))
         try:
             cer_der = base64.b64decode(self.l10n_mx_sat_fiel_cer)
             key_der = base64.b64decode(self.l10n_mx_sat_fiel_key)
         except Exception as e:
             raise UserError(
-                self.env._("Error al decodificar credenciales FIEL: %s", e)
+                self.env._("Failed to decode FIEL credentials: %s", e)
             ) from e
         return cer_der, key_der, self.l10n_mx_sat_fiel_password
 
@@ -198,9 +196,7 @@ class ResCompany(models.Model):
         except UserError:
             raise
         except Exception as e:
-            raise UserError(
-                self.env._("Error al cargar credenciales FIEL: %s", e)
-            ) from e
+            raise UserError(self.env._("Failed to load FIEL credentials: %s", e)) from e
 
     def _l10n_mx_sat_validate_fiel_rfc(self, client):
         """Ensure FIEL RFC matches company VAT when both are set."""
@@ -212,8 +208,8 @@ class ResCompany(models.Model):
         if company_rfc != fiel_rfc:
             raise UserError(
                 self.env._(
-                    "El RFC del certificado FIEL (%(fiel)s) no coincide con "
-                    "el RFC de la empresa (%(company)s).",
+                    "The FIEL certificate RFC (%(fiel)s) does not match "
+                    "the company RFC (%(company)s).",
                     fiel=fiel_rfc,
                     company=company_rfc,
                 )
@@ -230,8 +226,8 @@ class ResCompany(models.Model):
             return client.rfc.strip().upper()
         raise UserError(
             self.env._(
-                "No se pudo determinar el RFC. Configure el RFC/VAT de la "
-                "empresa o verifique el certificado FIEL."
+                "Could not determine the RFC. Set the company RFC/VAT or "
+                "verify the FIEL certificate."
             )
         )
 
@@ -251,14 +247,14 @@ class ResCompany(models.Model):
             return client.authenticate()
         except Exception as e:
             _logger.warning("SAT authentication failed for %s: %s", self.name, e)
-            raise UserError(self.env._("Autenticacion SAT fallo: %s", e)) from e
+            raise UserError(self.env._("SAT authentication failed: %s", e)) from e
 
     def action_l10n_mx_sat_open_fiel_wizard(self):
         """Open wizard to upload new FIEL credentials."""
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": self.env._("Actualizar credenciales FIEL"),
+            "name": self.env._("Update FIEL credentials"),
             "res_model": "l10n_mx_sat.fiel.credentials.wizard",
             "view_mode": "form",
             "target": "new",
@@ -273,8 +269,8 @@ class ResCompany(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": self.env._("Conexion SAT"),
-                "message": self.env._("Conexion exitosa. Token obtenido."),
+                "title": self.env._("SAT connection"),
+                "message": self.env._("Connection successful. Token obtained."),
                 "type": "success",
                 "sticky": False,
             },
@@ -291,10 +287,10 @@ class ResCompany(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": self.env._("Sincronizacion SAT"),
+                "title": self.env._("SAT synchronization"),
                 "message": self.env._(
-                    "Sincronizacion iniciada. Revise las solicitudes SAT "
-                    "para seguir el progreso."
+                    "Synchronization started. Review SAT download requests "
+                    "to monitor progress."
                 ),
                 "type": "info",
                 "sticky": True,
@@ -305,7 +301,7 @@ class ResCompany(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": self.env._("Documentos SAT"),
+            "name": self.env._("SAT documents"),
             "res_model": "l10n_mx_sat.document",
             "view_mode": "list,form",
             "domain": [("company_id", "=", self.id)],
@@ -316,7 +312,7 @@ class ResCompany(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": self.env._("Solicitudes SAT"),
+            "name": self.env._("SAT download requests"),
             "res_model": "l10n_mx_sat.download.request",
             "view_mode": "list,form",
             "domain": [("company_id", "=", self.id)],
