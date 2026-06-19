@@ -15,8 +15,32 @@ try:
         TipoDescargaMasivaTerceros,
     )
 except ImportError as err:
-    Signer = SAT = EstadoComprobante = TipoDescargaMasivaTerceros = None
     _logger.debug(err)
+
+    class _MissingSigner:
+        @staticmethod
+        def load(*args, **kwargs):
+            raise ImportError(
+                "The satcfdi library is required. Install it with: pip install satcfdi"
+            )
+
+    class _MissingSAT:
+        pass
+
+    class _MissingEstadoComprobante:
+        VIGENTE = "Vigente"
+
+    class _MissingTipoDescargaMasivaTerceros:
+        class METADATA:
+            value = "Metadata"
+
+        class CFDI:
+            value = "CFDI"
+
+    Signer = _MissingSigner
+    SAT = _MissingSAT
+    EstadoComprobante = _MissingEstadoComprobante
+    TipoDescargaMasivaTerceros = _MissingTipoDescargaMasivaTerceros
 
 
 class SatClient:

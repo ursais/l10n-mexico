@@ -21,17 +21,14 @@ class L10nMxSatFielCredentialsWizard(models.TransientModel):
     )
     fiel_cer = fields.Binary(
         string="FIEL certificate (.cer)",
-        required=True,
         attachment=False,
     )
     fiel_key = fields.Binary(
         string="FIEL private key (.key)",
-        required=True,
         attachment=False,
     )
     fiel_password = fields.Char(
         string="FIEL password",
-        required=True,
     )
 
     def action_apply(self):
@@ -70,6 +67,6 @@ class L10nMxSatFielCredentialsWizard(models.TransientModel):
             ) from e
         if not client.rfc:
             raise UserError(
-                self.env._("No se pudo obtener el RFC del certificado FIEL.")
+                self.env._("Could not read the RFC from the FIEL certificate.")
             )
         return client.rfc.strip().upper()

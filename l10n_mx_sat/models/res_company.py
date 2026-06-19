@@ -157,8 +157,12 @@ class ResCompany(models.Model):
 
     def write(self, vals):
         if "vat" in vals and not self.env.context.get("l10n_mx_sat_sync_vat_from_fiel"):
+            new_vat = (vals.get("vat") or "").strip().upper()
             for company in self:
-                if company.l10n_mx_sat_has_credentials():
+                if not company.l10n_mx_sat_has_credentials():
+                    continue
+                current_vat = (company.vat or "").strip().upper()
+                if new_vat and new_vat != current_vat:
                     raise UserError(
                         self.env._(
                             "You cannot change the company RFC/VAT while FIEL "
