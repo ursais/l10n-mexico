@@ -14,9 +14,32 @@ try:
         EstadoComprobante,
         TipoDescargaMasivaTerceros,
     )
+
+    _SATCFDI_AVAILABLE = True
 except ImportError as err:
-    Signer = SAT = EstadoComprobante = TipoDescargaMasivaTerceros = None
     _logger.debug(err)
+    _SATCFDI_AVAILABLE = False
+
+    class _MissingSatcfdi:
+        """Placeholder so tests can patch Signer/SAT without AttributeError."""
+
+        @staticmethod
+        def load(**kwargs):
+            raise ImportError(
+                "The satcfdi library is required. Install it with: pip install satcfdi"
+            )
+
+    class _EstadoComprobante:
+        VIGENTE = "Vigente"
+
+    class _TipoDescarga:
+        METADATA = type("EnumVal", (), {"value": "Metadata"})()
+        CFDI = type("EnumVal", (), {"value": "CFDI"})()
+
+    Signer = _MissingSatcfdi
+    SAT = _MissingSatcfdi
+    EstadoComprobante = _EstadoComprobante
+    TipoDescargaMasivaTerceros = _TipoDescarga
 
 
 class SatClient:
@@ -59,7 +82,7 @@ class SatClient:
 
     def __init__(self, cer_der, key_der, password):
         """Initialize the client with FIEL credentials."""
-        if Signer is None or SAT is None:
+        if not _SATCFDI_AVAILABLE:
             raise ImportError(
                 "The satcfdi library is required. Install it with: pip install satcfdi"
             )

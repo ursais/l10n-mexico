@@ -4,8 +4,7 @@
 from datetime import datetime
 from unittest.mock import MagicMock, patch
 
-from psycopg2 import IntegrityError
-
+from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
@@ -141,7 +140,7 @@ class TestDownloadRequest(TransactionCase):
 
     def test_fingerprint_prevents_duplicate_request(self):
         req = self._create_request()
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             self._create_request(
                 date_from=req.date_from,
                 date_to=req.date_to,
