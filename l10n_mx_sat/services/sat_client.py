@@ -15,10 +15,8 @@ try:
         TipoDescargaMasivaTerceros,
     )
 
-    _SATCFDI_AVAILABLE = True
 except ImportError as err:
     _logger.debug(err)
-    _SATCFDI_AVAILABLE = False
 
     class _MissingSatcfdi:
         """Placeholder so tests can patch Signer/SAT without AttributeError."""
@@ -82,10 +80,6 @@ class SatClient:
 
     def __init__(self, cer_der, key_der, password):
         """Initialize the client with FIEL credentials."""
-        if not _SATCFDI_AVAILABLE:
-            raise ImportError(
-                "The satcfdi library is required. Install it with: pip install satcfdi"
-            )
         signer = Signer.load(
             certificate=cer_der,
             key=key_der,
