@@ -46,6 +46,9 @@ It provides:
 - A factory method ``company.l10n_mx_sat_get_client()`` that returns an
   adapter instance. It can be overridden via ``_inherit`` to swap the
   underlying implementation.
+- A cron job to download XML documents from the SAT.
+- Multi-company support.
+- XML download flows configurable per company.
 
 This module does NOT perform any business operation on its own. It is a
 base for modules such as ``l10n_mx_sat_vendor_bill`` that download
@@ -117,6 +120,7 @@ Authors
 -------
 
 * Open Source Integrators
+* Cloud Lotus
 
 Contributors
 ------------
@@ -124,6 +128,7 @@ Contributors
 - ``Open Source Integrators <https://opensourceintegrators.com>``\ \_\_:
 
   - Maxime Chambreuil mchambreuil@opensourceintegrators.com
+  - Roberto Cifuentes roberto@cloudlotus.net
 
 Maintainers
 -----------
@@ -152,7 +157,6 @@ You are welcome to contribute. To learn how please visit https://odoo-community.
 
 .. todo::
 
-   - Make this module compatible with multicompany environments.
-   - Manage the SAT CFDIs download requests.
-   - Manage the SAT CFDIs downloaded documents.
+   - Download metadata from the SAT to update the document status.
+
 

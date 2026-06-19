@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="l10n_mx_sat_document_view_list" model="ir.ui.view">
+        <field name="name">l10n_mx_sat.document.list</field>
+        <field name="model">l10n_mx_sat.document</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="uuid" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="document_kind" />
+                <field name="direction" />
+                <field name="estado_sat" widget="badge" />
+                <field name="tipo_comprobante" />
+                <field name="rfc_emisor" />
+                <field name="rfc_receptor" />
+                <field name="fecha_emision" />
+                <field name="total" />
+                <field name="has_xml" />
+            </list>
+        </field>
+    </record>
+
+    <record id="l10n_mx_sat_document_view_form" model="ir.ui.view">
+        <field name="name">l10n_mx_sat.document.form</field>
+        <field name="model">l10n_mx_sat.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_download_xml"
+                        type="object"
+                        string="Descargar XML"
+                        class="btn-primary"
+                        invisible="not has_xml"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="uuid" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                            <field name="document_kind" />
+                            <field name="direction" />
+                            <field name="estado_sat" />
+                            <field name="tipo_comprobante" />
+                        </group>
+                        <group>
+                            <field name="rfc_emisor" />
+                            <field name="nombre_emisor" />
+                            <field name="rfc_receptor" />
+                            <field name="nombre_receptor" />
+                            <field name="fecha_emision" />
+                            <field name="fecha_timbrado" />
+                            <field name="fecha_cancelacion" />
+                            <field name="total" />
+                            <field name="moneda" />
+                            <field name="serie" />
+                            <field name="folio" />
+                            <field name="has_xml" />
+                            <field name="download_request_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_mx_sat_document_view_search" model="ir.ui.view">
+        <field name="name">l10n_mx_sat.document.search</field>
+        <field name="model">l10n_mx_sat.document</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="uuid" />
+                <field name="rfc_emisor" />
+                <field name="rfc_receptor" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <filter string="Vigente" name="vigente" domain="[('estado_sat', '=', 'vigente')]" />
+                <filter string="Cancelado" name="cancelado" domain="[('estado_sat', '=', 'cancelado')]" />
+                <filter string="En proceso" name="en_proceso" domain="[('estado_sat', '=', 'en_proceso')]" />
+                <filter string="Con XML" name="has_xml" domain="[('has_xml', '=', True)]" />
+                <filter string="Sin XML" name="no_xml" domain="[('has_xml', '=', False)]" />
+                <separator />
+                <filter string="CFDI" name="cfdi" domain="[('document_kind', '=', 'cfdi')]" />
+                <filter string="Retencion" name="retention" domain="[('document_kind', '=', 'retention')]" />
+                <separator />
+                <filter string="Emitidos" name="issued" domain="[('direction', '=', 'issued')]" />
+                <filter string="Recibidos" name="received" domain="[('direction', '=', 'received')]" />
+                <group expand="0" string="Agrupar por">
+                    <filter string="Compania" name="group_company" context="{'group_by': 'company_id'}" />
+                    <filter string="Estado SAT" name="group_estado" context="{'group_by': 'estado_sat'}" />
+                    <filter string="Tipo" name="group_kind" context="{'group_by': 'document_kind'}" />
+                    <filter string="Direccion" name="group_direction" context="{'group_by': 'direction'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="l10n_mx_sat_document_action" model="ir.actions.act_window">
+        <field name="name">Documentos SAT</field>
+        <field name="res_model">l10n_mx_sat.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="l10n_mx_sat_document_view_search" />
+    </record>
+</odoo>

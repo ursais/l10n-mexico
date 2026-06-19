@@ -16,6 +16,7 @@ MOCK_KEY = base64.b64encode(b"fake-key-content")
 MOCK_PASSWORD = "test-password"
 
 _SVC = "odoo.addons.l10n_mx_sat.services.sat_client"
+_WIZ_SVC = "odoo.addons.l10n_mx_sat.wizards.l10n_mx_sat_fiel_credentials_wizard.SatClient"
 
 
 @tagged("post_install", "-at_install")
@@ -97,10 +98,28 @@ class TestResCompanySATConnection(TransactionCase):
     @patch(f"{_SVC}.SAT")
     def test_get_client_returns_sat_client(self, mock_sat_cls, mock_signer_load):
         self._set_credentials()
+        mock_signer_load.return_value.rfc = self.company.vat
         client = self.company.l10n_mx_sat_get_client()
         self.assertIsInstance(client, SatClient)
         mock_signer_load.assert_called_once()
         mock_sat_cls.assert_called_once()
+
+    @patch(f"{_SVC}.Signer.load")
+    @patch(f"{_SVC}.SAT")
+    def test_get_rfc_uses_company_vat(self, mock_sat_cls, mock_signer_load):
+        self._set_credentials()
+        mock_signer_load.return_value.rfc = "RFCFIEL123"
+        client = self.company.l10n_mx_sat_get_client()
+        self.assertEqual(self.company.l10n_mx_sat_get_rfc(client), "EKU9003173C9")
+
+    @patch(f"{_SVC}.Signer.load")
+    @patch(f"{_SVC}.SAT")
+    def test_get_rfc_falls_back_to_fiel(self, mock_sat_cls, mock_signer_load):
+        self._set_credentials()
+        self.company.vat = False
+        mock_signer_load.return_value.rfc = "RFCFIEL123"
+        client = self.company.l10n_mx_sat_get_client()
+        self.assertEqual(self.company.l10n_mx_sat_get_rfc(client), "RFCFIEL123")
 
     @patch("odoo.addons.l10n_mx_sat.models.res_company.SatClient")
     def test_get_client_exception_raises_user_error(self, MockSatClient):
@@ -113,6 +132,7 @@ class TestResCompanySATConnection(TransactionCase):
     @patch(f"{_SVC}.Signer.load")
     def test_get_token_returns_string(self, mock_signer_load, mock_sat_cls):
         self._set_credentials()
+        mock_signer_load.return_value.rfc = self.company.vat
         mock_sat_cls.return_value._autentica_comprobante.return_value = {
             "AutenticaResult": "fake-token"
         }
@@ -125,6 +145,7 @@ class TestResCompanySATConnection(TransactionCase):
     @patch(f"{_SVC}.Signer.load")
     def test_test_connection_success(self, mock_signer_load, mock_sat_cls):
         self._set_credentials()
+        mock_signer_load.return_value.rfc = self.company.vat
         mock_sat_cls.return_value._autentica_comprobante.return_value = {
             "AutenticaResult": "fake-token"
         }
@@ -139,6 +160,7 @@ class TestResCompanySATConnection(TransactionCase):
     @patch(f"{_SVC}.Signer.load")
     def test_connection_exception_raises(self, mock_signer_load, mock_sat_cls):
         self._set_credentials()
+        mock_signer_load.return_value.rfc = self.company.vat
         mock_sat_cls.return_value._autentica_comprobante.side_effect = Exception(
             "Network error"
         )
@@ -151,9 +173,67 @@ class TestResCompanySATConnection(TransactionCase):
     @patch(f"{_SVC}.Signer.load")
     def test_empty_token_raises(self, mock_signer_load, mock_sat_cls):
         self._set_credentials()
+        mock_signer_load.return_value.rfc = self.company.vat
         mock_sat_cls.return_value._autentica_comprobante.return_value = {
             "AutenticaResult": ""
         }
 
         with self.assertRaises(UserError):
             self.company.l10n_mx_sat_test_connection()
+
+    def test_get_xml_download_flows_default_four(self):
+        flows = self.company.l10n_mx_sat_get_xml_download_flows()
+        self.assertEqual(
+            flows,
+            [
+                ("cfdi", "issued", "xml"),
+                ("cfdi", "received", "xml"),
+                ("retention", "issued", "xml"),
+                ("retention", "received", "xml"),
+            ],
+        )
+
+    @patch(f"{_SVC}.Signer.load")
+    @patch(f"{_SVC}.SAT")
+    def test_fiel_configured_status(self, mock_sat_cls, mock_signer_load):
+        self._set_credentials()
+        mock_signer_load.return_value.rfc = self.company.vat
+        self.company.invalidate_recordset(
+            [
+                "l10n_mx_sat_fiel_configured",
+                "l10n_mx_sat_fiel_certificate_configured",
+                "l10n_mx_sat_fiel_key_configured",
+                "l10n_mx_sat_fiel_rfc",
+            ]
+        )
+        self.assertTrue(self.company.l10n_mx_sat_fiel_configured)
+        self.assertTrue(self.company.l10n_mx_sat_fiel_certificate_configured)
+        self.assertTrue(self.company.l10n_mx_sat_fiel_key_configured)
+        self.assertEqual(self.company.l10n_mx_sat_fiel_rfc, self.company.vat)
+
+    @patch(f"{_SVC}.Signer.load")
+    @patch(f"{_SVC}.SAT")
+    def test_fiel_wizard_updates_credentials(self, mock_sat_cls, mock_signer_load):
+        mock_signer_load.return_value.rfc = "RFCFIEL123"
+        self.company.vat = False
+        with patch(_WIZ_SVC) as MockWizardClient:
+            MockWizardClient.return_value.rfc = "RFCFIEL123"
+            wizard = self.env["l10n_mx_sat.fiel.credentials.wizard"].create(
+                {
+                    "company_id": self.company.id,
+                    "fiel_cer": MOCK_CER,
+                    "fiel_key": MOCK_KEY,
+                    "fiel_password": MOCK_PASSWORD,
+                }
+            )
+            wizard.action_apply()
+        self.assertTrue(self.company.l10n_mx_sat_has_credentials())
+        self.assertEqual(self.company.l10n_mx_sat_fiel_password, MOCK_PASSWORD)
+        self.assertEqual(self.company.vat, "RFCFIEL123")
+        self.assertNotEqual(self.company.l10n_mx_sat_fiel_cer, False)
+        self.assertNotEqual(self.company.l10n_mx_sat_fiel_key, False)
+
+    def test_vat_cannot_change_when_fiel_configured(self):
+        self._set_credentials()
+        with self.assertRaises(UserError):
+            self.company.write({"vat": "AAA010101AAA"})
