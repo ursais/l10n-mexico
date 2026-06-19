@@ -29,6 +29,7 @@ class L10nMxSatFielCredentialsWizard(models.TransientModel):
     )
     fiel_password = fields.Char(
         string="FIEL password",
+        default="",
     )
 
     def action_apply(self):

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import base64
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from odoo.exceptions import UserError
 from odoo.tests import tagged
@@ -106,12 +106,10 @@ class TestResCompanySATConnection(TransactionCase):
         mock_signer_load.assert_called_once()
         mock_sat_cls.assert_called_once()
 
-    @patch(f"{_SVC}.Signer.load")
-    @patch(f"{_SVC}.SAT")
-    def test_get_rfc_uses_company_vat(self, mock_sat_cls, mock_signer_load):
+    def test_get_rfc_uses_company_vat(self):
         self._set_credentials()
-        mock_signer_load.return_value.rfc = "RFCFIEL123"
-        client = self.company.l10n_mx_sat_get_client()
+        client = MagicMock()
+        client.rfc = "RFCFIEL123"
         self.assertEqual(self.company.l10n_mx_sat_get_rfc(client), "EKU9003173C9")
 
     @patch(f"{_SVC}.Signer.load")

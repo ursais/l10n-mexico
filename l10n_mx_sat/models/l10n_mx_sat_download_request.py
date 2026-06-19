@@ -10,7 +10,7 @@ from io import BytesIO
 from lxml import etree
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 from ..services import (
     MX_TZ,
@@ -167,28 +167,28 @@ class L10nMxSatDownloadRequest(models.Model):
     @api.model
     def _get_display_rfc(self, company):
         """Resolve RFC for labels, falling back to FIEL when VAT is empty."""
-        cache = getattr(self.env, "_l10n_mx_sat_display_rfc", None)
-        if cache is None:
-            cache = {}
-            self.env._l10n_mx_sat_display_rfc = cache
-        if company.id in cache:
-            return cache[company.id]
-
         rfc = company.vat.strip().upper() if company.vat else False
         if not rfc and company.l10n_mx_sat_has_credentials():
             try:
                 rfc = company.l10n_mx_sat_get_rfc()
             except Exception:
                 rfc = False
-        display = rfc or company.name or "?"
-        cache[company.id] = display
-        return display
+        return rfc or company.name or "?"
 
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             if not vals.get("request_fingerprint"):
                 vals["request_fingerprint"] = self._build_fingerprint_from_vals(vals)
+            if self.search(
+                [("request_fingerprint", "=", vals["request_fingerprint"])], limit=1
+            ):
+                raise ValidationError(
+                    self.env._(
+                        "A SAT download request with the same parameters "
+                        "already exists."
+                    )
+                )
         return super().create(vals_list)
 
     @api.model

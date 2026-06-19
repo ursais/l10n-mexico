@@ -83,10 +83,6 @@ class SatClient:
 
     def __init__(self, cer_der, key_der, password):
         """Initialize the client with FIEL credentials."""
-        if Signer is None or SAT is None:
-            raise ImportError(
-                "The satcfdi library is required. Install it with: pip install satcfdi"
-            )
         signer = Signer.load(
             certificate=cer_der,
             key=key_der,

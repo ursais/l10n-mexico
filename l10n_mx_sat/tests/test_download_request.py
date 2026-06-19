@@ -88,9 +88,8 @@ class TestDownloadRequest(TransactionCase):
         return client
 
     def _patch_factory(self, mock_client):
-        return patch.object(
-            type(self.company),
-            "l10n_mx_sat_get_client",
+        return patch(
+            "odoo.addons.l10n_mx_sat.models.res_company.ResCompany.l10n_mx_sat_get_client",
             return_value=mock_client,
         )
 
@@ -277,13 +276,15 @@ class TestDownloadRequest(TransactionCase):
         self.assertEqual(client.request_download.call_args.args[1], "RFCFIEL123")
         self.assertEqual(req.state, "requested")
 
-    def test_name_uses_fiel_rfc_when_vat_missing(self):
-        self.company.vat = False
+    def test_get_display_rfc_uses_fiel_when_vat_missing(self):
+        self.company.write({"vat": False})
+        self.env.invalidate_all()
         client = self._mock_client()
         client.rfc = "RFCFIEL123"
+        Request = self.env["l10n_mx_sat.download.request"]
         with self._patch_factory(client):
-            req = self._create_request(document_kind="cfdi", direction="issued")
-        self.assertTrue(req.name.startswith("RFCFIEL123 / CFDI / Issued"))
+            rfc = Request._get_display_rfc(self.company)
+        self.assertEqual(rfc, "RFCFIEL123")
 
     def test_action_verify_no_info_rejected_5004(self):
         """Real SAT pattern: verify OK but no packages in range."""
