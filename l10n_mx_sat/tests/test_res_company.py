@@ -1,4 +1,4 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import base64
@@ -16,7 +16,9 @@ MOCK_KEY = base64.b64encode(b"fake-key-content")
 MOCK_PASSWORD = "test-password"
 
 _SVC = "odoo.addons.l10n_mx_sat.services.sat_client"
-_WIZ_SVC = "odoo.addons.l10n_mx_sat.wizards.l10n_mx_sat_fiel_credentials_wizard.SatClient"
+_WIZ_SVC = (
+    "odoo.addons.l10n_mx_sat.wizards.l10n_mx_sat_fiel_credentials_wizard.SatClient"
+)
 
 
 @tagged("post_install", "-at_install")

@@ -14,8 +14,8 @@ For each Mexican company:
 5. Choose which XML download flows are enabled:
    - CFDI issued
    - CFDI received
-   - Retenciones issued
-   - Retenciones received
+   - Retentiones issued
+   - Retentiones received
 5. Optionally set:
    - **Sync documents from**: first XML backfill date.
    - **Automatic SAT download**: enable/disable daily cron processing.

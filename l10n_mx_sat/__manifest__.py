@@ -1,4 +1,4 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
@@ -6,11 +6,13 @@
     "version": "18.0.1.0.0",
     "category": "Accounting/Localizations",
     "summary": "Connect to the SAT portal using FIEL credentials & manage downloads",
-    "author": "Open Source Integrators, Odoo Community Association (OCA), Cloud Lotus",
+    "author": (
+        "Gray Matter Logic, Asociacion Mexicana de Odoo (AMOdoo), "
+        "Odoo Community Association (OCA), Cloud Lotus"
+    ),
     "website": "https://github.com/OCA/l10n-mexico",
     "license": "AGPL-3",
     "depends": ["base"],
-    "external_dependencies": {"python": ["satcfdi"]},
     "data": [
         "security/l10n_mx_sat_security.xml",
         "security/ir.model.access.csv",

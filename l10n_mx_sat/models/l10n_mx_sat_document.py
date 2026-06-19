@@ -1,19 +1,16 @@
-# Copyright 2026 Open Source Integrators
+# Copyright 2026 Gray Matter Logic
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import logging
 from datetime import datetime as dt
 
-from lxml import etree
-
 from odoo import api, fields, models
 
-from ..services import SAFE_XML_PARSER
 from ..services.sat_metadata import (
-    SAT_ESTADO_CANCELADO,
-    SAT_ESTADO_EN_PROCESO,
-    SAT_ESTADO_VIGENTE,
-    normalize_sat_estado,
+    SAT_STATUS_CANCELLED,
+    SAT_STATUS_IN_PROGRESS,
+    SAT_STATUS_VALID,
+    normalize_sat_status,
 )
 
 _logger = logging.getLogger(__name__)
@@ -24,7 +21,7 @@ CFDI_DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
 class L10nMxSatDocument(models.Model):
     _name = "l10n_mx_sat.document"
     _description = "SAT Document"
-    _order = "fecha_emision desc, uuid"
+    _order = "issue_date desc, uuid"
     _rec_name = "display_name"
 
     company_id = fields.Many2one(
@@ -37,44 +34,44 @@ class L10nMxSatDocument(models.Model):
     document_kind = fields.Selection(
         selection=[
             ("cfdi", "CFDI"),
-            ("retention", "Retencion"),
+            ("retention", "Retention"),
         ],
         required=True,
         index=True,
     )
     direction = fields.Selection(
         selection=[
-            ("issued", "Emitido"),
-            ("received", "Recibido"),
+            ("issued", "Issued"),
+            ("received", "Received"),
         ],
         required=True,
         index=True,
     )
-    estado_sat = fields.Selection(
+    sat_status = fields.Selection(
         selection=[
-            (SAT_ESTADO_VIGENTE, "Vigente"),
-            (SAT_ESTADO_CANCELADO, "Cancelado"),
-            (SAT_ESTADO_EN_PROCESO, "En proceso"),
+            (SAT_STATUS_VALID, "Valid"),
+            (SAT_STATUS_CANCELLED, "Cancelled"),
+            (SAT_STATUS_IN_PROGRESS, "In progress"),
         ],
-        string="Estado SAT",
+        string="SAT status",
         index=True,
     )
-    tipo_comprobante = fields.Char(string="Tipo comprobante", index=True)
-    rfc_emisor = fields.Char(index=True)
-    nombre_emisor = fields.Char()
-    rfc_receptor = fields.Char(index=True)
-    nombre_receptor = fields.Char()
-    fecha_emision = fields.Datetime(index=True)
-    fecha_timbrado = fields.Datetime()
-    fecha_cancelacion = fields.Datetime()
+    voucher_type = fields.Char(string="Voucher type", index=True)
+    issuer_rfc = fields.Char(index=True)
+    issuer_name = fields.Char()
+    receiver_rfc = fields.Char(index=True)
+    receiver_name = fields.Char()
+    issue_date = fields.Datetime(index=True)
+    stamp_date = fields.Datetime()
+    cancellation_date = fields.Datetime()
     total = fields.Float(digits=(16, 6))
-    moneda = fields.Char()
-    serie = fields.Char()
-    folio = fields.Char()
+    currency_code = fields.Char()
+    series = fields.Char()
+    folio_number = fields.Char()
     has_xml = fields.Boolean(default=False, index=True)
     download_request_id = fields.Many2one(
         comodel_name="l10n_mx_sat.download.request",
-        string="Solicitud SAT",
+        string="SAT request",
         readonly=True,
         ondelete="set null",
     )
@@ -90,7 +87,7 @@ class L10nMxSatDocument(models.Model):
         (
             "uuid_company_kind_direction_uniq",
             "UNIQUE(uuid, company_id, document_kind, direction)",
-            "Ya existe un documento SAT con este UUID para esta empresa.",
+            "A SAT document with this UUID already exists for this company.",
         )
     ]
 
@@ -99,9 +96,13 @@ class L10nMxSatDocument(models.Model):
         for doc in self:
             parts = [doc.uuid or "?"]
             if doc.document_kind:
-                parts.append(dict(doc._fields["document_kind"].selection).get(doc.document_kind))
+                parts.append(
+                    dict(doc._fields["document_kind"].selection).get(doc.document_kind)
+                )
             if doc.direction:
-                parts.append(dict(doc._fields["direction"].selection).get(doc.direction))
+                parts.append(
+                    dict(doc._fields["direction"].selection).get(doc.direction)
+                )
             doc.display_name = " / ".join(parts)
 
     @api.model
@@ -128,12 +129,12 @@ class L10nMxSatDocument(models.Model):
         )
         write_vals = {"download_request_id": request.id}
         field_map = (
-            ("estado_sat", "estado_sat"),
-            ("rfc_emisor", "rfc_emisor"),
-            ("nombre_emisor", "nombre_emisor"),
-            ("rfc_receptor", "rfc_receptor"),
-            ("nombre_receptor", "nombre_receptor"),
-            ("tipo_comprobante", "tipo_comprobante"),
+            ("sat_status", "sat_status"),
+            ("issuer_rfc", "issuer_rfc"),
+            ("issuer_name", "issuer_name"),
+            ("receiver_rfc", "receiver_rfc"),
+            ("receiver_name", "receiver_name"),
+            ("voucher_type", "voucher_type"),
         )
         for target, source in field_map:
             value = row.get(source)
@@ -145,12 +146,12 @@ class L10nMxSatDocument(models.Model):
         if row.get("total"):
             try:
                 write_vals["total"] = float(row["total"])
-            except (TypeError, ValueError):
-                pass
+            except (TypeError, ValueError) as err:
+                _logger.debug("Could not parse metadata total: %s", err)
         for date_field, row_key in (
-            ("fecha_emision", "fecha_emision"),
-            ("fecha_timbrado", "fecha_timbrado"),
-            ("fecha_cancelacion", "fecha_cancelacion"),
+            ("issue_date", "issue_date"),
+            ("stamp_date", "stamp_date"),
+            ("cancellation_date", "cancellation_date"),
         ):
             parsed = self._parse_sat_datetime(row.get(row_key))
             if parsed:
@@ -224,8 +225,8 @@ class L10nMxSatDocument(models.Model):
             uuid = tfd_nodes[0].get("UUID")
             if uuid:
                 return uuid.upper()
-        folio = tree.get("FolioFiscal") or tree.get("UUID")
-        return folio.upper() if folio else False
+        folio_number = tree.get("FolioFiscal") or tree.get("UUID")
+        return folio_number.upper() if folio_number else False
 
     @api.model
     def _validate_xml_company(self, tree, company, request):
@@ -242,7 +243,7 @@ class L10nMxSatDocument(models.Model):
                 return False
             rfc = (emisor.get("Rfc") or "").upper()
             return rfc == company_vat
-        # Retenciones: validate Emisor/Receptor similarly
+        # Retentiones: validate Emisor/Receptor similarly
         if request.direction == "received":
             receptor = tree.find(".//*[local-name()='Receptor']")
             if receptor is not None:
@@ -261,41 +262,51 @@ class L10nMxSatDocument(models.Model):
             emisor = tree.find("{*}Emisor")
             receptor = tree.find("{*}Receptor")
             if emisor is not None:
-                vals["rfc_emisor"] = emisor.get("Rfc")
-                vals["nombre_emisor"] = emisor.get("Nombre")
+                vals["issuer_rfc"] = emisor.get("Rfc")
+                vals["issuer_name"] = emisor.get("Nombre")
             if receptor is not None:
-                vals["rfc_receptor"] = receptor.get("Rfc")
-                vals["nombre_receptor"] = receptor.get("Nombre")
-            vals["tipo_comprobante"] = tree.get("TipoDeComprobante")
-            vals["moneda"] = tree.get("Moneda")
-            vals["serie"] = tree.get("Serie")
-            vals["folio"] = tree.get("Folio")
+                vals["receiver_rfc"] = receptor.get("Rfc")
+                vals["receiver_name"] = receptor.get("Nombre")
+            vals["voucher_type"] = tree.get("TipoDeComprobante")
+            vals["currency_code"] = tree.get("Moneda")
+            vals["series"] = tree.get("Serie")
+            vals["folio_number"] = tree.get("Folio")
             try:
                 vals["total"] = float(tree.get("Total") or 0)
-            except (TypeError, ValueError):
-                pass
-            vals["fecha_emision"] = self._parse_sat_datetime(tree.get("Fecha"))
+            except (TypeError, ValueError) as err:
+                _logger.debug("Could not parse CFDI total: %s", err)
+            vals["issue_date"] = self._parse_sat_datetime(tree.get("Fecha"))
             tfd = tree.xpath("//*[local-name()='TimbreFiscalDigital']")
             if tfd:
-                vals["fecha_timbrado"] = self._parse_sat_datetime(tfd[0].get("FechaTimbrado"))
+                vals["stamp_date"] = self._parse_sat_datetime(
+                    tfd[0].get("FechaTimbrado")
+                )
         else:
             emisor = tree.find(".//*[local-name()='Emisor']")
             receptor = tree.find(".//*[local-name()='Receptor']")
             if emisor is not None:
-                vals["rfc_emisor"] = emisor.get("Rfc") or emisor.get("RfcEmisor")
-                vals["nombre_emisor"] = emisor.get("Nombre") or emisor.get("NomDenRazSocE")
+                vals["issuer_rfc"] = emisor.get("Rfc") or emisor.get("RfcEmisor")
+                vals["issuer_name"] = emisor.get("Nombre") or emisor.get(
+                    "NomDenRazSocE"
+                )
             if receptor is not None:
-                vals["rfc_receptor"] = receptor.get("Rfc") or receptor.get("RfcReceptor")
-                vals["nombre_receptor"] = receptor.get("Nombre") or receptor.get("NomDenRazSocR")
-            vals["fecha_emision"] = self._parse_sat_datetime(
+                vals["receiver_rfc"] = receptor.get("Rfc") or receptor.get(
+                    "RfcReceptor"
+                )
+                vals["receiver_name"] = receptor.get("Nombre") or receptor.get(
+                    "NomDenRazSocR"
+                )
+            vals["issue_date"] = self._parse_sat_datetime(
                 tree.get("FechaExp") or tree.get("Fecha")
             )
             try:
-                vals["total"] = float(tree.get("MontoTotOperacion") or tree.get("Total") or 0)
-            except (TypeError, ValueError):
-                pass
-        if not vals.get("estado_sat"):
-            vals["estado_sat"] = SAT_ESTADO_VIGENTE
+                vals["total"] = float(
+                    tree.get("MontoTotOperacion") or tree.get("Total") or 0
+                )
+            except (TypeError, ValueError) as err:
+                _logger.debug("Could not parse retention total: %s", err)
+        if not vals.get("sat_status"):
+            vals["sat_status"] = SAT_STATUS_VALID
         return vals
 
     @api.model
@@ -325,7 +336,7 @@ class L10nMxSatDocument(models.Model):
         }
 
     @api.model
-    def _update_estado_from_validate(self, document, validate_result):
-        estado = normalize_sat_estado(validate_result.get("estado"))
+    def _update_status_from_validate(self, document, validate_result):
+        estado = normalize_sat_status(validate_result.get("estado"))
         if estado:
-            document.estado_sat = estado
+            document.sat_status = estado
