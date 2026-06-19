@@ -103,8 +103,8 @@ For each Mexican company:
 
    - CFDI issued
    - CFDI received
-   - Retenciones issued
-   - Retenciones received
+   - Retentiones issued
+   - Retentiones received
 
 6. Optionally set:
 

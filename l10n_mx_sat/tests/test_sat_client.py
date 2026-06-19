@@ -39,24 +39,24 @@ class TestSatClient(TransactionCase):
         mock_sat_cls.return_value.recover_comprobante_received_request.return_value = {
             "CodEstatus": "5000",
             "IdSolicitud": "SOL-1",
-            "Mensaje": "Aceptada",
+            "Mensaje": "Accepted",
         }
         client = SatClient(b"cer", b"key", "pwd")
         result = client.request_download(
             "tok", "RFC1", "2026-01-01", "2026-01-31", direction="received"
         )
-        self.assertEqual(result["id_solicitud"], "SOL-1")
+        self.assertEqual(result["sat_request_id"], "SOL-1")
         mock_sat_cls.return_value.recover_comprobante_received_request.assert_called_once()
 
     @patch(f"{_SVC}.SAT")
     @patch(f"{_SVC}.Signer.load")
-    def test_request_download_emitted_cfdi_passes_rfc_emisor(
+    def test_request_download_emitted_cfdi_passes_issuer_rfc(
         self, mock_signer_load, mock_sat_cls
     ):
         mock_sat_cls.return_value.recover_comprobante_emitted_request.return_value = {
             "CodEstatus": "5000",
             "IdSolicitud": "SOL-E",
-            "Mensaje": "Aceptada",
+            "Mensaje": "Accepted",
         }
         client = SatClient(b"cer", b"key", "pwd")
         client.request_download(
@@ -77,7 +77,7 @@ class TestSatClient(TransactionCase):
         mock_sat_cls.return_value.recover_retencion_emitted_request.return_value = {
             "CodEstatus": "5000",
             "IdSolicitud": "SOL-R",
-            "Mensaje": "Aceptada",
+            "Mensaje": "Accepted",
         }
         client = SatClient(b"cer", b"key", "pwd")
         client.request_download(
@@ -117,13 +117,13 @@ class TestSatClient(TransactionCase):
             "CodigoEstadoSolicitud": "5000",
             "NumeroCFDIs": 1,
             "IdsPaquetes": ["PKG-1"],
-            "Mensaje": "Terminada",
+            "Mensaje": "Completed",
         }
         client = SatClient(b"cer", b"key", "pwd")
         result = client.verify_download(
             "tok", "RFC1", "SOL-1", document_kind="retention"
         )
-        self.assertEqual(result["estado_solicitud"], 3)
+        self.assertEqual(result["request_status"], 3)
         mock_sat_cls.return_value.recover_retencion_status.assert_called_once()
 
     @patch(f"{_SVC}.SAT")
@@ -135,16 +135,16 @@ class TestSatClient(TransactionCase):
             "CodigoEstadoSolicitud": "5004",
             "NumeroCFDIs": 0,
             "IdsPaquetes": [],
-            "Mensaje": "Solicitud Aceptada",
+            "Mensaje": "Solicitud Accepted",
         }
         client = SatClient(b"cer", b"key", "pwd")
         result = client.verify_download(
             "tok", "RFC1", "SOL-1", document_kind="retention"
         )
         self.assertEqual(result["cod_estatus"], "5000")
-        self.assertEqual(result["estado_solicitud"], 5)
-        self.assertEqual(result["codigo_estado_solicitud"], "5004")
-        self.assertEqual(result["paquetes"], [])
+        self.assertEqual(result["request_status"], 5)
+        self.assertEqual(result["request_status_code"], "5004")
+        self.assertEqual(result["packages"], [])
 
     @patch(f"{_SVC}.SAT")
     @patch(f"{_SVC}.Signer.load")
@@ -157,7 +157,7 @@ class TestSatClient(TransactionCase):
         result = client.download_package(
             "tok", "RFC1", "PKG-1", document_kind="retention"
         )
-        self.assertEqual(result["paquete_b64"], "b64data")
+        self.assertEqual(result["package_b64"], "b64data")
 
     @patch(f"{_SVC}.SAT")
     @patch(f"{_SVC}.Signer.load")

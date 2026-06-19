@@ -23,16 +23,16 @@ from ..services import (
     SAT_DEFAULT_SYNC_DAYS,
     SAT_DOWNLOAD_EXPIRED,
     SAT_DOWNLOAD_MAX_REACHED,
-    SAT_ESTADO_ACCEPTED,
-    SAT_ESTADO_ERROR,
-    SAT_ESTADO_EXPIRED,
-    SAT_ESTADO_LABELS,
-    SAT_ESTADO_PROCESSING,
-    SAT_ESTADO_READY,
-    SAT_ESTADO_REJECTED,
     SAT_METADATA_DEFAULT_WINDOW_DAYS,
     SAT_METADATA_MIN_WINDOW_HOURS,
     SAT_REJECT_CODES,
+    SAT_REQUEST_STATUS_ACCEPTED,
+    SAT_REQUEST_STATUS_ERROR,
+    SAT_REQUEST_STATUS_EXPIRED,
+    SAT_REQUEST_STATUS_LABELS,
+    SAT_REQUEST_STATUS_PROCESSING,
+    SAT_REQUEST_STATUS_READY,
+    SAT_REQUEST_STATUS_REJECTED,
     SAT_STATUS_CODE_LABELS,
     sat_int,
     sat_str,
@@ -63,7 +63,7 @@ class L10nMxSatDownloadRequest(models.Model):
     document_kind = fields.Selection(
         selection=[
             ("cfdi", "CFDI"),
-            ("retention", "Retencion"),
+            ("retention", "Retention"),
         ],
         required=True,
         default="cfdi",
@@ -71,8 +71,8 @@ class L10nMxSatDownloadRequest(models.Model):
     )
     direction = fields.Selection(
         selection=[
-            ("issued", "Emitido"),
-            ("received", "Recibido"),
+            ("issued", "Issued"),
+            ("received", "Received"),
         ],
         required=True,
         default="received",
@@ -81,7 +81,7 @@ class L10nMxSatDownloadRequest(models.Model):
     request_type = fields.Selection(
         selection=[
             ("xml", "XML"),
-            ("metadata", "Metadatos"),
+            ("metadata", "Metadata"),
         ],
         required=True,
         default="xml",
@@ -89,12 +89,12 @@ class L10nMxSatDownloadRequest(models.Model):
     )
     state = fields.Selection(
         selection=[
-            ("draft", "Borrador"),
-            ("requested", "Solicitado"),
-            ("processing", "Procesando"),
-            ("ready", "Listo"),
-            ("downloading", "Descargando"),
-            ("done", "Completado"),
+            ("draft", "Draft"),
+            ("requested", "Requested"),
+            ("processing", "Processing"),
+            ("ready", "Ready"),
+            ("downloading", "Downloading"),
+            ("done", "Completed"),
             ("error", "Error"),
         ],
         default="draft",
@@ -102,31 +102,31 @@ class L10nMxSatDownloadRequest(models.Model):
         readonly=True,
         index=True,
     )
-    fecha_inicial = fields.Datetime(string="Desde", required=True)
-    fecha_final = fields.Datetime(string="Hasta", required=True)
-    id_solicitud = fields.Char(string="ID solicitud SAT", readonly=True)
+    date_from = fields.Datetime(string="From", required=True)
+    date_to = fields.Datetime(string="To", required=True)
+    sat_request_id = fields.Char(string="SAT request ID", readonly=True)
     request_fingerprint = fields.Char(
-        string="Huella solicitud",
+        string="Request fingerprint",
         readonly=True,
         index=True,
     )
     package_ids = fields.One2many(
         comodel_name="l10n_mx_sat.download.package",
         inverse_name="request_id",
-        string="Paquetes",
+        string="Packages",
         readonly=True,
     )
     document_ids = fields.One2many(
         comodel_name="l10n_mx_sat.document",
         inverse_name="download_request_id",
-        string="Documentos",
+        string="Documents",
         readonly=True,
     )
     error_message = fields.Text(readonly=True)
-    document_count = fields.Integer(string="Documentos procesados", readonly=True)
-    numero_cfdis = fields.Integer(string="CFDIs reportados SAT", readonly=True)
+    document_count = fields.Integer(string="Processed documents", readonly=True)
+    reported_cfdi_count = fields.Integer(string="SAT reported CFDIs", readonly=True)
     can_retry = fields.Boolean(
-        string="Puede reintentar",
+        string="Can retry",
         compute="_compute_can_retry",
     )
 
@@ -134,7 +134,8 @@ class L10nMxSatDownloadRequest(models.Model):
         (
             "request_fingerprint_uniq",
             "UNIQUE(request_fingerprint)",
-            "Ya existe una solicitud SAT identica para esta empresa y rango.",
+            "A SAT download request with the same company and date range "
+            "already exists.",
         )
     ]
 
@@ -146,8 +147,8 @@ class L10nMxSatDownloadRequest(models.Model):
         "document_kind",
         "direction",
         "request_type",
-        "fecha_inicial",
-        "fecha_final",
+        "date_from",
+        "date_to",
     )
     def _compute_name(self):
         for rec in self:
@@ -159,8 +160,8 @@ class L10nMxSatDownloadRequest(models.Model):
             req_type = dict(rec._fields["request_type"].selection).get(
                 rec.request_type, "?"
             )
-            fi = rec.fecha_inicial.strftime("%Y-%m-%d") if rec.fecha_inicial else "?"
-            ff = rec.fecha_final.strftime("%Y-%m-%d") if rec.fecha_final else "?"
+            fi = rec.date_from.strftime("%Y-%m-%d") if rec.date_from else "?"
+            ff = rec.date_to.strftime("%Y-%m-%d") if rec.date_to else "?"
             rec.name = f"{rfc} / {kind} / {direction} / {req_type} / {fi} - {ff}"
 
     @api.model
@@ -193,19 +194,19 @@ class L10nMxSatDownloadRequest(models.Model):
     @api.model
     def _build_fingerprint_from_vals(self, vals):
         company_id = vals.get("company_id") or self.env.company.id
-        fecha_inicial = vals.get("fecha_inicial")
-        fecha_final = vals.get("fecha_final")
-        if isinstance(fecha_inicial, str):
-            fecha_inicial = fields.Datetime.to_datetime(fecha_inicial)
-        if isinstance(fecha_final, str):
-            fecha_final = fields.Datetime.to_datetime(fecha_final)
+        date_from = vals.get("date_from")
+        date_to = vals.get("date_to")
+        if isinstance(date_from, str):
+            date_from = fields.Datetime.to_datetime(date_from)
+        if isinstance(date_to, str):
+            date_to = fields.Datetime.to_datetime(date_to)
         return build_request_fingerprint(
             company_id,
             vals.get("document_kind"),
             vals.get("direction"),
             vals.get("request_type"),
-            fecha_inicial,
-            fecha_final,
+            date_from,
+            date_to,
         )
 
     @api.depends("state", "error_message")
@@ -218,19 +219,19 @@ class L10nMxSatDownloadRequest(models.Model):
             msg = rec.error_message or ""
             rec.can_retry = not any(code in msg for code in non_retryable)
 
-    def _write_request_error(self, cod_estatus, mensaje):
+    def _write_request_error(self, cod_estatus, message):
         code_label = SAT_STATUS_CODE_LABELS.get(
-            cod_estatus, cod_estatus or self.env._("(vacio)")
+            cod_estatus, cod_estatus or self.env._("(empty)")
         )
         self.write(
             {
                 "state": "error",
                 "error_message": self.env._(
-                    "SAT rechazo la solicitud de descarga. "
-                    "CodEstatus=%(code)s (%(label)s). Mensaje SAT: %(message)s",
-                    code=cod_estatus or self.env._("(vacio)"),
+                    "SAT rejected the download request. "
+                    "CodEstatus=%(code)s (%(label)s). SAT message: %(message)s",
+                    code=cod_estatus or self.env._("(empty)"),
                     label=code_label,
-                    message=mensaje or self.env._("(sin mensaje)"),
+                    message=message or self.env._("(no message)"),
                 ),
             }
         )
@@ -242,66 +243,66 @@ class L10nMxSatDownloadRequest(models.Model):
             {
                 "state": "done",
                 "document_count": 0,
-                "numero_cfdis": 0,
+                "reported_cfdi_count": 0,
                 "error_message": False,
             }
         )
         self._update_company_last_sync()
 
-    def _format_verify_error(self, estado, codigo_estado, cod_estatus, mensaje):
-        estado_label = SAT_ESTADO_LABELS.get(estado, str(estado))
+    def _format_verify_error(self, status, request_status_code, cod_estatus, message):
+        status_label = SAT_REQUEST_STATUS_LABELS.get(status, str(status))
         ces_label = SAT_STATUS_CODE_LABELS.get(
-            codigo_estado, codigo_estado or self.env._("(vacio)")
+            request_status_code, request_status_code or self.env._("(empty)")
         )
         ce_label = SAT_STATUS_CODE_LABELS.get(
-            cod_estatus, cod_estatus or self.env._("(vacio)")
+            cod_estatus, cod_estatus or self.env._("(empty)")
         )
-        if estado == SAT_ESTADO_ERROR:
+        if status == SAT_REQUEST_STATUS_ERROR:
             return self.env._(
-                "SAT reporto error en la solicitud (EstadoSolicitud=4, %(estado)s). "
+                "SAT reported an error on the request (EstadoSolicitud=4, %(status)s). "
                 "CodigoEstadoSolicitud=%(ces)s (%(ces_label)s). "
-                "La verificacion fue aceptada (CodEstatus=%(ce)s). "
-                "Mensaje SAT: %(msg)s. Revise el rango de fechas o reintente.",
-                estado=estado_label,
-                ces=codigo_estado or self.env._("(vacio)"),
+                "Verification was accepted (CodEstatus=%(ce)s). "
+                "SAT message: %(msg)s. Review the date range or retry.",
+                status=status_label,
+                ces=request_status_code or self.env._("(empty)"),
                 ces_label=ces_label,
-                ce=cod_estatus or self.env._("(vacio)"),
-                msg=mensaje or self.env._("(sin mensaje)"),
+                ce=cod_estatus or self.env._("(empty)"),
+                msg=message or self.env._("(no message)"),
             )
-        if estado == SAT_ESTADO_REJECTED:
+        if status == SAT_REQUEST_STATUS_REJECTED:
             return self.env._(
-                "SAT rechazo la solicitud (EstadoSolicitud=5, %(estado)s). "
+                "SAT rejected the request (EstadoSolicitud=5, %(status)s). "
                 "CodigoEstadoSolicitud=%(ces)s (%(ces_label)s). "
-                "La verificacion fue aceptada (CodEstatus=%(ce)s, %(ce_label)s). "
-                "Mensaje SAT: %(msg)s. Revise tipo, direccion y rango de fechas.",
-                estado=estado_label,
-                ces=codigo_estado or self.env._("(vacio)"),
+                "Verification was accepted (CodEstatus=%(ce)s, %(ce_label)s). "
+                "SAT message: %(msg)s. Review type, direction, and date range.",
+                status=status_label,
+                ces=request_status_code or self.env._("(empty)"),
                 ces_label=ces_label,
-                ce=cod_estatus or self.env._("(vacio)"),
+                ce=cod_estatus or self.env._("(empty)"),
                 ce_label=ce_label,
-                msg=mensaje or self.env._("(sin mensaje)"),
+                msg=message or self.env._("(no message)"),
             )
-        if estado == SAT_ESTADO_EXPIRED:
+        if status == SAT_REQUEST_STATUS_EXPIRED:
             return self.env._(
-                "SAT marco la solicitud como vencida (EstadoSolicitud=6, %(estado)s). "
+                "SAT marked the request as expired (EstadoSolicitud=6, %(status)s). "
                 "CodigoEstadoSolicitud=%(ces)s (%(ces_label)s). "
-                "Use Reintentar para volver a solicitar el mismo rango.",
-                estado=estado_label,
-                ces=codigo_estado or self.env._("(vacio)"),
+                "Use Retry to request the same range again.",
+                status=status_label,
+                ces=request_status_code or self.env._("(empty)"),
                 ces_label=ces_label,
             )
         return self.env._(
-            "SAT devolvio un estado de solicitud no reconocido "
-            "(EstadoSolicitud=%(estado)s, %(estado_label)s). "
+            "SAT returned an unrecognized request status "
+            "(EstadoSolicitud=%(status)s, %(status_label)s). "
             "CodigoEstadoSolicitud=%(ces)s (%(ces_label)s). "
-            "CodEstatus=%(ce)s (%(ce_label)s). Mensaje SAT: %(msg)s",
-            estado=estado,
-            estado_label=estado_label,
-            ces=codigo_estado or self.env._("(vacio)"),
+            "CodEstatus=%(ce)s (%(ce_label)s). SAT message: %(msg)s",
+            status=status,
+            status_label=status_label,
+            ces=request_status_code or self.env._("(empty)"),
             ces_label=ces_label,
-            ce=cod_estatus or self.env._("(vacio)"),
+            ce=cod_estatus or self.env._("(empty)"),
             ce_label=ce_label,
-            msg=mensaje or self.env._("(sin mensaje)"),
+            msg=message or self.env._("(no message)"),
         )
 
     def _action_request(self):
@@ -314,40 +315,40 @@ class L10nMxSatDownloadRequest(models.Model):
         result = client.request_download(
             token,
             rfc,
-            self.fecha_inicial.replace(tzinfo=None),
-            self.fecha_final.replace(tzinfo=None),
+            self.date_from.replace(tzinfo=None),
+            self.date_to.replace(tzinfo=None),
             document_kind=self.document_kind,
             direction=self.direction,
             request_type=self.request_type,
         )
 
         cod_estatus = sat_str(result.get("cod_estatus"))
-        id_solicitud = sat_str(result.get("id_solicitud"))
-        mensaje = sat_str(result.get("mensaje"))
+        sat_request_id = sat_str(result.get("sat_request_id"))
+        message = sat_str(result.get("message"))
 
         if cod_estatus == SAT_CODE_DUPLICATE_LIFETIME:
             self.write(
                 {
                     "state": "error",
                     "error_message": self.env._(
-                        "SAT: solicitud duplicada (5002). No se reintentara "
-                        "automaticamente con los mismos parametros."
+                        "SAT: duplicate request (5002). Will not retry "
+                        "automatically with the same parameters."
                     ),
                 }
             )
             return
 
-        if id_solicitud and cod_estatus in (SAT_CODE_SUCCESS, SAT_CODE_NO_INFO):
+        if sat_request_id and cod_estatus in (SAT_CODE_SUCCESS, SAT_CODE_NO_INFO):
             self.write(
                 {
                     "state": "requested",
-                    "id_solicitud": id_solicitud,
+                    "sat_request_id": sat_request_id,
                     "error_message": False,
                 }
             )
             return
 
-        if cod_estatus == SAT_CODE_NO_INFO and not id_solicitud:
+        if cod_estatus == SAT_CODE_NO_INFO and not sat_request_id:
             self.write({"state": "done", "document_count": 0, "error_message": False})
             self._update_company_last_sync()
             return
@@ -357,54 +358,54 @@ class L10nMxSatDownloadRequest(models.Model):
             return
 
         if cod_estatus in SAT_REJECT_CODES:
-            self._write_request_error(cod_estatus, mensaje)
+            self._write_request_error(cod_estatus, message)
             return
 
-        if id_solicitud and "aceptada" in mensaje.lower():
+        if sat_request_id and "aceptada" in message.lower():
             self.write(
                 {
                     "state": "requested",
-                    "id_solicitud": id_solicitud,
+                    "sat_request_id": sat_request_id,
                     "error_message": False,
                 }
             )
             return
 
-        self._write_request_error(cod_estatus, mensaje)
+        self._write_request_error(cod_estatus, message)
 
     def _handle_max_elements_exceeded(self):
         """Split request window on SAT 5003 (metadata/XML volume limit)."""
         self.ensure_one()
-        delta = self.fecha_final - self.fecha_inicial
+        delta = self.date_to - self.date_from
         min_delta = timedelta(hours=SAT_METADATA_MIN_WINDOW_HOURS)
         if delta <= min_delta:
             self.write(
                 {
                     "state": "error",
                     "error_message": self.env._(
-                        "SAT: maximo de registros excedido incluso con "
+                        "SAT: maximum number of records exceeded even with "
                         "ventana minima. Revise manualmente."
                     ),
                 }
             )
             return
 
-        mid = self.fecha_inicial + (delta / 2)
+        mid = self.date_from + (delta / 2)
         # Current request covers first half; create second half if not duplicate.
         self.write(
             {
-                "fecha_final": mid,
+                "date_to": mid,
                 "state": "draft",
                 "request_fingerprint": build_request_fingerprint(
                     self.company_id.id,
                     self.document_kind,
                     self.direction,
                     self.request_type,
-                    self.fecha_inicial,
+                    self.date_from,
                     mid,
                 ),
                 "error_message": self.env._(
-                    "Ventana reducida automaticamente por SAT 5003."
+                    "Window automatically reduced due to SAT 5003."
                 ),
             }
         )
@@ -419,7 +420,7 @@ class L10nMxSatDownloadRequest(models.Model):
                         self.direction,
                         self.request_type,
                         mid + timedelta(seconds=1),
-                        self.fecha_final,
+                        self.date_to,
                     ),
                 )
             ],
@@ -432,8 +433,8 @@ class L10nMxSatDownloadRequest(models.Model):
                     "document_kind": self.document_kind,
                     "direction": self.direction,
                     "request_type": self.request_type,
-                    "fecha_inicial": mid + timedelta(seconds=1),
-                    "fecha_final": self.fecha_final,
+                    "date_from": mid + timedelta(seconds=1),
+                    "date_to": self.date_to,
                     "state": "draft",
                 }
             )
@@ -446,15 +447,15 @@ class L10nMxSatDownloadRequest(models.Model):
         rfc = company.l10n_mx_sat_get_rfc(client)
 
         result = client.verify_download(
-            token, rfc, self.id_solicitud, document_kind=self.document_kind
+            token, rfc, self.sat_request_id, document_kind=self.document_kind
         )
 
         cod_estatus = sat_str(result.get("cod_estatus"))
-        estado = sat_int(result.get("estado_solicitud"), 0)
-        codigo_estado = sat_str(result.get("codigo_estado_solicitud"))
-        paquetes = result.get("paquetes") or []
-        numero_cfdis = sat_int(result.get("numero_cfdis"), 0)
-        mensaje = sat_str(result.get("mensaje"))
+        estado = sat_int(result.get("request_status"), 0)
+        request_status_code = sat_str(result.get("request_status_code"))
+        packages = result.get("packages") or []
+        reported_cfdi_count = sat_int(result.get("reported_cfdi_count"), 0)
+        message = sat_str(result.get("message"))
 
         if cod_estatus == SAT_CODE_MAX_ELEMENTS:
             self._handle_max_elements_exceeded()
@@ -465,7 +466,7 @@ class L10nMxSatDownloadRequest(models.Model):
                 {
                     "state": "error",
                     "error_message": self.env._(
-                        "SAT: limite diario de descarga alcanzado. Reintente mañana."
+                        "SAT: daily download limit reached. Retry tomorrow."
                     ),
                 }
             )
@@ -476,34 +477,36 @@ class L10nMxSatDownloadRequest(models.Model):
                 {
                     "state": "error",
                     "error_message": self.env._(
-                        "SAT: limite de solicitudes duplicadas alcanzado (5002)."
+                        "SAT: duplicate request limit reached (5002)."
                     ),
                 }
             )
             return
 
-        if codigo_estado == SAT_CODE_NO_INFO or cod_estatus == SAT_CODE_NO_INFO:
+        if request_status_code == SAT_CODE_NO_INFO or cod_estatus == SAT_CODE_NO_INFO:
             self._complete_verify_no_info()
             return
 
-        if estado in (SAT_ESTADO_ACCEPTED, SAT_ESTADO_PROCESSING):
-            self.write({"state": "processing", "numero_cfdis": numero_cfdis})
-        elif estado == SAT_ESTADO_READY:
-            existing_ids = set(self.package_ids.mapped("id_paquete"))
-            for id_paquete in paquetes:
-                if id_paquete in existing_ids:
+        if estado in (SAT_REQUEST_STATUS_ACCEPTED, SAT_REQUEST_STATUS_PROCESSING):
+            self.write(
+                {"state": "processing", "reported_cfdi_count": reported_cfdi_count}
+            )
+        elif estado == SAT_REQUEST_STATUS_READY:
+            existing_ids = set(self.package_ids.mapped("sat_package_id"))
+            for package_id in packages:
+                if package_id in existing_ids:
                     continue
                 self.env["l10n_mx_sat.download.package"].create(
                     {
                         "request_id": self.id,
-                        "id_paquete": id_paquete,
+                        "sat_package_id": package_id,
                         "state": "pending",
                     }
                 )
             self.write(
                 {
                     "state": "ready",
-                    "numero_cfdis": numero_cfdis,
+                    "reported_cfdi_count": reported_cfdi_count,
                     "error_message": False,
                 }
             )
@@ -512,15 +515,15 @@ class L10nMxSatDownloadRequest(models.Model):
                 {
                     "state": "error",
                     "error_message": self.env._(
-                        "SAT devolvio un EstadoSolicitud invalido (0). "
+                        "SAT returned an invalid EstadoSolicitud (0). "
                         "CodEstatus=%(ce)s (%(ce_label)s). "
-                        "CodigoEstadoSolicitud=%(ces)s. Mensaje SAT: %(msg)s",
-                        ce=cod_estatus or self.env._("(vacio)"),
+                        "CodigoEstadoSolicitud=%(ces)s. SAT message: %(msg)s",
+                        ce=cod_estatus or self.env._("(empty)"),
                         ce_label=SAT_STATUS_CODE_LABELS.get(
-                            cod_estatus, cod_estatus or self.env._("(vacio)")
+                            cod_estatus, cod_estatus or self.env._("(empty)")
                         ),
-                        ces=codigo_estado or self.env._("(vacio)"),
-                        msg=mensaje or self.env._("(sin mensaje)"),
+                        ces=request_status_code or self.env._("(empty)"),
+                        msg=message or self.env._("(no message)"),
                     ),
                 }
             )
@@ -529,7 +532,7 @@ class L10nMxSatDownloadRequest(models.Model):
                 {
                     "state": "error",
                     "error_message": self._format_verify_error(
-                        estado, codigo_estado, cod_estatus, mensaje
+                        estado, request_status_code, cod_estatus, message
                     ),
                 }
             )
@@ -537,7 +540,7 @@ class L10nMxSatDownloadRequest(models.Model):
     def _get_retry_target_state(self):
         """Return the pipeline state to resume after a failed request."""
         self.ensure_one()
-        if not self.id_solicitud:
+        if not self.sat_request_id:
             return "draft"
         retry_packages = self.package_ids.filtered(
             lambda p: p.state in ("pending", "error")
@@ -563,14 +566,12 @@ class L10nMxSatDownloadRequest(models.Model):
         """Retry a failed SAT download request from the appropriate step."""
         self.ensure_one()
         if self.state != "error":
-            raise UserError(
-                self.env._("Solo se pueden reintentar solicitudes en estado de error.")
-            )
+            raise UserError(self.env._("Only requests in error state can be retried."))
         if not self.can_retry:
             raise UserError(
                 self.env._(
-                    "Esta solicitud no puede reintentarse automaticamente. "
-                    "Revise el mensaje de error."
+                    "Esta solicitud no puede reintentarse automatically. "
+                    "Revise el message de error."
                 )
             )
 
@@ -582,22 +583,20 @@ class L10nMxSatDownloadRequest(models.Model):
                 self._process_request_pipeline()
         except Exception as e:
             self.write({"state": "error", "error_message": str(e)})
-            raise UserError(
-                self.env._("Error al reintentar solicitud SAT: %s", e)
-            ) from e
+            raise UserError(self.env._("Failed to retry SAT request: %s", e)) from e
 
         if self.state == "done":
             message = self.env._(
-                "Solicitud completada. Documentos procesados: %(count)s.",
+                "Solicitud completada. Processed documents: %(count)s.",
                 count=self.document_count,
             )
             notif_type = "success"
         elif self.state == "error":
-            message = self.error_message or self.env._("La solicitud volvio a fallar.")
+            message = self.error_message or self.env._("The request failed again.")
             notif_type = "danger"
         else:
             message = self.env._(
-                "Reintento iniciado. Estado actual: %(state)s.",
+                "Retry started. Current state: %(state)s.",
                 state=dict(self._fields["state"].selection).get(self.state, self.state),
             )
             notif_type = "info"
@@ -606,7 +605,7 @@ class L10nMxSatDownloadRequest(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": self.env._("Reintento SAT"),
+                "title": self.env._("SAT retry"),
                 "message": message,
                 "type": notif_type,
                 "sticky": self.state == "error",
@@ -631,26 +630,26 @@ class L10nMxSatDownloadRequest(models.Model):
                 result = client.download_package(
                     token,
                     rfc,
-                    package.id_paquete,
+                    package.sat_package_id,
                     document_kind=self.document_kind,
                 )
                 cod_estatus = sat_str(result.get("cod_estatus"))
-                paquete_b64 = result.get("paquete_b64", "")
+                package_b64 = result.get("package_b64", "")
 
                 if cod_estatus in (SAT_DOWNLOAD_EXPIRED, SAT_DOWNLOAD_MAX_REACHED):
                     package.write({"state": "error"})
                     continue
-                if cod_estatus != SAT_CODE_SUCCESS or not paquete_b64:
+                if cod_estatus != SAT_CODE_SUCCESS or not package_b64:
                     package.write({"state": "error"})
                     continue
 
-                proc = self._process_package(paquete_b64, company)
+                proc = self._process_package(package_b64, company)
                 documents |= proc["documents"]
                 document_count += proc["processed"]
                 package.write({"state": "processed"})
             except Exception:
                 package.write({"state": "error"})
-                _logger.exception("Error processing package %s", package.id_paquete)
+                _logger.exception("Error processing package %s", package.package_id)
 
         all_error = self.package_ids and all(
             p.state == "error" for p in self.package_ids
@@ -660,7 +659,7 @@ class L10nMxSatDownloadRequest(models.Model):
                 {
                     "state": "error",
                     "document_count": document_count,
-                    "error_message": self.env._("Todos los paquetes fallaron."),
+                    "error_message": self.env._("All packages failed."),
                 }
             )
         else:
@@ -685,12 +684,12 @@ class L10nMxSatDownloadRequest(models.Model):
     _ZIP_MAX_SIZE = 500 * 1024 * 1024
     _ZIP_MAX_FILES = 10_000
 
-    def _process_package(self, paquete_b64, company):
+    def _process_package(self, package_b64, company):
         """Extract ZIP and process XML or metadata files."""
         documents = self.env["l10n_mx_sat.document"]
         processed = 0
 
-        zip_data = base64.b64decode(paquete_b64)
+        zip_data = base64.b64decode(package_b64)
         with zipfile.ZipFile(BytesIO(zip_data)) as zf:
             total_size = sum(info.file_size for info in zf.infolist())
             file_count = len(zf.namelist())
@@ -836,15 +835,15 @@ class L10nMxSatDownloadRequest(models.Model):
                 ("request_type", "=", request_type),
                 ("state", "=", "done"),
             ],
-            order="fecha_final desc",
+            order="date_to desc",
             limit=1,
         )
 
         sync_from = self._get_sync_from_date(company, request_type)
         if last_done:
-            fecha_inicial = last_done.fecha_final + timedelta(seconds=1)
+            date_from = last_done.date_to + timedelta(seconds=1)
         elif sync_from:
-            fecha_inicial = datetime.combine(sync_from, datetime.min.time())
+            date_from = datetime.combine(sync_from, datetime.min.time())
         else:
             mx_now = datetime.now(MX_TZ)
             days = (
@@ -852,26 +851,24 @@ class L10nMxSatDownloadRequest(models.Model):
                 if request_type == "metadata"
                 else SAT_DEFAULT_SYNC_DAYS
             )
-            fecha_inicial = (mx_now - timedelta(days=days)).replace(
+            date_from = (mx_now - timedelta(days=days)).replace(
                 hour=0, minute=0, second=0, tzinfo=None
             )
 
         mx_now = datetime.now(MX_TZ)
-        fecha_final = (mx_now - timedelta(days=1)).replace(
+        date_to = (mx_now - timedelta(days=1)).replace(
             hour=23, minute=59, second=59, tzinfo=None
         )
 
-        if hasattr(fecha_inicial, "tzinfo") and fecha_inicial.tzinfo:
-            fecha_inicial = fecha_inicial.replace(tzinfo=None)
+        if hasattr(date_from, "tzinfo") and date_from.tzinfo:
+            date_from = date_from.replace(tzinfo=None)
 
         if request_type == "metadata" and not last_done:
-            window_end = fecha_inicial + timedelta(
-                days=SAT_METADATA_DEFAULT_WINDOW_DAYS
-            )
-            if window_end < fecha_final:
-                fecha_final = window_end.replace(hour=23, minute=59, second=59)
+            window_end = date_from + timedelta(days=SAT_METADATA_DEFAULT_WINDOW_DAYS)
+            if window_end < date_to:
+                date_to = window_end.replace(hour=23, minute=59, second=59)
 
-        if fecha_inicial >= fecha_final:
+        if date_from >= date_to:
             return self.browse()
 
         fingerprint = build_request_fingerprint(
@@ -879,8 +876,8 @@ class L10nMxSatDownloadRequest(models.Model):
             document_kind,
             direction,
             request_type,
-            fecha_inicial,
-            fecha_final,
+            date_from,
+            date_to,
         )
         if self.search([("request_fingerprint", "=", fingerprint)], limit=1):
             return self.browse()
@@ -891,8 +888,8 @@ class L10nMxSatDownloadRequest(models.Model):
                 "document_kind": document_kind,
                 "direction": direction,
                 "request_type": request_type,
-                "fecha_inicial": fecha_inicial,
-                "fecha_final": fecha_final,
+                "date_from": date_from,
+                "date_to": date_to,
                 "state": "draft",
                 "request_fingerprint": fingerprint,
             }
@@ -921,11 +918,11 @@ class L10nMxSatDownloadPackage(models.Model):
         store=True,
         index=True,
     )
-    id_paquete = fields.Char(string="ID paquete", required=True, readonly=True)
+    sat_package_id = fields.Char(string="Package ID", required=True, readonly=True)
     state = fields.Selection(
         selection=[
-            ("pending", "Pendiente"),
-            ("processed", "Procesado"),
+            ("pending", "Pending"),
+            ("processed", "Processed"),
             ("error", "Error"),
         ],
         default="pending",

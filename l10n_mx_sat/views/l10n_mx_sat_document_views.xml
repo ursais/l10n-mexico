@@ -9,11 +9,11 @@
                 <field name="company_id" groups="base.group_multi_company" />
                 <field name="document_kind" />
                 <field name="direction" />
-                <field name="estado_sat" widget="badge" />
-                <field name="tipo_comprobante" />
-                <field name="rfc_emisor" />
-                <field name="rfc_receptor" />
-                <field name="fecha_emision" />
+                <field name="sat_status" widget="badge" />
+                <field name="voucher_type" />
+                <field name="issuer_rfc" />
+                <field name="receiver_rfc" />
+                <field name="issue_date" />
                 <field name="total" />
                 <field name="has_xml" />
             </list>
@@ -29,7 +29,7 @@
                     <button
                         name="action_download_xml"
                         type="object"
-                        string="Descargar XML"
+                        string="Download XML"
                         class="btn-primary"
                         invisible="not has_xml"
                     />
@@ -44,21 +44,21 @@
                             />
                             <field name="document_kind" />
                             <field name="direction" />
-                            <field name="estado_sat" />
-                            <field name="tipo_comprobante" />
+                            <field name="sat_status" />
+                            <field name="voucher_type" />
                         </group>
                         <group>
-                            <field name="rfc_emisor" />
-                            <field name="nombre_emisor" />
-                            <field name="rfc_receptor" />
-                            <field name="nombre_receptor" />
-                            <field name="fecha_emision" />
-                            <field name="fecha_timbrado" />
-                            <field name="fecha_cancelacion" />
+                            <field name="issuer_rfc" />
+                            <field name="issuer_name" />
+                            <field name="receiver_rfc" />
+                            <field name="receiver_name" />
+                            <field name="issue_date" />
+                            <field name="stamp_date" />
+                            <field name="cancellation_date" />
                             <field name="total" />
-                            <field name="moneda" />
-                            <field name="serie" />
-                            <field name="folio" />
+                            <field name="currency_code" />
+                            <field name="series" />
+                            <field name="folio_number" />
                             <field name="has_xml" />
                             <field name="download_request_id" />
                         </group>
@@ -74,31 +74,31 @@
         <field name="arch" type="xml">
             <search>
                 <field name="uuid" />
-                <field name="rfc_emisor" />
-                <field name="rfc_receptor" />
+                <field name="issuer_rfc" />
+                <field name="receiver_rfc" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <filter
-                    string="Vigente"
-                    name="vigente"
-                    domain="[('estado_sat', '=', 'vigente')]"
+                    string="Valid"
+                    name="valid"
+                    domain="[('sat_status', '=', 'valid')]"
                 />
                 <filter
-                    string="Cancelado"
-                    name="cancelado"
-                    domain="[('estado_sat', '=', 'cancelado')]"
+                    string="Cancelled"
+                    name="cancelled"
+                    domain="[('sat_status', '=', 'cancelled')]"
                 />
                 <filter
-                    string="En proceso"
-                    name="en_proceso"
-                    domain="[('estado_sat', '=', 'en_proceso')]"
+                    string="In progress"
+                    name="in_progress"
+                    domain="[('sat_status', '=', 'in_progress')]"
                 />
                 <filter
-                    string="Con XML"
+                    string="With XML"
                     name="has_xml"
                     domain="[('has_xml', '=', True)]"
                 />
                 <filter
-                    string="Sin XML"
+                    string="Without XML"
                     name="no_xml"
                     domain="[('has_xml', '=', False)]"
                 />
@@ -109,39 +109,39 @@
                     domain="[('document_kind', '=', 'cfdi')]"
                 />
                 <filter
-                    string="Retencion"
+                    string="Retention"
                     name="retention"
                     domain="[('document_kind', '=', 'retention')]"
                 />
                 <separator />
                 <filter
-                    string="Emitidos"
+                    string="Issued"
                     name="issued"
                     domain="[('direction', '=', 'issued')]"
                 />
                 <filter
-                    string="Recibidos"
+                    string="Received"
                     name="received"
                     domain="[('direction', '=', 'received')]"
                 />
-                <group expand="0" string="Agrupar por">
+                <group expand="0" string="Group by">
                     <filter
-                        string="Compania"
+                        string="Company"
                         name="group_company"
                         context="{'group_by': 'company_id'}"
                     />
                     <filter
-                        string="Estado SAT"
-                        name="group_estado"
-                        context="{'group_by': 'estado_sat'}"
+                        string="SAT status"
+                        name="group_status"
+                        context="{'group_by': 'sat_status'}"
                     />
                     <filter
-                        string="Tipo"
+                        string="Type"
                         name="group_kind"
                         context="{'group_by': 'document_kind'}"
                     />
                     <filter
-                        string="Direccion"
+                        string="Direction"
                         name="group_direction"
                         context="{'group_by': 'direction'}"
                     />
@@ -151,7 +151,7 @@
     </record>
 
     <record id="l10n_mx_sat_document_action" model="ir.actions.act_window">
-        <field name="name">Documentos SAT</field>
+        <field name="name">SAT documents</field>
         <field name="res_model">l10n_mx_sat.document</field>
         <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="l10n_mx_sat_document_view_search" />

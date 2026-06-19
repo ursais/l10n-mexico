@@ -10,8 +10,8 @@
                 <field name="document_kind" />
                 <field name="direction" />
                 <field name="request_type" />
-                <field name="fecha_inicial" />
-                <field name="fecha_final" />
+                <field name="date_from" />
+                <field name="date_to" />
                 <field
                     name="state"
                     widget="badge"
@@ -20,7 +20,7 @@
                     decoration-success="state == 'done'"
                     decoration-danger="state == 'error'"
                 />
-                <field name="numero_cfdis" string="Reportados SAT" />
+                <field name="reported_cfdi_count" string="SAT reported" />
                 <field name="document_count" string="Procesados" />
             </list>
         </field>
@@ -35,12 +35,12 @@
                     <button
                         name="action_retry"
                         type="object"
-                        string="Reintentar"
+                        string="Retry"
                         class="btn-primary"
                         icon="fa-refresh"
                         invisible="state != 'error' or not can_retry"
                         groups="l10n_mx_sat.group_sat_manager"
-                        confirm="¿Reintentar esta solicitud SAT?"
+                        confirm="¿Retry esta solicitud SAT?"
                     />
                     <field
                         name="state"
@@ -60,12 +60,12 @@
                             <field name="document_kind" />
                             <field name="direction" />
                             <field name="request_type" />
-                            <field name="fecha_inicial" />
-                            <field name="fecha_final" />
+                            <field name="date_from" />
+                            <field name="date_to" />
                         </group>
                         <group>
-                            <field name="id_solicitud" />
-                            <field name="numero_cfdis" />
+                            <field name="sat_request_id" />
+                            <field name="reported_cfdi_count" />
                             <field name="document_count" />
                             <field name="request_fingerprint" />
                             <field name="can_retry" invisible="1" />
@@ -75,10 +75,10 @@
                         <field name="error_message" nolabel="1" colspan="2" />
                     </group>
                     <notebook>
-                        <page string="Paquetes" name="packages">
+                        <page string="Packages" name="packages">
                             <field name="package_ids" readonly="1">
                                 <list>
-                                    <field name="id_paquete" />
+                                    <field name="sat_package_id" />
                                     <field
                                         name="state"
                                         widget="badge"
@@ -89,14 +89,14 @@
                                 </list>
                             </field>
                         </page>
-                        <page string="Documentos" name="documents">
+                        <page string="Documents" name="documents">
                             <field name="document_ids" readonly="1">
                                 <list>
                                     <field name="uuid" />
-                                    <field name="estado_sat" />
-                                    <field name="rfc_emisor" />
-                                    <field name="rfc_receptor" />
-                                    <field name="fecha_emision" />
+                                    <field name="sat_status" />
+                                    <field name="issuer_rfc" />
+                                    <field name="receiver_rfc" />
+                                    <field name="issue_date" />
                                     <field name="has_xml" />
                                 </list>
                             </field>
@@ -120,7 +120,7 @@
                     domain="[('request_type', '=', 'xml')]"
                 />
                 <filter
-                    string="Metadatos"
+                    string="Metadata"
                     name="metadata"
                     domain="[('request_type', '=', 'metadata')]"
                 />
@@ -130,13 +130,13 @@
                     domain="[('state', '=', 'error')]"
                 />
                 <filter
-                    string="Pendientes"
+                    string="Pending"
                     name="pending"
                     domain="[('state', 'not in', ('done', 'error'))]"
                 />
-                <group expand="0" string="Agrupar por">
+                <group expand="0" string="Group by">
                     <filter
-                        string="Compania"
+                        string="Company"
                         name="group_company"
                         context="{'group_by': 'company_id'}"
                     />
@@ -146,7 +146,7 @@
                         context="{'group_by': 'state'}"
                     />
                     <filter
-                        string="Tipo solicitud"
+                        string="Request type"
                         name="group_request_type"
                         context="{'group_by': 'request_type'}"
                     />
@@ -156,7 +156,7 @@
     </record>
 
     <record id="l10n_mx_sat_download_request_action" model="ir.actions.act_window">
-        <field name="name">Solicitudes SAT</field>
+        <field name="name">SAT download requests</field>
         <field name="res_model">l10n_mx_sat.download.request</field>
         <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="l10n_mx_sat_download_request_view_search" />
@@ -164,21 +164,21 @@
 
     <menuitem
         id="menu_l10n_mx_sat_root"
-        name="Conexión SAT"
+        name="SAT connection"
         web_icon="l10n_mx_sat,static/description/icon_sat.png"
         sequence="45"
         groups="l10n_mx_sat.group_sat_user"
     />
     <menuitem
         id="menu_l10n_mx_sat_documents"
-        name="Documentos"
+        name="Documents"
         parent="menu_l10n_mx_sat_root"
         action="l10n_mx_sat_document_action"
         sequence="10"
     />
     <menuitem
         id="menu_l10n_mx_sat_download_requests"
-        name="Solicitudes de descarga"
+        name="Download requests"
         parent="menu_l10n_mx_sat_root"
         action="l10n_mx_sat_download_request_action"
         sequence="20"

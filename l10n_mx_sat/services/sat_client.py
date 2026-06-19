@@ -83,8 +83,8 @@ class SatClient:
         self,
         token,
         rfc,
-        fecha_inicial,
-        fecha_final,
+        date_from,
+        date_to,
         document_kind=DOCUMENT_KIND_CFDI,
         direction=DIRECTION_RECEIVED,
         request_type=REQUEST_TYPE_XML,
@@ -97,8 +97,8 @@ class SatClient:
 
         tipo_solicitud = self._resolve_tipo_solicitud(request_type)
         request_kwargs = {
-            "fecha_inicial": fecha_inicial,
-            "fecha_final": fecha_final,
+            "fecha_inicial": date_from,
+            "fecha_final": date_to,
             "tipo_solicitud": tipo_solicitud,
         }
 
@@ -115,10 +115,10 @@ class SatClient:
                 if value is not None:
                     request_kwargs[key] = value
             if request_type == self.REQUEST_TYPE_XML:
-                estado = (
+                voucher_status = (
                     kwargs.pop("estado_comprobante", None) or EstadoComprobante.VIGENTE
                 )
-                request_kwargs["estado_comprobante"] = estado
+                request_kwargs["estado_comprobante"] = voucher_status
         elif document_kind == self.DOCUMENT_KIND_RETENTION:
             if direction == self.DIRECTION_ISSUED:
                 request_kwargs["rfc_emisor"] = kwargs.pop("rfc_emisor", rfc)
@@ -128,10 +128,10 @@ class SatClient:
             if complemento is not None:
                 request_kwargs["complemento"] = complemento
             if request_type == self.REQUEST_TYPE_XML:
-                estado = (
+                voucher_status = (
                     kwargs.pop("estado_comprobante", None) or EstadoComprobante.VIGENTE
                 )
-                request_kwargs["estado_comprobante"] = estado
+                request_kwargs["estado_comprobante"] = voucher_status
 
         request_kwargs = {
             key: value
@@ -143,30 +143,30 @@ class SatClient:
         return self._normalize_request_response(response)
 
     def verify_download(
-        self, token, rfc, id_solicitud, document_kind=DOCUMENT_KIND_CFDI
+        self, token, rfc, sat_request_id, document_kind=DOCUMENT_KIND_CFDI
     ):
         """Check the status of a download request."""
         self._ensure_token(token)
         method_name = self._STATUS_METHODS[document_kind]
-        response = getattr(self._sat, method_name)(id_solicitud)
+        response = getattr(self._sat, method_name)(sat_request_id)
         return self._normalize_status_response(response)
 
     def download_package(
-        self, token, rfc, id_paquete, document_kind=DOCUMENT_KIND_CFDI
+        self, token, rfc, package_id, document_kind=DOCUMENT_KIND_CFDI
     ):
         """Download a package from the SAT."""
         self._ensure_token(token)
         method_name = self._DOWNLOAD_METHODS[document_kind]
-        response, paquete = getattr(self._sat, method_name)(id_paquete)
+        response, paquete = getattr(self._sat, method_name)(package_id)
         return self._normalize_download_response(response, paquete)
 
-    def validate_cfdi(self, rfc_emisor, rfc_receptor, total, uuid):
+    def validate_cfdi(self, issuer_rfc, receiver_rfc, total, uuid):
         """Validate a CFDI status against the SAT public consulta endpoint."""
         template = (
             '<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/" '
             'xmlns:tem="http://tempuri.org/"><Body><tem:Consulta>'
             "<tem:expresionImpresa>"
-            f"<![CDATA[?re={rfc_emisor}&rr={rfc_receptor}&tt={total}&id={uuid}]]>"
+            f"<![CDATA[?re={issuer_rfc}&rr={receiver_rfc}&tt={total}&id={uuid}]]>"
             "</tem:expresionImpresa></tem:Consulta></Body></Envelope>"
         )
         host = "https://consultaqr.facturaelectronica.sat.gob.mx"
@@ -201,8 +201,8 @@ class SatClient:
     def _normalize_request_response(response):
         return {
             "cod_estatus": response.get("CodEstatus", ""),
-            "id_solicitud": response.get("IdSolicitud", ""),
-            "mensaje": response.get("Mensaje", ""),
+            "sat_request_id": response.get("IdSolicitud", ""),
+            "message": response.get("Mensaje", ""),
         }
 
     @staticmethod
@@ -211,20 +211,20 @@ class SatClient:
         if hasattr(estado, "value"):
             estado = estado.value
         paquetes = response.get("IdsPaquetes") or []
-        numero_cfdis = response.get("NumeroCFDIs", 0)
+        reported_cfdi_count = response.get("NumeroCFDIs", 0)
         return {
             "cod_estatus": response.get("CodEstatus", ""),
-            "estado_solicitud": estado,
-            "codigo_estado_solicitud": response.get("CodigoEstadoSolicitud", ""),
-            "numero_cfdis": numero_cfdis,
-            "paquetes": paquetes,
-            "mensaje": response.get("Mensaje", ""),
+            "request_status": estado,
+            "request_status_code": response.get("CodigoEstadoSolicitud", ""),
+            "reported_cfdi_count": reported_cfdi_count,
+            "packages": paquetes,
+            "message": response.get("Mensaje", ""),
         }
 
     @staticmethod
     def _normalize_download_response(response, paquete):
         return {
             "cod_estatus": response.get("CodEstatus", ""),
-            "paquete_b64": paquete or "",
-            "mensaje": response.get("Mensaje", ""),
+            "package_b64": paquete or "",
+            "message": response.get("Mensaje", ""),
         }

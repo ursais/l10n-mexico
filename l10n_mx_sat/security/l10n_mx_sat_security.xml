@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="group_sat_user" model="res.groups">
-        <field name="name">SAT / Usuario</field>
+        <field name="name">SAT / User</field>
         <field name="category_id" ref="base.module_category_hidden" />
     </record>
     <record id="group_sat_manager" model="res.groups">
-        <field name="name">SAT / Administrador</field>
+        <field name="name">SAT / Manager</field>
         <field name="category_id" ref="base.module_category_hidden" />
         <field name="implied_ids" eval="[(4, ref('group_sat_user'))]" />
         <field

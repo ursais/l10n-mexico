@@ -19,28 +19,28 @@ SAT_DOWNLOAD_EXPIRED = "5007"
 SAT_DOWNLOAD_MAX_REACHED = "5008"
 
 # SAT EstadoSolicitud values (VerificaSolicitudDescarga)
-SAT_ESTADO_ACCEPTED = 1
-SAT_ESTADO_PROCESSING = 2
-SAT_ESTADO_READY = 3
-SAT_ESTADO_ERROR = 4
-SAT_ESTADO_REJECTED = 5
-SAT_ESTADO_EXPIRED = 6
-SAT_ESTADO_LABELS = {
-    SAT_ESTADO_ACCEPTED: "Aceptada",
-    SAT_ESTADO_PROCESSING: "En proceso",
-    SAT_ESTADO_READY: "Terminada",
-    SAT_ESTADO_ERROR: "Error",
-    SAT_ESTADO_REJECTED: "Rechazada",
-    SAT_ESTADO_EXPIRED: "Vencida",
+SAT_REQUEST_STATUS_ACCEPTED = 1
+SAT_REQUEST_STATUS_PROCESSING = 2
+SAT_REQUEST_STATUS_READY = 3
+SAT_REQUEST_STATUS_ERROR = 4
+SAT_REQUEST_STATUS_REJECTED = 5
+SAT_REQUEST_STATUS_EXPIRED = 6
+SAT_REQUEST_STATUS_LABELS = {
+    SAT_REQUEST_STATUS_ACCEPTED: "Accepted",
+    SAT_REQUEST_STATUS_PROCESSING: "In progress",
+    SAT_REQUEST_STATUS_READY: "Completed",
+    SAT_REQUEST_STATUS_ERROR: "Error",
+    SAT_REQUEST_STATUS_REJECTED: "Rejected",
+    SAT_REQUEST_STATUS_EXPIRED: "Expired",
 }
 
 # SAT CodEstatus / CodigoEstadoSolicitud labels for user-facing messages.
 SAT_STATUS_CODE_LABELS = {
-    SAT_CODE_SUCCESS: "Exitoso",
-    SAT_CODE_NO_INFO: "Sin informacion",
-    SAT_CODE_MAX_ELEMENTS: "Maximo de elementos excedido",
-    SAT_CODE_DUPLICATE_LIFETIME: "Solicitud duplicada",
-    SAT_CODE_DAILY_LIMIT: "Limite diario alcanzado",
+    SAT_CODE_SUCCESS: "Successful",
+    SAT_CODE_NO_INFO: "No information",
+    SAT_CODE_MAX_ELEMENTS: "Maximum number of elements exceeded",
+    SAT_CODE_DUPLICATE_LIFETIME: "Duplicate request",
+    SAT_CODE_DAILY_LIMIT: "Daily limit reached",
 }
 
 # Default sync window when no company configuration exists.

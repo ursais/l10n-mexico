@@ -15,22 +15,22 @@ class L10nMxSatFielCredentialsWizard(models.TransientModel):
 
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Compania",
+        string="Company",
         required=True,
         readonly=True,
     )
     fiel_cer = fields.Binary(
-        string="Certificado FIEL (.cer)",
+        string="FIEL certificate (.cer)",
         required=True,
         attachment=False,
     )
     fiel_key = fields.Binary(
-        string="Llave privada FIEL (.key)",
+        string="FIEL private key (.key)",
         required=True,
         attachment=False,
     )
     fiel_password = fields.Char(
-        string="Contrasena FIEL",
+        string="FIEL password",
         required=True,
     )
 
@@ -39,14 +39,14 @@ class L10nMxSatFielCredentialsWizard(models.TransientModel):
         for wizard in self:
             if not wizard.fiel_cer:
                 raise UserError(
-                    wizard.env._("Suba el certificado FIEL (.cer) primero.")
+                    wizard.env._("Upload the FIEL certificate (.cer) first.")
                 )
             if not wizard.fiel_key:
                 raise UserError(
-                    wizard.env._("Suba la llave privada FIEL (.key) primero.")
+                    wizard.env._("Upload the FIEL private key (.key) first.")
                 )
             if not wizard.fiel_password:
-                raise UserError(wizard.env._("Ingrese la contrasena FIEL primero."))
+                raise UserError(wizard.env._("Enter the FIEL password first."))
             fiel_rfc = wizard._get_fiel_rfc()
             wizard.company_id.with_context(l10n_mx_sat_sync_vat_from_fiel=True).write(
                 {
@@ -66,7 +66,7 @@ class L10nMxSatFielCredentialsWizard(models.TransientModel):
             client = SatClient(cer_der, key_der, self.fiel_password)
         except Exception as e:
             raise UserError(
-                self.env._("Error al validar credenciales FIEL: %s", e)
+                self.env._("Failed to validate FIEL credentials: %s", e)
             ) from e
         if not client.rfc:
             raise UserError(
