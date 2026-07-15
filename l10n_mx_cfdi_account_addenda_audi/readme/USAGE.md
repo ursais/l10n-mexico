@@ -4,7 +4,8 @@
 1. In the *Audi Addenda* tab, fill in the business unit, applicant email,
    tax code, fiscal document type and document type.
 
-When the CFDI is generated, the Audi addenda XML is rendered and attached.
+When the CFDI is stamped, the Audi addenda QWeb template is applied to the
+XML by the CFDI account addenda framework.
 
 You can validate the resulting XML on
 [https://cfdi.audi.com.mx](https://cfdi.audi.com.mx/Login.aspx).

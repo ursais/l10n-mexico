@@ -6,7 +6,6 @@
         <field name="inherit_id" ref="l10n_mx_cfdi.view_partner_form_inherit" />
         <field name="arch" type="xml">
             <xpath expr="//page[@name='CFDI']/group" position="inside">
-                <field name="l10n_mx_edi_addenda" />
                 <field name="l10n_mx_edi_addenda_name" invisible="1" />
                 <field
                     name="audi_supplier_email"

@@ -1,0 +1,9 @@
+<odoo noupdate="1">
+    <record id="demo_cfdi_series_ingreso" model="l10n_mx_cfdi.series">
+        <field name="name">Demo Income Series</field>
+        <field name="code">INV</field>
+        <field name="prefix">INV</field>
+        <field name="padding">4</field>
+        <field name="implementation">no_gap</field>
+    </record>
+</odoo>

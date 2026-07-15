@@ -47,8 +47,9 @@ Customer
 --------
 
 1. Go to *Contacts*.
-2. Open or create the Audi partner with a complete address.
-3. In the *CFDI* tab, select **Addenda Audi** as the addenda.
+2. Open or create the Audi partner with a complete Mexican address.
+3. In the *CFDI* tab, select **Addenda Audi** as the addenda (requires
+   ``l10n_mx_edi`` / CFDI addenda support).
 4. Fill in the Audi supplier email and supplier number.
 
 Product
@@ -67,8 +68,8 @@ Usage
 4. In the *Audi Addenda* tab, fill in the business unit, applicant
    email, tax code, fiscal document type and document type.
 
-When the CFDI is generated, the Audi addenda XML is rendered and
-attached.
+When the CFDI is stamped, the Audi addenda QWeb template is applied to
+the XML by the CFDI account addenda framework.
 
 You can validate the resulting XML on https://cfdi.audi.com.mx.
 
