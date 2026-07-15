@@ -48,8 +48,7 @@ Customer
 
 1. Go to *Contacts*.
 2. Open or create the Audi partner with a complete Mexican address.
-3. In the *CFDI* tab, select **Addenda Audi** as the addenda (requires
-   ``l10n_mx_edi`` / CFDI addenda support).
+3. In the *CFDI* tab, select **Addenda Audi** as the addenda.
 4. Fill in the Audi supplier email and supplier number.
 
 Product

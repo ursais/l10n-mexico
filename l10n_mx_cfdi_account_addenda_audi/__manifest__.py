@@ -10,7 +10,7 @@
     " Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-mexico",
     "category": "Accounting",
-    "depends": ["l10n_mx_edi", "product"],
+    "depends": ["l10n_mx_cfdi_account", "product"],
     "data": [
         "views/account_move.xml",
         "views/l10n_mx_edi_addenda_audi.xml",
