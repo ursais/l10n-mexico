@@ -390,33 +390,36 @@ that is reconciled with those payments.</p>
 </div>
 <div class="section" id="configuration">
 <h1><a class="toc-backref" href="#toc-entry-1">Configuration</a></h1>
-<p>Before using the module, configure the reimbursement accounts on the
-company:</p>
+<p>Before using the module, configure the reimbursement accounts and the
+payment journal on the company:</p>
 <ol class="arabic simple">
 <li>Go to <em>Expenses &gt; Configuration &gt; Settings</em>.</li>
 <li>Set the <strong>Employee reimbursement debit account</strong>.</li>
 <li>Set the <strong>Miscellaneous payables - employees</strong> account.</li>
+<li>Set the <strong>Employee expense payment journal</strong>. Vendor payments created
+when the expense report is posted use this bank journal. If it is
+empty, posting stops and asks for this setting.</li>
 </ol>
-<p>Optionally, create a bank journal named <em>Employee payments</em> to register
-supplier payments during expense report posting.</p>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-2">Usage</a></h1>
 <p>For expenses paid by the employee:</p>
 <ol class="arabic simple">
 <li>Create an expense and set the <strong>Vendor</strong> on each expense line.</li>
-<li>Submit and approve the expense report.</li>
-<li>Post the expense report.</li>
+<li>Submit and approve the expense report. Approval only authorizes the
+report and does not create journal entries.</li>
+<li>Post the expense report. Accounting does this step.</li>
 </ol>
 <p>The module will:</p>
 <ul class="simple">
-<li>Create one draft vendor bill per supplier found on the expense lines.</li>
-<li>Post those vendor bills and register outbound payments.</li>
+<li>Create one vendor bill per supplier found on the expense lines.</li>
+<li>Post those vendor bills and register their outbound payments together,
+on the configured payment journal.</li>
 <li>Create and post an employee reimbursement vendor bill.</li>
 <li>Reconcile the reimbursement with the supplier payments.</li>
 </ul>
-<p>When resetting an approved expense report to draft, related journal
-entries and payments are removed automatically.</p>
+<p>When resetting an expense report to draft, related journal entries
+and payments are removed automatically.</p>
 </div>
 <div class="section" id="bug-tracker">
 <h1><a class="toc-backref" href="#toc-entry-3">Bug Tracker</a></h1>

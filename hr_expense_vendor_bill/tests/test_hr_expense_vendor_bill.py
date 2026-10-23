@@ -15,6 +15,7 @@ class TestHrExpenseVendorBill(TestExpenseCommon):
         super().setUpClass()
         cls.vendor = cls.env["res.partner"].create({"name": "Test Vendor"})
         cls.company = cls.company_data["company"]
+        cls.payment_journal = cls.company_data["default_journal_bank"]
         cls.company.write(
             {
                 "hr_expense_reimbursement_debit_account_id": cls.company_data[
@@ -23,6 +24,7 @@ class TestHrExpenseVendorBill(TestExpenseCommon):
                 "hr_expense_reimbursement_credit_account_id": cls.company_data[
                     "default_account_payable"
                 ].id,
+                "hr_expense_employee_payment_journal_id": cls.payment_journal.id,
             }
         )
 
@@ -90,20 +92,13 @@ class TestHrExpenseVendorBill(TestExpenseCommon):
         with self.assertRaises(UserError):
             sheet._create_employee_reimbursement_invoice()
 
-    def test_approve_own_account_creates_invoices(self):
+    def test_approve_own_account_does_not_create_invoices(self):
         sheet = self._create_own_account_sheet()
         sheet.action_submit_sheet()
         sheet.action_approve_expense_sheets()
-        employee_partner = sheet.employee_id.sudo().work_contact_id
-        supplier_invoices = sheet.account_move_ids.filtered(
-            lambda move: move.partner_id == self.vendor
-        )
-        employee_invoices = sheet.account_move_ids.filtered(
-            lambda move: move.partner_id == employee_partner
-        )
-        self.assertEqual(len(supplier_invoices), 1)
-        self.assertEqual(len(employee_invoices), 1)
-        self.assertEqual(supplier_invoices.expense_sheet_id, sheet)
+        self.assertFalse(sheet.account_move_ids)
+        self.assertEqual(sheet.approval_state, "approve")
+        self.assertEqual(sheet.state, "approve")
 
     def test_create_supplier_invoices_without_vendor(self):
         sheet = self.create_expense_report(
@@ -190,6 +185,89 @@ class TestHrExpenseVendorBill(TestExpenseCommon):
             self.company.hr_expense_reimbursement_credit_account_id,
             self.company_data["default_account_payable"],
         )
+
+    def test_res_config_settings_payment_journal(self):
+        settings = self.env["res.config.settings"].create(
+            {
+                "company_id": self.company.id,
+                "hr_expense_employee_payment_journal_id": self.payment_journal.id,
+            }
+        )
+        settings.execute()
+        self.assertEqual(
+            self.company.hr_expense_employee_payment_journal_id,
+            self.payment_journal,
+        )
+
+    def test_post_without_payment_journal_raises(self):
+        self.company.hr_expense_employee_payment_journal_id = False
+        try:
+            sheet = self._create_own_account_sheet()
+            sheet.action_submit_sheet()
+            sheet.action_approve_expense_sheets()
+            with self.assertRaises(UserError):
+                sheet.action_sheet_move_post()
+        finally:
+            self.company.hr_expense_employee_payment_journal_id = self.payment_journal
+
+    def test_post_does_not_duplicate_existing_drafts(self):
+        sheet = self._create_own_account_sheet()
+        sheet.action_submit_sheet()
+        sheet.action_approve_expense_sheets()
+        sheet._create_supplier_invoices()
+        sheet._create_employee_reimbursement_invoice()
+        existing_ids = set(sheet.account_move_ids.ids)
+        self.assertEqual(len(existing_ids), 2)
+        sheet.action_sheet_move_post()
+        self.assertEqual(set(sheet.account_move_ids.ids), existing_ids)
+        self.assertEqual(sheet.state, "done")
+
+    def test_post_registers_one_payment_per_vendor_on_configured_journal(self):
+        vendor2 = self.env["res.partner"].create({"name": "Vendor 2"})
+        sheet = self.create_expense_report(
+            {
+                "payment_mode": "own_account",
+                "expense_line_ids": [
+                    Command.create(
+                        {
+                            "employee_id": self.expense_employee.id,
+                            "product_id": self.product_c.id,
+                            "total_amount_currency": 100.0,
+                            "vendor_id": self.vendor.id,
+                            "payment_mode": "own_account",
+                            "date": self.frozen_today,
+                            "company_id": self.company.id,
+                            "currency_id": self.company_data["currency"].id,
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "employee_id": self.expense_employee.id,
+                            "product_id": self.product_c.id,
+                            "total_amount_currency": 50.0,
+                            "vendor_id": vendor2.id,
+                            "payment_mode": "own_account",
+                            "date": self.frozen_today,
+                            "company_id": self.company.id,
+                            "currency_id": self.company_data["currency"].id,
+                        }
+                    ),
+                ],
+            }
+        )
+        sheet.action_submit_sheet()
+        sheet.action_approve_expense_sheets()
+        self.assertFalse(sheet.account_move_ids)
+        sheet.action_sheet_move_post()
+        employee_partner = sheet.employee_id.sudo().work_contact_id
+        supplier_invoices = sheet.account_move_ids.filtered(
+            lambda move: move.partner_id != employee_partner
+        )
+        self.assertEqual(len(supplier_invoices), 2)
+        self.assertTrue(all(move.state == "posted" for move in supplier_invoices))
+        payments = supplier_invoices.matched_payment_ids
+        self.assertEqual(len(payments), 2)
+        self.assertEqual(set(payments.mapped("journal_id")), {self.payment_journal})
 
     def test_approve_company_account_does_not_create_vendor_invoices(self):
         sheet = self.create_expense_report(

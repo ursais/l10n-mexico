@@ -23,6 +23,13 @@
                         </div>
                         <field name="hr_expense_reimbursement_credit_account_id" />
                     </div>
+                    <div class="col-6 o_setting_box">
+                        <label for="hr_expense_employee_payment_journal_id" />
+                        <div class="text-muted">
+                            Bank journal used to pay vendors when an employee expense report is posted.
+                        </div>
+                        <field name="hr_expense_employee_payment_journal_id" />
+                    </div>
                 </div>
             </xpath>
         </field>

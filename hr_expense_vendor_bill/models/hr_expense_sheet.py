@@ -56,28 +56,23 @@ class HrExpenseSheet(models.Model):
 
         return invoices
 
+    def _get_employee_payment_journal(self):
+        self.ensure_one()
+        pay_journal = self.company_id.hr_expense_employee_payment_journal_id
+        if not pay_journal:
+            raise UserError(
+                _(
+                    "Configure the employee expense payment journal in "
+                    "Expenses > Configuration > Settings."
+                )
+            )
+        return pay_journal
+
     def _generate_supplier_payments(self):
         PaymentRegister = self.env["account.payment.register"]
 
         for sheet in self:
-            pay_journal = self.env["account.journal"].search(
-                [
-                    ("type", "=", "bank"),
-                    ("name", "ilike", "Employee payments"),
-                    ("company_id", "=", sheet.company_id.id),
-                ],
-                limit=1,
-            ) or self.env["account.journal"].search(
-                [("type", "=", "bank"), ("company_id", "=", sheet.company_id.id)],
-                limit=1,
-            )
-            if not pay_journal:
-                raise UserError(
-                    _(
-                        "Configure at least one bank journal "
-                        "to register vendor payments."
-                    )
-                )
+            pay_journal = sheet._get_employee_payment_journal()
 
             if pay_journal.outbound_payment_method_line_ids:
                 pm_line = pay_journal.outbound_payment_method_line_ids[:1]
@@ -110,25 +105,24 @@ class HrExpenseSheet(models.Model):
                     m.move_type == "in_invoice"
                     and m.partner_id != employee_contact
                     and m.payment_state != "paid"
+                    and m.amount_residual > 0
                 )
             )
+            if not invoices_to_pay:
+                continue
 
-            for invoice in invoices_to_pay:
-                if invoice.amount_residual > 0:
-                    context = {
-                        "active_model": "account.move",
-                        "active_ids": [invoice.id],
-                        "active_id": invoice.id,
-                    }
-                    wizard = PaymentRegister.with_context(**context).create(
-                        {
-                            "journal_id": pay_journal.id,
-                            "payment_method_line_id": pm_line.id,
-                            "amount": invoice.amount_residual,
-                            "payment_date": fields.Date.context_today(sheet),
-                        }
-                    )
-                    wizard.action_create_payments()
+            wizard = PaymentRegister.with_context(
+                active_model="account.move",
+                active_ids=invoices_to_pay.ids,
+                dont_redirect_to_payments=True,
+            ).create(
+                {
+                    "journal_id": pay_journal.id,
+                    "payment_method_line_id": pm_line.id,
+                    "payment_date": fields.Date.context_today(sheet),
+                }
+            )
+            wizard.action_create_payments()
 
     def _create_employee_reimbursement_invoice(self):
         AccountMove = self.env["account.move"]
@@ -216,26 +210,16 @@ class HrExpenseSheet(models.Model):
             if len(move_lines) >= 2:
                 move_lines.reconcile()
 
-    def action_approve_expense_sheets(self):
-        # Método original para aprobar hojas de gasto
-        res = super().action_approve_expense_sheets()
-
-        for sheet in self:
-            if sheet.payment_mode == "own_account":
-                moves = sheet.account_move_ids.sudo()
-                for move in moves:
-                    if move.state == "posted":
-                        move.sudo().button_cancel()
-                        move.sudo().button_draft()
-                    elif move.state == "cancel":
-                        move.sudo().button_draft()
-                moves.unlink()
-                sheet.sudo().write({"account_move_ids": [(5, 0, 0)]})
-
-                # Ejecución del flujo completo de gastos
-                self._create_supplier_invoices()
-                self._create_employee_reimbursement_invoice()
-        return res
+    def _do_create_moves(self):
+        # Employee-paid reports stay without journal entries until accounting
+        # posts them. Company-paid reports keep the standard payment flow.
+        own_account_sheets = self.filtered(
+            lambda sheet: sheet.payment_mode == "own_account"
+        )
+        other_sheets = self - own_account_sheets
+        if other_sheets:
+            return super(HrExpenseSheet, other_sheets)._do_create_moves()
+        return self.env["account.move"]
 
     def action_sheet_move_post(self):
         # Separate own_account sheets that need custom posting
@@ -246,7 +230,18 @@ class HrExpenseSheet(models.Model):
 
         # Handle own_account sheets with custom logic
         for sheet in own_account_sheets:
-            # Ensure moves exist (in case method is called without approval)
+            if sheet.approval_state != "approve":
+                raise UserError(
+                    _(
+                        "The expense report must be approved before posting "
+                        "journal entries."
+                    )
+                )
+            # Reports approved before this change may already have drafts.
+            # Create the final bills only when accounting posts and none exist.
+            if not sheet.account_move_ids:
+                sheet._create_supplier_invoices()
+                sheet._create_employee_reimbursement_invoice()
             if not sheet.account_move_ids:
                 raise UserError(
                     _(

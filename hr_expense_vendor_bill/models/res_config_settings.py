@@ -16,3 +16,10 @@ class ResConfigSettings(models.TransientModel):
         string="Miscellaneous payables - employees",
         readonly=False,
     )
+    hr_expense_employee_payment_journal_id = fields.Many2one(
+        "account.journal",
+        related="company_id.hr_expense_employee_payment_journal_id",
+        string="Employee expense payment journal",
+        readonly=False,
+        domain="[('type', '=', 'bank'), ('company_id', '=', company_id)]",
+    )

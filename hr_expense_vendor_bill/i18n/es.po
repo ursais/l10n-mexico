@@ -100,12 +100,37 @@ msgid "Expenses %s"
 msgstr "Gastos %s"
 
 #. module: hr_expense_vendor_bill
+#: model:ir.model.fields,field_description:hr_expense_vendor_bill.field_res_company__hr_expense_employee_payment_journal_id
+#: model:ir.model.fields,field_description:hr_expense_vendor_bill.field_res_config_settings__hr_expense_employee_payment_journal_id
+msgid "Employee expense payment journal"
+msgstr "Diario de pago de gastos del empleado"
+
+#. module: hr_expense_vendor_bill
+#: model:ir.model.fields,help:hr_expense_vendor_bill.field_res_company__hr_expense_employee_payment_journal_id
+#: model_terms:ir.ui.view,arch_db:hr_expense_vendor_bill.view_hr_expense_settings_inherit
+msgid ""
+"Bank journal used to pay vendors when an employee expense report is posted."
+msgstr ""
+"Diario bancario para pagar a los proveedores al registrar un reporte de "
+"gastos del empleado."
+
+#. module: hr_expense_vendor_bill
 #. odoo-python
 #: code:addons/hr_expense_vendor_bill/models/hr_expense_sheet.py:0
-msgid "Configure at least one bank journal to register vendor payments."
+msgid ""
+"Configure the employee expense payment journal in Expenses > Configuration "
+"> Settings."
 msgstr ""
-"Debe configurar al menos un diario bancario para registrar pagos de "
-"proveedores."
+"Configura el diario de pago de gastos del empleado en Gastos > "
+"Configuración > Ajustes."
+
+#. module: hr_expense_vendor_bill
+#. odoo-python
+#: code:addons/hr_expense_vendor_bill/models/hr_expense_sheet.py:0
+msgid "The expense report must be approved before posting journal entries."
+msgstr ""
+"El reporte de gastos debe estar aprobado antes de registrar los asientos "
+"contables."
 
 #. module: hr_expense_vendor_bill
 #. odoo-python
