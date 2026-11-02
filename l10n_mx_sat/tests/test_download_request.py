@@ -344,7 +344,7 @@ class TestDownloadRequest(TransactionCase):
         self.assertEqual(req.date_from.date().isoformat(), "2025-01-01")
 
     def test_manual_sync_creates_requests(self):
-        """Manual sync must create and chain XML requests for enabled flows."""
+        """Manual sync creates one XML request for each enabled flow."""
         Request = self.env["l10n_mx_sat.download.request"]
         Request.search([("company_id", "=", self.company.id)]).unlink()
 
@@ -361,13 +361,13 @@ class TestDownloadRequest(TransactionCase):
             )._cron_process_requests(companies=self.company)
 
         requests = Request.search([("company_id", "=", self.company.id)])
-        self.assertEqual(len(requests), 8)
+        self.assertEqual(len(requests), 4)
         self.assertTrue(all(req.request_type == "xml" for req in requests))
         self.assertEqual(
             Request.search_count(
                 [("company_id", "=", self.company.id), ("request_type", "=", "xml")]
             ),
-            8,
+            4,
         )
 
     def test_manual_sync_respects_download_flags(self):
@@ -395,7 +395,7 @@ class TestDownloadRequest(TransactionCase):
             )._cron_process_requests(companies=self.company)
 
         requests = Request.search([("company_id", "=", self.company.id)])
-        self.assertEqual(len(requests), 2)
+        self.assertEqual(len(requests), 1)
         self.assertEqual(set(requests.mapped("document_kind")), {"cfdi"})
         self.assertEqual(set(requests.mapped("direction")), {"issued"})
         self.assertEqual(set(requests.mapped("request_type")), {"xml"})

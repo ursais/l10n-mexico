@@ -1186,9 +1186,13 @@ class L10nMxSatDownloadRequest(models.Model):
     @api.model
     def _backfill_should_wait(self, last_done):
         """Return whether another historical month must wait for a later run."""
-        if not last_done.write_date:
+        write_date = last_done.write_date
+        if isinstance(write_date, str):
+            write_date = fields.Datetime.to_datetime(write_date)
+        if not isinstance(write_date, datetime):
             return False
-        write_date = fields.Datetime.to_datetime(last_done.write_date)
+        if write_date.tzinfo:
+            write_date = write_date.replace(tzinfo=None)
         now = fields.Datetime.to_datetime(fields.Datetime.now())
         return now - write_date < _BACKFILL_MIN_INTERVAL
 
