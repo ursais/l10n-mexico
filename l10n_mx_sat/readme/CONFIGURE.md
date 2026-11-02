@@ -20,6 +20,8 @@ For each Mexican company:
      downloads at most one calendar month per document flow. Later runs
      continue from the last completed range.
    - **Automatic SAT download**: enable/disable daily cron processing.
+     The daily job does not run when the module is installed. It starts
+     only after FIEL credentials are stored.
 7. Click **Test connection** to validate FIEL credentials.
 8. Click **Sync now** to enqueue SAT XML download requests immediately.
 

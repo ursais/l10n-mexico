@@ -977,8 +977,46 @@ class L10nMxSatDownloadRequest(models.Model):
         return still_pending
 
     @api.model
+    def _companies_with_fiel(self, companies=None):
+        """Return companies that can authenticate to the SAT."""
+        domain = [
+            ("l10n_mx_sat_fiel_cer", "!=", False),
+            ("l10n_mx_sat_fiel_key", "!=", False),
+            ("l10n_mx_sat_fiel_password", "!=", False),
+        ]
+        if companies is not None:
+            domain.append(("id", "in", companies.ids))
+        return (
+            self.env["res.company"]
+            .search(domain)
+            .filtered(lambda company: company.l10n_mx_sat_has_credentials())
+        )
+
+    @api.model
+    def _cron_has_fiel_work(self, companies=None):
+        """False when a run would start before any FIEL is configured."""
+        if self._parse_param_ids(_QUEUED_REQUESTS_PARAM):
+            return True
+        pending = (
+            self.env["res.company"]
+            .browse(self._parse_param_ids(_SYNC_PENDING_PARAM))
+            .exists()
+        )
+        if pending.filtered(lambda company: company.l10n_mx_sat_has_credentials()):
+            return True
+        if companies is not None:
+            return bool(
+                companies.filtered(
+                    lambda company: company.l10n_mx_sat_has_credentials()
+                )
+            )
+        return bool(self._companies_with_fiel().filtered("l10n_mx_sat_auto_download"))
+
+    @api.model
     def _cron_process_requests(self, companies=None):
         """Main cron entry point: queue-backed, one request per invocation."""
+        if not self._cron_has_fiel_work(companies):
+            return
         if companies is not None:
             self._mark_company_sync_pending(companies)
         else:

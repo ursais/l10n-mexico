@@ -1686,6 +1686,21 @@ class TestDownloadRequest(TransactionCase):
             )
         )
 
+    def test_cron_skips_when_no_company_has_fiel(self):
+        Request = self.env["l10n_mx_sat.download.request"]
+        Request.search([]).unlink()
+        self.env["res.company"].search([]).write(
+            {
+                "l10n_mx_sat_fiel_cer": False,
+                "l10n_mx_sat_fiel_key": False,
+                "l10n_mx_sat_fiel_password": False,
+            }
+        )
+        with patch.object(type(Request), "_cron_trigger") as mock_trigger:
+            Request._cron_process_requests()
+        mock_trigger.assert_not_called()
+        self.assertFalse(Request.search([]))
+
     def test_cron_process_requests_without_companies_arg(self):
         Request = self.env["l10n_mx_sat.download.request"]
         Request.search([("company_id", "=", self.company.id)]).unlink()
