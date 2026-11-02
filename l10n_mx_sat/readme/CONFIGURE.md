@@ -14,11 +14,14 @@ For each Mexican company:
    - CFDI received
    - Retentiones issued
    - Retentiones received
-5. Optionally set:
-   - **Sync documents from**: first XML backfill date.
+6. Optionally set:
+   - **Sync documents from**: earliest date of the first XML download.
+     Leave it empty to download only the current month. One synchronization
+     downloads at most one calendar month per document flow. Later runs
+     continue from the last completed range.
    - **Automatic SAT download**: enable/disable daily cron processing.
-6. Click **Test connection** to validate FIEL credentials.
-7. Click **Sync now** to enqueue SAT XML download requests immediately.
+7. Click **Test connection** to validate FIEL credentials.
+8. Click **Sync now** to enqueue SAT XML download requests immediately.
 
 Multi-company
 -------------

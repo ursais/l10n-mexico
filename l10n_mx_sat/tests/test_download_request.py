@@ -14,6 +14,7 @@ from odoo.tests.common import TransactionCase
 from odoo.tools import mute_logger
 
 from odoo.addons.l10n_mx_sat.services import (
+    MX_TZ,
     SAT_CODE_DAILY_LIMIT,
     SAT_CODE_DUPLICATE_LIFETIME,
     SAT_CODE_MAX_ELEMENTS,
@@ -1209,6 +1210,63 @@ class TestDownloadRequest(TransactionCase):
         )
         sync_from = Request._get_sync_from_date(self.company, "metadata")
         self.assertEqual(str(sync_from), "2025-01-01")
+
+    def test_get_sync_from_date_defaults_to_current_month(self):
+        Request = self.env["l10n_mx_sat.download.request"]
+        self.company.write(
+            {
+                "l10n_mx_sat_sync_from": False,
+                "l10n_mx_sat_metadata_sync_from": False,
+            }
+        )
+        month_start = datetime.now(MX_TZ).date().replace(day=1)
+        self.assertEqual(Request._get_sync_from_date(self.company, "xml"), month_start)
+        self.assertEqual(
+            Request._get_sync_from_date(self.company, "metadata"),
+            month_start,
+        )
+
+    def test_first_sync_without_date_stays_in_current_month(self):
+        Request = self.env["l10n_mx_sat.download.request"]
+        Request.search([("company_id", "=", self.company.id)]).unlink()
+        self.company.write(
+            {
+                "l10n_mx_sat_sync_from": False,
+                "l10n_mx_sat_metadata_sync_from": False,
+            }
+        )
+        req = Request._create_next_request(self.company, "cfdi", "received", "xml")
+        month_start = datetime.now(MX_TZ).date().replace(day=1)
+        today = datetime.now(MX_TZ).date()
+        if month_start >= today:
+            self.assertFalse(req)
+            return
+        self.assertEqual(
+            req.date_from, datetime.combine(month_start, datetime.min.time())
+        )
+        self.assertEqual(req.date_from.month, month_start.month)
+        self.assertEqual(req.date_to.month, month_start.month)
+        self.assertLessEqual(req.date_to, Request._end_of_calendar_month(req.date_from))
+
+    def test_first_sync_configured_date_is_one_month(self):
+        Request = self.env["l10n_mx_sat.download.request"]
+        Request.search([("company_id", "=", self.company.id)]).unlink()
+        self.company.l10n_mx_sat_sync_from = "2024-03-10"
+        req = Request._create_next_request(self.company, "cfdi", "issued", "xml")
+        self.assertEqual(req.date_from, datetime(2024, 3, 10, 0, 0, 0))
+        self.assertEqual(req.date_to, datetime(2024, 3, 31, 23, 59, 59))
+        req.write({"state": "done"})
+        self.assertFalse(
+            Request._create_next_request(self.company, "cfdi", "issued", "xml")
+        )
+        self.env.cr.execute(
+            "UPDATE l10n_mx_sat_download_request SET write_date = %s WHERE id = %s",
+            (fields.Datetime.now() - timedelta(days=2), req.id),
+        )
+        req.invalidate_recordset(["write_date"])
+        nxt = Request._create_next_request(self.company, "cfdi", "issued", "xml")
+        self.assertEqual(nxt.date_from, datetime(2024, 4, 1, 0, 0, 0))
+        self.assertEqual(nxt.date_to, datetime(2024, 4, 30, 23, 59, 59))
 
     def test_mark_company_sync_pending_empty(self):
         Request = self.env["l10n_mx_sat.download.request"]
